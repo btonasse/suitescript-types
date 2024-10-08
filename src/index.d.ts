@@ -47,8 +47,8 @@ import { CallbackReturn } from "./N/entryPoints";
 
 declare global {
   function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
-  var log: typeof N_log;
-  var util: typeof N_util;
+  namespace log {}
+  namespace util {}
 }
 
 // prettier-ignore
