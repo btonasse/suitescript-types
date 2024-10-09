@@ -1,6 +1,6 @@
 import * as N_http from "./http";
 import * as N_portlet from "./portlet";
-import * as N_record from "./record";
+// import * as record from "./record";
 import * as N_search from "./search";
 import * as N_ui_serverWidget from "./ui/serverWidget";
 import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
@@ -91,7 +91,7 @@ declare interface ScheduledInvocationTypes {
 declare namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
             line: number;
@@ -101,21 +101,21 @@ declare namespace EntryPoints {
         type fieldChanged = (scriptContext: fieldChangedContext) => void;
 
         interface lineInitContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
         }
 
         type lineInit = (scriptContext: lineInitContext) => void;
 
         interface pageInitContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             mode: "create" | "copy" | "edit" | "view";
         }
 
         type pageInit = (scriptContext: pageInitContext) => void;
 
         interface postSourcingContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
         }
@@ -123,13 +123,13 @@ declare namespace EntryPoints {
         type postSourcing = (scriptContext: postSourcingContext) => void;
 
         interface saveRecordContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
         }
 
         type saveRecord = (scriptContext: saveRecordContext) => boolean;
 
         interface sublistChangedContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
             /**
              * Commit, etc.
@@ -140,7 +140,7 @@ declare namespace EntryPoints {
         type sublistChanged = (scriptContext: sublistChangedContext) => void;
 
         interface validateDeleteContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
             lineCount: number; // As of 2020.2
         }
@@ -148,7 +148,7 @@ declare namespace EntryPoints {
         type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
         interface validateFieldContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string | null;
             fieldId: string;
             line?: number;
@@ -158,21 +158,21 @@ declare namespace EntryPoints {
         type validateField = (scriptContext: validateFieldContext) => boolean;
 
         interface validateInsertContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
         }
 
         type validateInsert = (scriptContext: validateInsertContext) => boolean;
 
         interface validateLineContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             sublistId: string;
         }
 
         type validateLine = (scriptContext: validateLineContext) => boolean;
 
         interface localizationContext {
-            currentRecord: N_record.ClientCurrentRecord;
+            currentRecord: import('record').ClientCurrentRecord;
             locale: string;
         }
 
@@ -197,7 +197,7 @@ declare namespace EntryPoints {
 
     namespace UserEvent {
         interface beforeLoadContext {
-            newRecord: N_record.Record;
+            newRecord: import('record').Record;
             form: N_ui_serverWidget.Form;
             type: UserEventType;
             UserEventType: UserEventTypes;
@@ -207,8 +207,8 @@ declare namespace EntryPoints {
         type beforeLoad = (scriptContext: beforeLoadContext) => void;
 
         interface beforeSubmitContext {
-            newRecord: N_record.Record;
-            oldRecord: N_record.Record;
+            newRecord: import('record').Record;
+            oldRecord: import('record').Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
@@ -216,8 +216,8 @@ declare namespace EntryPoints {
         type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
         interface afterSubmitContext {
-            newRecord: N_record.Record & { id: number };
-            oldRecord: N_record.Record;
+            newRecord: import('record').Record & { id: number };
+            oldRecord: import('record').Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
@@ -405,8 +405,8 @@ declare namespace EntryPoints {
 
     namespace WorkflowAction {
         interface onActionContext {
-            newRecord: N_record.Record;
-            oldRecord: N_record.Record;
+            newRecord: import('record').Record;
+            oldRecord: import('record').Record;
             form?: N_ui_serverWidget.Form;
             type?: string;
             workflowId?: number;
