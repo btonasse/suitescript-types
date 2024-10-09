@@ -21,7 +21,6 @@ import * as N_plugin from "./N/plugin";
 import * as N_portlet from "./N/portlet";
 import * as N_query from "./N/query";
 import * as N_piRemoval from "./N/piremoval";
-import * as N_record from "./N/record";
 import * as N_recordContext from "./N/recordContext";
 import * as N_redirect from "./N/redirect";
 import * as N_render from "./N/render";
@@ -49,8 +48,6 @@ declare global {
   function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
   namespace log {}
   namespace util {}
-  //@ts-ignore
-  interface Record extends N_record.Record {}
 }
 
 // prettier-ignore
@@ -79,7 +76,7 @@ type ModuleTypes<T extends readonly string[]> = {
                     T[K] extends "N/query"   ? typeof N_query :
                     T[K] extends "N/piRemoval" ? typeof N_piRemoval :
                     T[K] extends "N/recordContext" ? typeof N_recordContext :
-                    T[K] extends "N/record" ? typeof N_record :
+                    T[K] extends "N/record" ? typeof import('record') :
                     T[K] extends "N/redirect" ? typeof N_redirect :
                     T[K] extends "N/render"  ? typeof N_render :
                     T[K] extends "N/runtime" ? typeof N_runtime :
