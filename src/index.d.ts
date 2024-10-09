@@ -49,6 +49,8 @@ declare global {
   function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
   namespace log {}
   namespace util {}
+  //@ts-ignore
+  interface Record extends N_record.Record {}
 }
 
 // prettier-ignore
