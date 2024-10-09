@@ -1,6 +1,6 @@
-import {ServerResponse} from '../http';
-import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from '../portlet';
-import {Message, MessageCreateOptions} from './message';
+import { ServerResponse } from "../http";
+import { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from "../portlet";
+import { Message, MessageCreateOptions } from "./message";
 
 export interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -55,7 +55,7 @@ interface AddFieldOptions {
     /** The label for this field. */
     label: string;
     /** The field type for the field. Use the serverWidget.FieldType enum to define the field type. */
-    type: FieldType|string;
+    type: FieldType | string;
     /**
      * The internalId or scriptId of the source list for this field if it is a select (List/Record) or multi-select field.
      * Note: For radio fields only, the source parameter must contain the internal ID for the field.
@@ -97,7 +97,7 @@ interface AddSecretKeyFieldOptions {
     /** Controls whether use of this secret key is restricted to the same user that originally entered the key. By default, the value is false – multiple users can use the key. */
     restrictToCurrentUser?: boolean;
     /** The script ID of the script that is allowed to use this field. */
-    restrictToScriptIds?: string|string[];
+    restrictToScriptIds?: string | string[];
     /** The internal ID of the tab or field group to add the field to. By default, the field is added to the main section of the form. */
     container?: string;
 }
@@ -161,10 +161,11 @@ interface GetSelectOptionsOpts {
      */
     filter?: string;
     /** Supported operators are contains | is | startswith. If not specified, defaults to the contains operator. */
-    filteroperator?: 'contains' | 'is' | 'startswith';
+    filteroperator?: "contains" | "is" | "startswith";
 }
 
-interface GetSublistFieldIdsOptions { // Part of Assistant Step.
+interface GetSublistFieldIdsOptions {
+    // Part of Assistant Step.
     /** The sublist internal ID. */
     group: string;
 }
@@ -187,7 +188,7 @@ interface InsertFieldOptions {
 
 interface InsertSublistOptions {
     /** The Sublist object to insert. */
-    sublist: Sublist;
+    sublist: ServerWidgetSublist;
     /** The internal ID name of the sublist you are inserting a sublist in front of. */
     nextsublist: string;
 }
@@ -281,7 +282,7 @@ export interface Assistant {
     /** Adds a step to an assistant. */
     addStep(options: AddFieldGroupOptions): AssistantStep;
     /** Adds a sublist to an assistant. */
-    addSublist(options: AddSublistOptions): Sublist;
+    addSublist(options: AddSublistOptions): ServerWidgetSublist;
     /** Returns a field object on an assistant page. */
     getField(options: IDOptions): Field;
     /** Returns a field group on an assistant page. */
@@ -305,7 +306,7 @@ export interface Assistant {
     /** Gets all the steps in an assistant. */
     getSteps(): AssistantStep[];
     /** Returns a sublist in an assistant. */
-    getSublist(options: IDOptions): Sublist;
+    getSublist(options: IDOptions): ServerWidgetSublist;
     /** Gets the IDs for all the sublists in an assistant. */
     getSublistIds(): string[];
     /** Determine whether an assistant has an error message to display for the current step. */
@@ -313,10 +314,10 @@ export interface Assistant {
     /** Indicates whether all steps in an assistant are completed. */
     isFinished(): boolean;
     /**
-      * Manages redirects in an assistant.
-      * This method also addresses the case in which one assistant redirects to another assistant.
-      * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
-      */
+     * Manages redirects in an assistant.
+     * This method also addresses the case in which one assistant redirects to another assistant.
+     * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
+     */
     sendRedirect(options: SendRedirectOptions): void;
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
@@ -453,19 +454,19 @@ export interface Form extends BaseForm {
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options?: AddResetButtonOptions): Button;
     addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
-    addSublist(options: AddSublistOptions): Sublist;
+    addSublist(options: AddSublistOptions): ServerWidgetSublist;
     addSubmitButton(options?: AddSubmitButtonOptions): Button;
     addSubtab(options: AddSubtabOptions): Tab;
     addTab(options: AddFieldGroupOptions): Tab;
     getButton(options: IDOptions): Button;
     getField(options: IDOptions): Field;
-    getSublist(options: IDOptions): Sublist;
+    getSublist(options: IDOptions): ServerWidgetSublist;
     getSubtab(options: IDOptions): Tab;
     getTab(options: { id: string }): Tab;
     /** Returns an array that contains the internal IDs of all tabs in a form. */
     getTabs(): string[];
     insertField(options: InsertFieldOptions): Field;
-    insertSublist(options: InsertSublistOptions): Sublist;
+    insertSublist(options: InsertSublistOptions): ServerWidgetSublist;
     insertSubtab(options: InsertSubtabOptions): Tab;
     insertTab(options: InsertTabOptions): Tab;
     /** Updates the default values of multiple fields on the form. */
@@ -504,7 +505,7 @@ interface ListColumn {
     label: string;
 }
 
-export interface Sublist {
+export interface ServerWidgetSublist {
     /** Adds a button to a sublist. */
     addButton(options: AddButtonOptions): Button;
     /** Adds a field to a sublist. */
@@ -520,14 +521,14 @@ export interface Sublist {
     /** Sets the value of a sublist field. */
     setSublistValue(options: SublistSetSublistValueOptions): string;
     /** Updates the ID of a field designated as a totalling column, which is used to calculate and display a running total for the sublist. */
-    updateTotallingFieldId(options: { id: string }): Sublist;
+    updateTotallingFieldId(options: { id: string }): ServerWidgetSublist;
     /** Updates a field ID that is to have unique values across the rows in the sublist. */
-    updateUniqueFieldId(options: { id: string }): Sublist;
+    updateUniqueFieldId(options: { id: string }): ServerWidgetSublist;
     displayType: SublistDisplayType;
     helpText: string;
     label: string;
     lineCount: number;
-    name: string
+    name: string;
 }
 
 export interface Tab {
@@ -601,7 +602,7 @@ export enum FieldType {
     TEXT,
     TEXTAREA,
     TIMEOFDAY,
-    URL
+    URL,
 }
 
 export enum FormPageLinkType {
