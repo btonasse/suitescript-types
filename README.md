@@ -44,6 +44,8 @@ You can download the latest published typings library at any time by simply runn
 
 ## Usage
 
+### Callback function and entry points
+
 To get Intellisense/autocompletion, you can structure your callback function in two different ways:
 
 ```javascript
@@ -85,4 +87,27 @@ define(["N/record", "N/search"], (record, search) => {
         beforeSubmit: beforeSubmit,
     };
 });
+```
+### JSDoc types
+
+Usually your IDE will pick-up the correct type in a JSDoc annotation. However, for certain interfaces like `Record` and `Sublist`, there can be conflicts with either built-in interfaces or other `N` modules. For example:
+
+```javascript
+/**
+ * {Record} currentRecord 
+ */
+const myFunc = (currentRecord) => {
+    // What is the type of currentRecord?
+}
+```
+
+In the example above the IDE doesn't know if we're referring to `N/record`, `N/workbook` or even the typescript built-in with the same name. To solve this, the `record` and `workbook` keywords are exported to the global scope as namespaces. Usage:
+
+```javascript
+/**
+ * {record.Record} currentRecord 
+ */
+const myFunc = (currentRecord) => {
+    // Now we know we're talking about N/record!
+}
 ```

@@ -1,12 +1,12 @@
-import * as N_http from "./http";
-import * as N_portlet from "./portlet";
-// import * as record from "./record";
-import * as N_search from "./search";
-import * as N_ui_serverWidget from "./ui/serverWidget";
-import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
-import * as N_FiParser from "./plugins/fiParserPlugin";
-import * as N_dataset from "./dataset";
-import * as N_workbook from "./workbook";
+import * as N_http from "N/http";
+import * as N_portlet from "N/portlet";
+import * as N_record from "N/record";
+import * as N_search from "N/search";
+import * as N_ui_serverWidget from "N/ui/serverWidget";
+import * as N_FiConnectivity from "N/plugins/fiConnectivityPlugin";
+import * as N_FiParser from "N/plugins/fiParserPlugin";
+import * as N_dataset from "N/dataset";
+import * as N_workbook from "N/workbook";
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
@@ -91,7 +91,7 @@ declare interface ScheduledInvocationTypes {
 declare namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
             line: number;
@@ -101,21 +101,21 @@ declare namespace EntryPoints {
         type fieldChanged = (scriptContext: fieldChangedContext) => void;
 
         interface lineInitContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
 
         type lineInit = (scriptContext: lineInitContext) => void;
 
         interface pageInitContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             mode: "create" | "copy" | "edit" | "view";
         }
 
         type pageInit = (scriptContext: pageInitContext) => void;
 
         interface postSourcingContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
         }
@@ -123,13 +123,13 @@ declare namespace EntryPoints {
         type postSourcing = (scriptContext: postSourcingContext) => void;
 
         interface saveRecordContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
         }
 
         type saveRecord = (scriptContext: saveRecordContext) => boolean;
 
         interface sublistChangedContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             /**
              * Commit, etc.
@@ -140,7 +140,7 @@ declare namespace EntryPoints {
         type sublistChanged = (scriptContext: sublistChangedContext) => void;
 
         interface validateDeleteContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             lineCount: number; // As of 2020.2
         }
@@ -148,7 +148,7 @@ declare namespace EntryPoints {
         type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
         interface validateFieldContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string | null;
             fieldId: string;
             line?: number;
@@ -158,21 +158,21 @@ declare namespace EntryPoints {
         type validateField = (scriptContext: validateFieldContext) => boolean;
 
         interface validateInsertContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
 
         type validateInsert = (scriptContext: validateInsertContext) => boolean;
 
         interface validateLineContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
 
         type validateLine = (scriptContext: validateLineContext) => boolean;
 
         interface localizationContext {
-            currentRecord: import('record').ClientCurrentRecord;
+            currentRecord: N_record.ClientCurrentRecord;
             locale: string;
         }
 
@@ -197,7 +197,7 @@ declare namespace EntryPoints {
 
     namespace UserEvent {
         interface beforeLoadContext {
-            newRecord: import('record').Record;
+            newRecord: N_record.Record;
             form: N_ui_serverWidget.Form;
             type: UserEventType;
             UserEventType: UserEventTypes;
@@ -207,8 +207,8 @@ declare namespace EntryPoints {
         type beforeLoad = (scriptContext: beforeLoadContext) => void;
 
         interface beforeSubmitContext {
-            newRecord: import('record').Record;
-            oldRecord: import('record').Record;
+            newRecord: N_record.Record;
+            oldRecord: N_record.Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
@@ -216,8 +216,8 @@ declare namespace EntryPoints {
         type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
         interface afterSubmitContext {
-            newRecord: import('record').Record & { id: number };
-            oldRecord: import('record').Record;
+            newRecord: N_record.Record & { id: number };
+            oldRecord: N_record.Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
@@ -405,8 +405,8 @@ declare namespace EntryPoints {
 
     namespace WorkflowAction {
         interface onActionContext {
-            newRecord: import('record').Record;
-            oldRecord: import('record').Record;
+            newRecord: N_record.Record;
+            oldRecord: N_record.Record;
             form?: N_ui_serverWidget.Form;
             type?: string;
             workflowId?: number;
