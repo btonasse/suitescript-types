@@ -1,8 +1,10 @@
-import {ClientCurrentRecord} from './record';
+declare module "N/currentRecord" {
+    import { ClientCurrentRecord } from "N/record";
 
-interface GetCurrentRecordFunction {
-    (): ClientCurrentRecord;
-    promise(): Promise<ClientCurrentRecord>;
+    interface GetCurrentRecordFunction {
+        (): ClientCurrentRecord;
+        promise(): Promise<ClientCurrentRecord>;
+    }
+
+    export var get: GetCurrentRecordFunction;
 }
-
-export var get: GetCurrentRecordFunction;

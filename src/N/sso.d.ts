@@ -1,5 +1,7 @@
-interface GenerateSuiteSignOnTokenOptions {
-    suiteSignOnId: string;
-}
+declare module "N/sso" {
+    interface GenerateSuiteSignOnTokenOptions {
+        suiteSignOnId: string;
+    }
 
-export function generateSuiteSignOnToken(options: GenerateSuiteSignOnTokenOptions): string;
+    export function generateSuiteSignOnToken(options: GenerateSuiteSignOnTokenOptions): string;
+}

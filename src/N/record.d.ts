@@ -1,6 +1,5 @@
-declare module "record" {
-    type AddSelectOptionOptions = import("./ui/serverWidget").AddSelectOptionOptions;
-
+declare module "N/record" {
+    import { AddSelectOptionOptions } from "N/ui/serverWidget";
     /**
      * Submits a new record or saves edits to an existing record.
      *
@@ -352,7 +351,7 @@ declare module "record" {
         operator: "contains" | "is" | "startswith";
     }
 
-    interface RecordSublist {
+    export interface Sublist {
         /**
          * The name of the sublist.
          */
@@ -472,7 +471,7 @@ declare module "record" {
         sublistId: string;
     }
 
-    type FieldValue = Date | number | number[] | string | string[] | boolean | null;
+    export type FieldValue = Date | number | number[] | string | string[] | boolean | null;
 
     /** Almost like a full Record, except without things like save(). */
     export interface ClientCurrentRecord {
@@ -535,7 +534,7 @@ declare module "record" {
         /** Gets the value for the associated field in the matrix. */
         getMatrixSublistValue(options: GetMatrixSublistValueOptions): FieldValue;
         /** Returns the specified sublist. */
-        getSublist(options: RecordGetLineCountOptions): RecordSublist;
+        getSublist(options: RecordGetLineCountOptions): Sublist;
         /**
          * Return field object from record's sublist
          * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
