@@ -1,16 +1,16 @@
 {
-  "name": "@btonasse/suitescript-types",
-  "description": "Typings for SuiteScript 2.1",
-  "homepage": "https://github.com/btonasse/suitescript-types",
-  "version": "1.0.0",
-  "author": "Bernardo Tonasse",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/btonasse/suitescript-types.git"
-  },
-  "keywords": [
-    "netsuite",
-    "suitescript"
-  ]
+    "name": "@btonasse/suitescript-types",
+    "description": "Typings for SuiteScript 2.1",
+    "homepage": "https://github.com/btonasse/suitescript-types",
+    "version": "0.0.2",
+    "author": "Bernardo Tonasse",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/btonasse/suitescript-types.git"
+    },
+    "keywords": [
+        "netsuite",
+        "suitescript"
+    ]
 }
