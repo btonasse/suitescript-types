@@ -192,6 +192,7 @@ declare namespace EntryPoints {
             saveRecord?: saveRecord;
             localizationContextEnter?: localizationContextEnter;
             localizationContextExit?: localizationContextExit;
+            [key: string]: Function;
         }
     }
 
