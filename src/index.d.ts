@@ -14,6 +14,12 @@ declare global {
     namespace serverWidget {
         type Sublist = import("N/ui/serverWidget").Sublist;
     }
+    namespace search {
+        type Result = import("N/search").Result;
+    }
+    namespace query {
+        type Result = import("N/query").Result;
+    }
 }
 
 // prettier-ignore
