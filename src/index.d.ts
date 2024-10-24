@@ -44,15 +44,15 @@ type ModuleTypes<T extends readonly string[]> = {
                     T[K] extends "N/keyControl" ? typeof import("N/keyControl") :
                     T[K] extends "N/log"     ? typeof import("N/log") :
                     T[K] extends "N/plugin"  ? typeof import("N/plugin") :
-                    T[K] extends "N/portlet" ? typeof import('N/portlet') :
+                    T[K] extends "N/portlet" ? typeof import("N/portlet") :
                     T[K] extends "N/query"   ? typeof import("N/query") :
                     T[K] extends "N/piremoval" ? typeof import("N/piremoval") :
                     T[K] extends "N/recordContext" ? typeof import("N/recordContext") :
-                    T[K] extends "N/record" ? typeof import('N/record') :
+                    T[K] extends "N/record" ? typeof import("N/record") :
                     T[K] extends "N/redirect" ? typeof import("N/redirect") :
                     T[K] extends "N/render"  ? typeof import("N/render") :
                     T[K] extends "N/runtime" ? typeof import("N/runtime") :
-                    T[K] extends "N/search" ? typeof import('N/search') :
+                    T[K] extends "N/search" ? typeof import("N/search") :
                     T[K] extends "N/sftp"   ? typeof import("N/sftp") :
                     T[K] extends "N/sso"    ? typeof import("N/sso") :
                     T[K] extends "N/suiteAppInfo" ? typeof import("N/suiteAppInfo") :
@@ -65,8 +65,9 @@ type ModuleTypes<T extends readonly string[]> = {
                     T[K] extends "N/xml"    ? typeof import("N/xml") :
                     T[K] extends "N/commerce/recordView" ? typeof import("N/commerce/recordView") :
                     T[K] extends "N/ui/dialog" ? typeof import("N/ui/dialog") :
-                    T[K] extends "N/ui/message" ? typeof import('N/ui/message') :
-                    T[K] extends "N/ui/serverWidget" ? typeof import('N/ui/serverWidget') :
+                    T[K] extends "N/ui/message" ? typeof import("N/ui/message") :
+                    T[K] extends "N/ui/serverWidget" ? typeof import("N/ui/serverWidget") :
+                    T[K] extends "N/scriptTypes/restlet" ? typeof import("N/scriptTypes/restlet") :
                     never;
 };
 
