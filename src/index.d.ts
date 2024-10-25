@@ -4,22 +4,6 @@ declare global {
     function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
     var log: typeof import("N/log");
     var util: typeof import("N/util");
-    namespace record {
-        type Record = import("N/record").Record;
-        type Sublist = import("N/record").Sublist;
-    }
-    namespace workbook {
-        type Record = import("N/workbook").Record;
-    }
-    namespace serverWidget {
-        type Sublist = import("N/ui/serverWidget").Sublist;
-    }
-    namespace search {
-        type Result = import("N/search").Result;
-    }
-    namespace query {
-        type Result = import("N/query").Result;
-    }
 }
 
 // prettier-ignore
