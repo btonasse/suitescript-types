@@ -1,4 +1,4 @@
-import { CallbackReturn } from "./N/entryPoints";
+import { CallbackReturn } from "N/entryPoints";
 
 declare global {
     function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
