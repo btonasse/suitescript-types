@@ -21,6 +21,7 @@ Once installed, create a file called `tsconfig.json` in your project root and ha
 ```json
 {
     "compilerOptions": {
+        "module": "ES6",
         "allowJs": true,
         "checkJs": true,
         "noEmit": true,
