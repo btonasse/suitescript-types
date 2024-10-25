@@ -68,6 +68,7 @@ type ModuleTypes<T extends readonly string[]> = {
                     T[K] extends "N/ui/message" ? typeof import("N/ui/message") :
                     T[K] extends "N/ui/serverWidget" ? typeof import("N/ui/serverWidget") :
                     T[K] extends "N/scriptTypes/restlet" ? typeof import("N/scriptTypes/restlet") :
+                    T[K] extends `./${string}` ? Record<string, Function> :
                     never;
 };
 
