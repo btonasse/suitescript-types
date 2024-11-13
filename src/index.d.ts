@@ -15,6 +15,8 @@ type ModuleTypes<T extends readonly string[]> = {
                     T[K] extends "N/compress" ? typeof import("N/compress") :
                     T[K] extends "N/config"  ? typeof import("N/config") :
                     T[K] extends "N/crypto"  ? typeof import("N/crypto") :
+                    T[K] extends "N/crypto/certificate"  ? typeof import("N/crypto/certificate") :
+                    T[K] extends "N/crypto/random"  ? typeof import("N/crypto/random") :
                     T[K] extends "N/currency" ? typeof import("N/currency") :
                     T[K] extends "N/currentRecord" ? typeof import("N/currentRecord") :
                     T[K] extends "N/dataset" ? typeof import("N/dataset") :
