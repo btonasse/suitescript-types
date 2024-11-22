@@ -2,6 +2,7 @@ import { CallbackReturn } from "N/entryPoints";
 
 declare global {
     function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
+    function require<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => void): void;
     var log: typeof import("N/log");
     var util: typeof import("N/util");
 }
