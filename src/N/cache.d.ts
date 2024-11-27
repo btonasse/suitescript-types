@@ -3,15 +3,6 @@ declare module "N/cache" {
         key: string;
     }
 
-    type JSONValue =
-        | string
-        | number
-        | boolean
-        | null
-        | { [key: string]: JSONValue }
-        | JSONValue[]
-        | { toJSON: () => string };
-
     interface GetOptions {
         /** A string that identifies the value to be retrieved from the cache. This value cannot be null. */
         key: string;
@@ -22,7 +13,7 @@ declare module "N/cache" {
          * Note also that if the value returned by the loader is not a string, the system uses JSON.stringify() to convert the value before it is placed in the cache and returned. The maximum size of a value that can be placed in the cache is 500KB.
          * When no loader is specified and a value is missing from the cache, the system returns null.
          */
-        loader?: (context: LoaderContext) => JSONValue;
+        loader?: (context: LoaderContext) => any;
 
         /** The duration, in seconds, that a value retrieved by the loader should remain in the cache. The default time to live, or TTL, is no limit. The minimum value is 300 (five minutes). */
         ttl?: number;
