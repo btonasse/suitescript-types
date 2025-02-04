@@ -466,7 +466,7 @@ declare module "N/entryPoints" {
         }
     }
 
-    export namespace SDFInstallation {
+    namespace SDFInstallation {
         interface runContext {
             /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
             fromVersion: string;
@@ -479,105 +479,105 @@ declare module "N/entryPoints" {
         interface returnObject {
             run: run;
         }
+    }
 
-        namespace Plugins {
-            namespace FiParser {
-                interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
+    namespace Plugins {
+        namespace FiParser {
+            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
 
-                interface parseDataContext extends N_FiParser.parseDataContext {}
+            interface parseDataContext extends N_FiParser.parseDataContext {}
 
-                interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
+            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
 
-                interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
+            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
 
-                type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
-                type parseData = N_FiParser.parseData;
-                type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
-                type getExpenseCodes = N_FiParser.getExpenseCodes;
+            type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
+            type parseData = N_FiParser.parseData;
+            type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
+            type getExpenseCodes = N_FiParser.getExpenseCodes;
 
-                interface returnObject {
-                    getConfigurationPageUrl?: getConfigurationPageUrl;
-                    parseData?: N_FiParser.parseData;
-                    getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
-                    getExpenseCodes?: N_FiParser.getExpenseCodes;
-                }
-            }
-
-            namespace FiConnectivity {
-                interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
-
-                interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
-
-                interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
-
-                interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
-
-                type getTransactionData = N_FiConnectivity.getTransactionData;
-                type getAccounts = N_FiConnectivity.getAccounts;
-                type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
-
-                interface returnObject {
-                    getTransactionData?: getTransactionData;
-                    getAccounts?: getAccounts;
-                    getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
-                }
-            }
-
-            namespace DatasetBuilder {
-                interface createDatasetContext {
-                    dataset: N_dataset.Dataset;
-                    readonly description: string;
-                    readonly name: string;
-                    readonly owner: number;
-                    readonly role: number;
-                }
-
-                type createDataset = (scriptContext: createDatasetContext) => void;
-
-                interface returnObject {
-                    createDataset: createDataset;
-                }
-            }
-
-            namespace WorkbookBuilder {
-                interface createWorkbookContext {
-                    workbook: N_workbook.Workbook;
-                    readonly description: string;
-                    readonly name: string;
-                    readonly owner: number;
-                    readonly role: number;
-                }
-
-                type createWorkbook = (scriptContext: createWorkbookContext) => void;
-
-                interface returnObject {
-                    createWorkbook: createWorkbook;
-                }
+            interface returnObject {
+                getConfigurationPageUrl?: getConfigurationPageUrl;
+                parseData?: N_FiParser.parseData;
+                getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
+                getExpenseCodes?: N_FiParser.getExpenseCodes;
             }
         }
 
-        namespace CustomRecordAction {
-            interface isQualifiedContext {
-                ids: string[];
-                recordType: string;
-                qualified: Map<string, string>;
-            }
+        namespace FiConnectivity {
+            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
 
-            type isQualified = (scriptContext: isQualifiedContext) => void;
+            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
 
-            interface executeActionContext {
-                ids: string[];
-                recordType: string;
-                params: object;
-                response: object;
-            }
+            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
 
-            type executeAction = (scriptContext: executeActionContext) => void;
+            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
+
+            type getTransactionData = N_FiConnectivity.getTransactionData;
+            type getAccounts = N_FiConnectivity.getAccounts;
+            type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
 
             interface returnObject {
-                isQualified?: isQualified;
-                executeAction?: executeAction;
+                getTransactionData?: getTransactionData;
+                getAccounts?: getAccounts;
+                getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
             }
+        }
+
+        namespace DatasetBuilder {
+            interface createDatasetContext {
+                dataset: N_dataset.Dataset;
+                readonly description: string;
+                readonly name: string;
+                readonly owner: number;
+                readonly role: number;
+            }
+
+            type createDataset = (scriptContext: createDatasetContext) => void;
+
+            interface returnObject {
+                createDataset: createDataset;
+            }
+        }
+
+        namespace WorkbookBuilder {
+            interface createWorkbookContext {
+                workbook: N_workbook.Workbook;
+                readonly description: string;
+                readonly name: string;
+                readonly owner: number;
+                readonly role: number;
+            }
+
+            type createWorkbook = (scriptContext: createWorkbookContext) => void;
+
+            interface returnObject {
+                createWorkbook: createWorkbook;
+            }
+        }
+    }
+
+    namespace CustomRecordAction {
+        interface isQualifiedContext {
+            ids: string[];
+            recordType: string;
+            qualified: Map<string, string>;
+        }
+
+        type isQualified = (scriptContext: isQualifiedContext) => void;
+
+        interface executeActionContext {
+            ids: string[];
+            recordType: string;
+            params: object;
+            response: object;
+        }
+
+        type executeAction = (scriptContext: executeActionContext) => void;
+
+        interface returnObject {
+            isQualified?: isQualified;
+            executeAction?: executeAction;
         }
     }
 
@@ -596,7 +596,11 @@ declare module "N/entryPoints" {
         | MassUpdate.returnObject
         | WorkflowAction.returnObject
         | RESTlet.returnObject
-        | BundleInstallation.returnObject;
-
-    // TODO: include SDFInstallation return objects in the type above
+        | BundleInstallation.returnObject
+        | SDFInstallation.returnObject
+        | Plugins.FiParser.returnObject
+        | Plugins.FiConnectivity.returnObject
+        | Plugins.DatasetBuilder.returnObject
+        | Plugins.WorkbookBuilder.returnObject
+        | CustomRecordAction.returnObject;
 }
