@@ -1,4 +1,6 @@
 declare module "plugins/EPPlugin" {
+    import { Form } from "N/ui/serverWidget";
+
     type PaymentType = "EFT" | "CR" | "DD" | "PP";
 
     type ColumnType = "text" | "integer" | "date" | "currency";
@@ -141,6 +143,7 @@ declare module "plugins/EPPlugin" {
          * @throws {EP_API_REMOVEFILTER_INVALID_ID} – Thrown when id is not provided.
          */
         RemoveFilter: (id: string) => void;
+        GetForm: () => Form;
     }
 
     export function getEPForm(): EPForm;
