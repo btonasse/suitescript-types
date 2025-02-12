@@ -1,5 +1,6 @@
 declare module "plugins/EPPlugin" {
     import { Form } from "N/ui/serverWidget";
+    import { Suitelet } from "N/entryPoints";
 
     type PaymentType = "EFT" | "CR" | "DD" | "PP";
 
@@ -117,10 +118,13 @@ declare module "plugins/EPPlugin" {
         AddFilter: (...args: AddFilterArgs) => void;
         /**
          * Builds the customized Invoice Payment Processing page. This method must be called after all changes are made.
+         *
+         * @param id {Suitelet.onRequestContext} [required] – The context object of the Suitelet's onRequest entry point.
+         *
          * @throws {EP_API_PAYMENTTYPE_MISSING} – Thrown when payment type is not setup.
          * @throws {PBS_FORM_ERROR_INVALIDLICENSEFOREPAPI} –  Thrown when id is not provided.
          */
-        BuildUI: () => void;
+        BuildUI: (context: Suitelet.onRequestContext) => void;
         /**
          * Removes an existing (default) field from the Payment Information group of the Invoice Payment Processing page.
          *
