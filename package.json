@@ -2,7 +2,7 @@
     "name": "@btonasse/suitescript-types",
     "description": "Typings for SuiteScript 2.1",
     "homepage": "https://github.com/btonasse/suitescript-types",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "author": "Bernardo Tonasse",
     "license": "MIT",
     "repository": {
