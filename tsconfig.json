@@ -2,6 +2,7 @@
     "compilerOptions": {
         "noEmit": true,
         "baseUrl": "./src",
+        "strict": true,
         "lib": ["ES6", "DOM", "DOM.Iterable"]
     },
     "include": ["src/**/*.d.ts"]
