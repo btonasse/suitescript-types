@@ -182,7 +182,7 @@ declare module "N/entryPoints" {
             saveRecord?: saveRecord;
             localizationContextEnter?: localizationContextEnter;
             localizationContextExit?: localizationContextExit;
-            [key: string]: Function;
+            [key: string]: Function | undefined;
         }
     }
 
