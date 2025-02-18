@@ -427,7 +427,7 @@ declare module "N/record" {
      * Client and server-side scripts.
      * Encapsulates a body or sublist field on a standard or custom record.
      */
-    interface Field {
+    export interface Field {
         /** Adds the select options that appears in the dropdown of a field. */
         insertSelectOption(options: AddSelectOptionOptions): void;
         /**
