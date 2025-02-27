@@ -96,7 +96,7 @@ Usually your IDE will pick-up the correct type in a JSDoc annotation. However, f
 
 ```javascript
 /**
- * {Record} currentRecord
+ * @param {Record} currentRecord
  */
 const myFunc = (currentRecord) => {
     // What is the type of currentRecord?
@@ -107,7 +107,7 @@ In the example above the IDE might not infer the type correctly (are we're refer
 
 ```javascript
 /**
- * {import("N/record").Record} currentRecord
+ * @param {import("N/record").Record} currentRecord
  */
 const myFunc = (currentRecord) => {
     // Now we know we're talking about N/record!
