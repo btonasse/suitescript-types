@@ -1,4 +1,4 @@
-declare module "plugins/EPPlugin" {
+declare module "N/plugins/EPPlugin" {
     import { Form } from "N/ui/serverWidget";
     import { Suitelet } from "N/entryPoints";
 
