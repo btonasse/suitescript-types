@@ -22,14 +22,14 @@ declare module "N/plugins/EmailCapturePlugin" {
     /** Object that represents an email message sent to the Email Capture plug-in implementation. */
     interface Email {
         getAttachments(): Attachment[];
-        getCc(): Address;
-        getFrom(): Address[];
+        getCc(): Address[];
+        getFrom(): Address;
         getHtmlBody(): string;
         getReplyTo(): Address;
         getSentDate(): Date;
         getSubject(): string;
         getTextBody(): string;
-        getTo(): Address;
+        getTo(): Address[];
     }
 
     export function process(email: Email): void;
