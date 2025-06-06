@@ -1,4 +1,4 @@
-import * as N_record from '../record';
+import * as N_record from "N/record";
 
 interface FindSublistLineWithValueOptions {
     /** The internal ID of the sublist. */
@@ -114,14 +114,14 @@ interface CustomLine {
     /** Returns a string array of available custom segment IDs for which a value can be set. */
     readonly segments: string[];
     /** Returns the internal NetSuite ID for the custom segment value set on the line on a CustomLine object */
-    getSegmentValueId(options: GetSegmentOptions):  number;
+    getSegmentValueId(options: GetSegmentOptions): number;
     /** Sets custom segment values on a CustomLine object */
     setSegmentValueId(options: SetsegmentOptions): void;
 }
 
 interface GetLineOptions {
     /** The line number starting at index 0 */
-    index: number
+    index: number;
 }
 
 /* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017095 */
@@ -131,7 +131,7 @@ interface CustomLines {
     /** Adds a CustomLine object to the parent CustomLines object in a Custom GL Lines plug-in implementation and returns the new object. Use this method to add a custom line with GL impact to a transaction. */
     addNewLine(): CustomLine;
     /** Returns a CustomLine object that represents a custom line with GL impact. CustomLine objects are stored in the CustomLines object starting at index 0. */
-    getLine(options: GetLineOptions): CustomLine
+    getLine(options: GetLineOptions): CustomLine;
 }
 
 /* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017097 */
@@ -172,7 +172,7 @@ interface StandardLine {
     readonly taxType: string;
 
     /** Returns the internal NetSuite ID for the custom segment value set on the line on a StandardLine object. */
-    getSegmentValueId(options: GetSegmentOptions):  number;
+    getSegmentValueId(options: GetSegmentOptions): number;
 }
 
 /* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017094 */
@@ -180,7 +180,7 @@ interface StandardLines {
     /** Returns the number of standard lines with GL impact for a specific accounting book in a transaction. Use this method in conjunction with to read individual standard lines. */
     readonly count: number;
     /** Returns a StandardLine object that represents a standard line with GL impact. StandardLine objects are stored in the StandardLines object starting at index 0. */
-    getLine(options: GetLineOptions): StandardLine
+    getLine(options: GetLineOptions): StandardLine;
 }
 
 /* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017096 */
