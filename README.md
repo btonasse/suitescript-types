@@ -103,11 +103,11 @@ const myFunc = (currentRecord) => {
 };
 ```
 
-In the example above the IDE doesn't know if we're referring to `N/record`, `N/workbook` or even the typescript built-in with the same name. To solve this, the `record` and `workbook` keywords are exported to the global scope as namespaces. Usage:
+In the example above the IDE might not infer the type correctly (are we're referring to `N/record`, `N/workbook` or even the typescript built-in with the same name?). To solve this, use import types as per [the official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#other)
 
 ```javascript
 /**
- * {record.Record} currentRecord
+ * {import("N/record").Record} currentRecord
  */
 const myFunc = (currentRecord) => {
     // Now we know we're talking about N/record!
