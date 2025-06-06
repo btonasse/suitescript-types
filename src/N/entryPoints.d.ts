@@ -1,11 +1,10 @@
-import * as N_http from './http';
-import * as N_portlet from './portlet';
-import * as N_record from './record';
-import * as N_search from './search';
-import * as N_ui_serverWidget from './ui/serverWidget';
+import * as N_http from "./http";
+import * as N_portlet from "./portlet";
+import * as N_record from "./record";
+import * as N_search from "./search";
+import * as N_ui_serverWidget from "./ui/serverWidget";
 import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
 import * as N_FiParser from "./plugins/fiParserPlugin";
-import * as N_GlPlugin from "./plugins/glPlugin";
 import * as N_dataset from "./dataset";
 import * as N_workbook from "./workbook";
 
@@ -74,11 +73,11 @@ declare interface UserEventTypes {
 }
 
 declare enum ScheduledInvocationType {
-    SCHEDULED,      // The normal execution according to the deployment options specified in the UI.
-    ON_DEMAND,      // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
+    SCHEDULED, // The normal execution according to the deployment options specified in the UI.
+    ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
     USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
-    ABORTED,        // The script re-executed automatically following an aborted execution (system went down during execution).
-    SKIPPED         // The script is executed automatically following downtime during which the script should have been executed.
+    ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
+    SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
 }
 
 declare interface ScheduledInvocationTypes {
@@ -89,7 +88,7 @@ declare interface ScheduledInvocationTypes {
     SKIPPED: ScheduledInvocationType;
 }
 
-export namespace EntryPoints {
+declare namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -110,7 +109,7 @@ export namespace EntryPoints {
 
         interface pageInitContext {
             currentRecord: N_record.ClientCurrentRecord;
-            mode: 'create' | 'copy' | 'edit' | 'view';
+            mode: "create" | "copy" | "edit" | "view";
         }
 
         type pageInit = (scriptContext: pageInitContext) => void;
@@ -150,7 +149,7 @@ export namespace EntryPoints {
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string|null;
+            sublistId: string | null;
             fieldId: string;
             line?: number;
             column?: number;
@@ -179,6 +178,21 @@ export namespace EntryPoints {
 
         type localizationContextEnter = (scriptContext: localizationContext) => void;
         type localizationContextExit = (scriptContext: localizationContext) => void;
+
+        interface returnObject {
+            fieldChanged?: fieldChanged;
+            lineInit?: lineInit;
+            pageInit?: pageInit;
+            postSourcing?: postSourcing;
+            sublistChanged?: sublistChanged;
+            validateField?: validateField;
+            validateLine?: validateLine;
+            validateInsert?: validateInsert;
+            validateDelete?: validateDelete;
+            saveRecord?: saveRecord;
+            localizationContextEnter?: localizationContextEnter;
+            localizationContextExit?: localizationContextExit;
+        }
     }
 
     namespace UserEvent {
@@ -209,6 +223,12 @@ export namespace EntryPoints {
         }
 
         type afterSubmit = (scriptContext: afterSubmitContext) => void;
+
+        interface returnObject {
+            beforeLoad?: beforeLoad;
+            beforeSubmit?: beforeSubmit;
+            afterSubmit?: afterSubmit;
+        }
     }
 
     namespace Scheduled {
@@ -218,6 +238,10 @@ export namespace EntryPoints {
         }
 
         type execute = (scriptContext: executeContext) => void;
+
+        interface returnObject {
+            execute: execute;
+        }
     }
 
     namespace MapReduce {
@@ -329,6 +353,13 @@ export namespace EntryPoints {
         }
 
         type summarize = (summary: summarizeContext) => void;
+
+        interface returnObject {
+            getInputData: getInputData;
+            map?: map;
+            reduce?: reduce;
+            summarize: summarize;
+        }
     }
 
     namespace Portlet {
@@ -340,6 +371,10 @@ export namespace EntryPoints {
         }
 
         type render = (scriptContext: renderContext) => void;
+
+        interface returnObject {
+            render: render;
+        }
     }
 
     namespace Suitelet {
@@ -349,6 +384,10 @@ export namespace EntryPoints {
         }
 
         type onRequest = (scriptContext: onRequestContext) => void;
+
+        interface returnObject {
+            onRequest: onRequest;
+        }
     }
 
     namespace MassUpdate {
@@ -358,6 +397,10 @@ export namespace EntryPoints {
         }
 
         type each = (scriptContext: eachContext) => void;
+
+        interface returnObject {
+            each: each;
+        }
     }
 
     namespace WorkflowAction {
@@ -370,13 +413,24 @@ export namespace EntryPoints {
         }
 
         type onAction = (scriptContext: onActionContext) => void;
+
+        interface returnObject {
+            onAction: onAction;
+        }
     }
 
     namespace RESTlet {
-        type get = (requestParameters: {[key: string]: any}) => {[key: string]: any} | string;
-        type delete_ = (requestParameters: {[key: string]: any}) => {[key: string]: any} | string;
-        type post = (requestBody: {[key: string]: any} | string) => {[key: string]: any} | string;
-        type put = (requestBody: {[key: string]: any} | string) => {[key: string]: any} | string;
+        type get = (requestParameters: { [key: string]: any }) => { [key: string]: any } | string;
+        type delete_ = (requestParameters: { [key: string]: any }) => { [key: string]: any } | string;
+        type post = (requestBody: { [key: string]: any } | string) => { [key: string]: any } | string;
+        type put = (requestBody: { [key: string]: any } | string) => { [key: string]: any } | string;
+
+        interface returnObject {
+            get?: get;
+            delete?: delete_;
+            post?: post;
+            put?: put;
+        }
     }
 
     namespace BundleInstallation {
@@ -411,66 +465,72 @@ export namespace EntryPoints {
         }
 
         type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
+
+        interface returnObject {
+            afterInstall?: afterInstall;
+            afterUpdate?: afterUpdate;
+            beforeInstall?: beforeInstall;
+            beforeUninstall?: beforeUninstall;
+            beforeUpdate?: beforeUpdate;
+        }
+    }
+}
+
+declare namespace SDFInstallation {
+    interface runContext {
+        /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
+        fromVersion: string;
+        /** The version of the SuiteApp that will be installed on the account. */
+        toVersion: string;
     }
 
-    namespace SDFInstallation {
-        interface runContext {
-            /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
-            fromVersion: string;
-            /** The version of the SuiteApp that will be installed on the account. */
-            toVersion: string;
-        }
+    type run = (scriptContext: runContext) => void;
 
-        type run = (scriptContext: runContext) => void;
+    interface returnObject {
+        run: run;
     }
 
     namespace Plugins {
-
         namespace FiParser {
+            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
 
-            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {
+            interface parseDataContext extends N_FiParser.parseDataContext {}
 
-            }
+            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
 
-            interface parseDataContext extends N_FiParser.parseDataContext {
-
-            }
-
-            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {
-
-            }
-
-            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {
-
-            }
+            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
 
             type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
             type parseData = N_FiParser.parseData;
             type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
             type getExpenseCodes = N_FiParser.getExpenseCodes;
+
+            interface returnObject {
+                getConfigurationPageUrl?: getConfigurationPageUrl;
+                parseData?: N_FiParser.parseData;
+                getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
+                getExpenseCodes?: N_FiParser.getExpenseCodes;
+            }
         }
 
         namespace FiConnectivity {
+            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
 
-            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {
+            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
 
-            }
+            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
 
-            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {
-
-            }
-
-            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {
-
-            }
-
-            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {
-
-            }
+            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
 
             type getTransactionData = N_FiConnectivity.getTransactionData;
             type getAccounts = N_FiConnectivity.getAccounts;
             type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
+
+            interface returnObject {
+                getTransactionData?: getTransactionData;
+                getAccounts?: getAccounts;
+                getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
+            }
         }
 
         namespace DatasetBuilder {
@@ -483,6 +543,10 @@ export namespace EntryPoints {
             }
 
             type createDataset = (scriptContext: createDatasetContext) => void;
+
+            interface returnObject {
+                createDataset: createDataset;
+            }
         }
 
         namespace WorkbookBuilder {
@@ -495,13 +559,10 @@ export namespace EntryPoints {
             }
 
             type createWorkbook = (scriptContext: createWorkbookContext) => void;
-        }
 
-        namespace GlPlugin {
-            interface glPluginContext extends N_GlPlugin.glPluginContext {
+            interface returnObject {
+                createWorkbook: createWorkbook;
             }
-
-            type customizeGlImpact = N_GlPlugin.customizeGlImpact;
         }
     }
 
@@ -522,10 +583,27 @@ export namespace EntryPoints {
         }
 
         type executeAction = (scriptContext: executeActionContext) => void;
+
+        interface returnObject {
+            isQualified?: isQualified;
+            executeAction?: executeAction;
+        }
     }
 }
 
 interface IKeyValuePair {
-    key: string|object;
-    value: string|object;
+    key: string | object;
+    value: string | object;
 }
+
+export type CallbackReturn =
+    | EntryPoints.Client.returnObject
+    | EntryPoints.UserEvent.returnObject
+    | EntryPoints.Scheduled.returnObject
+    | EntryPoints.MapReduce.returnObject
+    | EntryPoints.Portlet.returnObject
+    | EntryPoints.Suitelet.returnObject
+    | EntryPoints.MassUpdate.returnObject
+    | EntryPoints.WorkflowAction.returnObject
+    | EntryPoints.RESTlet.returnObject
+    | EntryPoints.BundleInstallation.returnObject;
