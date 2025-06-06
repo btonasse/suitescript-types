@@ -1,94 +1,84 @@
-import * as N_http from "N/http";
-import * as N_portlet from "N/portlet";
-import * as N_record from "N/record";
-import * as N_search from "N/search";
-import * as N_ui_serverWidget from "N/ui/serverWidget";
-import * as N_FiConnectivity from "N/plugins/fiConnectivityPlugin";
-import * as N_FiParser from "N/plugins/fiParserPlugin";
-import * as N_dataset from "N/dataset";
-import * as N_workbook from "N/workbook";
+declare module "N/entryPoints" {
+    import * as N_http from "N/http";
+    import * as N_portlet from "N/portlet";
+    import * as N_record from "N/record";
+    import * as N_search from "N/search";
+    import * as N_ui_serverWidget from "N/ui/serverWidget";
+    import * as N_FiConnectivity from "N/plugins/fiConnectivityPlugin";
+    import * as N_FiParser from "N/plugins/fiParserPlugin";
+    import * as N_dataset from "N/dataset";
+    import * as N_workbook from "N/workbook";
 
-/*Don't export these into the Namespace as we don't
-want to accidentally use a comparison like this:
-export var beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (ctx) => {
-    //THIS IS WRONG
-    if(ctx.Type == EntryPoints.UserEvent.Type.EDIT) {
-        ...
+    enum UserEventType {
+        APPROVE,
+        CANCEL,
+        CHANGEPASSWORD,
+        COPY,
+        CREATE,
+        DELETE,
+        DROPSHIP,
+        EDIT,
+        EDITFORECAST,
+        EMAIL,
+        MARKCOMPLETE,
+        ORDERITEMS,
+        PACK,
+        PAYBILLS,
+        PRINT,
+        QUICKVIEW,
+        REASSIGN,
+        REJECT,
+        SAVESUBMIT,
+        SHIP,
+        SPECIALORDER,
+        TRANSFORM,
+        VIEW,
+        XEDIT,
     }
-};
-*/
 
-declare enum UserEventType {
-    APPROVE,
-    CANCEL,
-    CHANGEPASSWORD,
-    COPY,
-    CREATE,
-    DELETE,
-    DROPSHIP,
-    EDIT,
-    EDITFORECAST,
-    EMAIL,
-    MARKCOMPLETE,
-    ORDERITEMS,
-    PACK,
-    PAYBILLS,
-    PRINT,
-    QUICKVIEW,
-    REASSIGN,
-    REJECT,
-    SAVESUBMIT,
-    SHIP,
-    SPECIALORDER,
-    TRANSFORM,
-    VIEW,
-    XEDIT,
-}
+    interface UserEventTypes {
+        APPROVE: UserEventType;
+        CANCEL: UserEventType;
+        CHANGEPASSWORD: UserEventType;
+        COPY: UserEventType;
+        CREATE: UserEventType;
+        DELETE: UserEventType;
+        DROPSHIP: UserEventType;
+        EDIT: UserEventType;
+        EDITFORECAST: UserEventType;
+        EMAIL: UserEventType;
+        MARKCOMPLETE: UserEventType;
+        ORDERITEMS: UserEventType;
+        PACK: UserEventType;
+        PAYBILLS: UserEventType;
+        PRINT: UserEventType;
+        QUICKVIEW: UserEventType;
+        REASSIGN: UserEventType;
+        REJECT: UserEventType;
+        SAVESUBMIT: UserEventType;
+        SHIP: UserEventType;
+        SPECIALORDER: UserEventType;
+        TRANSFORM: UserEventType;
+        VIEW: UserEventType;
+        XEDIT: UserEventType;
+    }
 
-declare interface UserEventTypes {
-    APPROVE: UserEventType;
-    CANCEL: UserEventType;
-    CHANGEPASSWORD: UserEventType;
-    COPY: UserEventType;
-    CREATE: UserEventType;
-    DELETE: UserEventType;
-    DROPSHIP: UserEventType;
-    EDIT: UserEventType;
-    EDITFORECAST: UserEventType;
-    EMAIL: UserEventType;
-    MARKCOMPLETE: UserEventType;
-    ORDERITEMS: UserEventType;
-    PACK: UserEventType;
-    PAYBILLS: UserEventType;
-    PRINT: UserEventType;
-    QUICKVIEW: UserEventType;
-    REASSIGN: UserEventType;
-    REJECT: UserEventType;
-    SAVESUBMIT: UserEventType;
-    SHIP: UserEventType;
-    SPECIALORDER: UserEventType;
-    TRANSFORM: UserEventType;
-    VIEW: UserEventType;
-    XEDIT: UserEventType;
-}
+    enum ScheduledInvocationType {
+        SCHEDULED, // The normal execution according to the deployment options specified in the UI.
+        ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
+        USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
+        ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
+        SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
+    }
 
-declare enum ScheduledInvocationType {
-    SCHEDULED, // The normal execution according to the deployment options specified in the UI.
-    ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
-    USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
-    ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
-    SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
-}
+    interface ScheduledInvocationTypes {
+        SCHEDULED: ScheduledInvocationType;
+        ON_DEMAND: ScheduledInvocationType;
+        USER_INTERFACE: ScheduledInvocationType;
+        ABORTED: ScheduledInvocationType;
+        SKIPPED: ScheduledInvocationType;
+    }
 
-declare interface ScheduledInvocationTypes {
-    SCHEDULED: ScheduledInvocationType;
-    ON_DEMAND: ScheduledInvocationType;
-    USER_INTERFACE: ScheduledInvocationType;
-    ABORTED: ScheduledInvocationType;
-    SKIPPED: ScheduledInvocationType;
-}
-
-declare namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -475,136 +465,138 @@ declare namespace EntryPoints {
             beforeUpdate?: beforeUpdate;
         }
     }
-}
 
-declare namespace SDFInstallation {
-    interface runContext {
-        /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
-        fromVersion: string;
-        /** The version of the SuiteApp that will be installed on the account. */
-        toVersion: string;
-    }
-
-    type run = (scriptContext: runContext) => void;
-
-    interface returnObject {
-        run: run;
-    }
-
-    namespace Plugins {
-        namespace FiParser {
-            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
-
-            interface parseDataContext extends N_FiParser.parseDataContext {}
-
-            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
-
-            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
-
-            type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
-            type parseData = N_FiParser.parseData;
-            type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
-            type getExpenseCodes = N_FiParser.getExpenseCodes;
-
-            interface returnObject {
-                getConfigurationPageUrl?: getConfigurationPageUrl;
-                parseData?: N_FiParser.parseData;
-                getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
-                getExpenseCodes?: N_FiParser.getExpenseCodes;
-            }
+    export namespace SDFInstallation {
+        interface runContext {
+            /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
+            fromVersion: string;
+            /** The version of the SuiteApp that will be installed on the account. */
+            toVersion: string;
         }
 
-        namespace FiConnectivity {
-            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
-
-            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
-
-            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
-
-            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
-
-            type getTransactionData = N_FiConnectivity.getTransactionData;
-            type getAccounts = N_FiConnectivity.getAccounts;
-            type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
-
-            interface returnObject {
-                getTransactionData?: getTransactionData;
-                getAccounts?: getAccounts;
-                getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
-            }
-        }
-
-        namespace DatasetBuilder {
-            interface createDatasetContext {
-                dataset: N_dataset.Dataset;
-                readonly description: string;
-                readonly name: string;
-                readonly owner: number;
-                readonly role: number;
-            }
-
-            type createDataset = (scriptContext: createDatasetContext) => void;
-
-            interface returnObject {
-                createDataset: createDataset;
-            }
-        }
-
-        namespace WorkbookBuilder {
-            interface createWorkbookContext {
-                workbook: N_workbook.Workbook;
-                readonly description: string;
-                readonly name: string;
-                readonly owner: number;
-                readonly role: number;
-            }
-
-            type createWorkbook = (scriptContext: createWorkbookContext) => void;
-
-            interface returnObject {
-                createWorkbook: createWorkbook;
-            }
-        }
-    }
-
-    namespace CustomRecordAction {
-        interface isQualifiedContext {
-            ids: string[];
-            recordType: string;
-            qualified: Map<string, string>;
-        }
-
-        type isQualified = (scriptContext: isQualifiedContext) => void;
-
-        interface executeActionContext {
-            ids: string[];
-            recordType: string;
-            params: object;
-            response: object;
-        }
-
-        type executeAction = (scriptContext: executeActionContext) => void;
+        type run = (scriptContext: runContext) => void;
 
         interface returnObject {
-            isQualified?: isQualified;
-            executeAction?: executeAction;
+            run: run;
+        }
+
+        namespace Plugins {
+            namespace FiParser {
+                interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
+
+                interface parseDataContext extends N_FiParser.parseDataContext {}
+
+                interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
+
+                interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
+
+                type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
+                type parseData = N_FiParser.parseData;
+                type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
+                type getExpenseCodes = N_FiParser.getExpenseCodes;
+
+                interface returnObject {
+                    getConfigurationPageUrl?: getConfigurationPageUrl;
+                    parseData?: N_FiParser.parseData;
+                    getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
+                    getExpenseCodes?: N_FiParser.getExpenseCodes;
+                }
+            }
+
+            namespace FiConnectivity {
+                interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
+
+                interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
+
+                interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
+
+                interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
+
+                type getTransactionData = N_FiConnectivity.getTransactionData;
+                type getAccounts = N_FiConnectivity.getAccounts;
+                type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
+
+                interface returnObject {
+                    getTransactionData?: getTransactionData;
+                    getAccounts?: getAccounts;
+                    getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
+                }
+            }
+
+            namespace DatasetBuilder {
+                interface createDatasetContext {
+                    dataset: N_dataset.Dataset;
+                    readonly description: string;
+                    readonly name: string;
+                    readonly owner: number;
+                    readonly role: number;
+                }
+
+                type createDataset = (scriptContext: createDatasetContext) => void;
+
+                interface returnObject {
+                    createDataset: createDataset;
+                }
+            }
+
+            namespace WorkbookBuilder {
+                interface createWorkbookContext {
+                    workbook: N_workbook.Workbook;
+                    readonly description: string;
+                    readonly name: string;
+                    readonly owner: number;
+                    readonly role: number;
+                }
+
+                type createWorkbook = (scriptContext: createWorkbookContext) => void;
+
+                interface returnObject {
+                    createWorkbook: createWorkbook;
+                }
+            }
+        }
+
+        namespace CustomRecordAction {
+            interface isQualifiedContext {
+                ids: string[];
+                recordType: string;
+                qualified: Map<string, string>;
+            }
+
+            type isQualified = (scriptContext: isQualifiedContext) => void;
+
+            interface executeActionContext {
+                ids: string[];
+                recordType: string;
+                params: object;
+                response: object;
+            }
+
+            type executeAction = (scriptContext: executeActionContext) => void;
+
+            interface returnObject {
+                isQualified?: isQualified;
+                executeAction?: executeAction;
+            }
         }
     }
-}
 
-interface IKeyValuePair {
-    key: string | object;
-    value: string | object;
-}
+    interface IKeyValuePair {
+        key: string | object;
+        value: string | object;
+    }
 
-export type CallbackReturn =
-    | EntryPoints.Client.returnObject
-    | EntryPoints.UserEvent.returnObject
-    | EntryPoints.Scheduled.returnObject
-    | EntryPoints.MapReduce.returnObject
-    | EntryPoints.Portlet.returnObject
-    | EntryPoints.Suitelet.returnObject
-    | EntryPoints.MassUpdate.returnObject
-    | EntryPoints.WorkflowAction.returnObject
-    | EntryPoints.RESTlet.returnObject
-    | EntryPoints.BundleInstallation.returnObject;
+    export type CallbackReturn =
+        | Client.returnObject
+        | UserEvent.returnObject
+        | Scheduled.returnObject
+        | MapReduce.returnObject
+        | Portlet.returnObject
+        | Suitelet.returnObject
+        | MassUpdate.returnObject
+        | WorkflowAction.returnObject
+        | RESTlet.returnObject
+        | BundleInstallation.returnObject;
+
+    // TODO: include SDFInstallation return objects in the type above
+}
