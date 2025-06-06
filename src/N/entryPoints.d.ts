@@ -1,12 +1,12 @@
-import * as N_http from "./http";
-import * as N_portlet from "./portlet";
-import * as N_record from "./record";
-import * as N_search from "./search";
-import * as N_ui_serverWidget from "./ui/serverWidget";
-import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
-import * as N_FiParser from "./plugins/fiParserPlugin";
-import * as N_dataset from "./dataset";
-import * as N_workbook from "./workbook";
+import * as N_http from "N/http";
+import * as N_portlet from "N/portlet";
+import * as N_record from "N/record";
+import * as N_search from "N/search";
+import * as N_ui_serverWidget from "N/ui/serverWidget";
+import * as N_FiConnectivity from "N/plugins/fiConnectivityPlugin";
+import * as N_FiParser from "N/plugins/fiParserPlugin";
+import * as N_dataset from "N/dataset";
+import * as N_workbook from "N/workbook";
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
