@@ -3,37 +3,38 @@
  * You can use this module to send requests to the large language models (LLMs) supported by NetSuite and to receive LLM responses to use in your scripts.
  */
 
-/** The chat message object returned by the llm.createChatMessage(options) method. */
-interface ChatMessage {
+declare module "N/llm" {
+  /** The chat message object returned by the llm.createChatMessage(options) method. */
+  interface ChatMessage {
     text: string;
     readonly role: ChatRole;
-}
+  }
 
-/** The response returned from LLM. Use the llm.generateText(options) or the llm.generateText.promise(options) method to retrieve a response from the LLM. */
-interface Response {
+  /** The response returned from LLM. Use the llm.generateText(options) or the llm.generateText.promise(options) method to retrieve a response from the LLM. */
+  interface Response {
     readonly text: string;
     readonly model: string;
     readonly chatHistory: ChatMessage[];
-}
+  }
 
-export function createChatMessage(options: { role: string, text: string }): ChatMessage;
+  export function createChatMessage(options: { role: string; text: string }): ChatMessage;
 
-export const generateText: GenerateTextFunction;
+  export const generateText: GenerateTextFunction;
 
-/** Returns the number of free requests in the current month. */
-export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
+  /** Returns the number of free requests in the current month. */
+  export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
 
-interface GenerateTextFunction {
+  interface GenerateTextFunction {
     (options: IGenerateTextOptions): Response;
     promise(options: IGenerateTextOptions): Response;
-}
+  }
 
-interface GetRemainingFreeUsageFunction {
+  interface GetRemainingFreeUsageFunction {
     (): number;
     promise(): number;
-}
+  }
 
-interface IGenerateTextOptions {
+  interface IGenerateTextOptions {
     /** Prompt for the LLM. */
     prompt: string;
     /** Chat history to be taken into consideration. */
@@ -49,9 +50,9 @@ interface IGenerateTextOptions {
     ociConfig?: IOCIConfig;
     preamble?: string;
     timeout?: number;
-}
+  }
 
-interface IModelParameters {
+  interface IModelParameters {
     /** A penalty that is assigned to a token when that token appears frequently. The higher the value, the stronger a penalty is applied to previously present tokens, proportional to how many times they have already appeared in the prompt or prior generation. See Model Parameter Values by LLM for valid values. */
     frequencyPenalty?: number;
     /** The maximum number of tokens the LLM is allowed to generate. The average number of tokens per word is 3. See Model Parameter Values by LLM for valid values. */
@@ -76,9 +77,9 @@ interface IModelParameters {
      * If both topK and topP are set, topP acts after topK. See Model Parameter Values by LLM for valid values.
      */
     topP?: number;
-}
+  }
 
-interface IOCIConfig {
+  interface IOCIConfig {
     /** Compartment OCID. For more information, refer to Managing Compartments in the Oracle Cloud Infrastructure Documentation. */
     compartmentId?: string;
     /**
@@ -100,19 +101,20 @@ interface IOCIConfig {
     tenancyId?: string;
     /** User OCID. For more information, refer to Managing Users in the Oracle Cloud Infrastructure Documentation. */
     userId?: string;
-}
+  }
 
-declare enum ChatRole {
+  export enum ChatRole {
     /** Identifies the author of the chat message (prompt) sent to the large language model. */
     USER = "USER",
     /** Identifies the author of the chat message (response text) received from the large language model. */
-    CHATBOT = "CHATBOT"
-}
+    CHATBOT = "CHATBOT",
+  }
 
-/** The large language model to be used. */
-declare enum ModelFamily {
+  /** The large language model to be used. */
+  export enum ModelFamily {
     /** Always uses the latest supported Cohere model. Cohere Command-R is the default when the options.modelFamily parameter is omitted. */
-    COHERE_COMMAND = 'cohere.command-r-16k',
+    COHERE_COMMAND = "cohere.command-r-16k",
     /** Always uses the latest supported Meta Llama model. */
-    META_LLAMA = 'meta.llama-3.1-70b-instruct'
+    META_LLAMA = "meta.llama-3.1-70b-instruct",
+  }
 }
