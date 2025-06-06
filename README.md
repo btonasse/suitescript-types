@@ -74,11 +74,11 @@ Or
  * @NScriptType UserEventScript
  */
 define(["N/record", "N/search"], (record, search) => {
-    /** @type {EntryPoints.UserEvent.beforeLoad} */
+    /** @type {import("N/entryPoints").UserEvent.beforeLoad} */
     const beforeLoad = (scriptContext) => {
         // entry point implementation
     };
-    /** @type {EntryPoints.UserEvent.beforeSubmit} */
+    /** @type {import("N/entryPoints").UserEvent.beforeSubmit} */
     const beforeSubmit = (scriptContext) => {
         // entry point implementation
     };
