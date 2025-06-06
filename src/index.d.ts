@@ -29,6 +29,7 @@ type ModuleTypes<T extends readonly string[]> = {
                     T[K] extends "N/http"    ? typeof import("N/http") :
                     T[K] extends "N/https"   ? typeof import("N/https") :
                     T[K] extends "N/keyControl" ? typeof import("N/keyControl") :
+                    T[K] extends "N/llm"     ? typeof import("N/llm") :
                     T[K] extends "N/log"     ? typeof import("N/log") :
                     T[K] extends "N/plugin"  ? typeof import("N/plugin") :
                     T[K] extends "N/portlet" ? typeof import("N/portlet") :
