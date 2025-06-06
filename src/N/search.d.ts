@@ -26,6 +26,21 @@ or unchecked fields, respectively.
         readonly summary: Summary;
         /** Formula used by the search filter. Use this property to get or set the formula used by the search filter. */
         formula: string;
+        /** Returns the object type name */
+        toString(): string;
+        /** Get JSON format of the object */
+        toJSON(): {
+            name: string;
+            join: string | null | undefined;
+            operator: keyof typeof Operator;
+            summary: keyof typeof Summary | null | undefined;
+            formula: string | null | undefined;
+            values: string[];
+            isor: boolean;
+            isnot: boolean;
+            leftparens: number;
+            rightparens: number;
+        };
     }
 
     interface SearchColumnSetWhenOrderedByOptions {
@@ -53,6 +68,22 @@ or unchecked fields, respectively.
         function?: string;
         /** The sort order of the column. Use the search.Sort enum to set the value. */
         sort?: Sort;
+        /** Returns the object type name */
+        toString(): string;
+        /** Get JSON format of the object */
+        // toJSON(): { // See https://github.com/headintheclouddev/typings-suitescript-2.0/issues/320
+        //     name: string;
+        //     join: string | null | undefined;
+        //     summary: keyof typeof Summary | null | undefined;
+        //     label: string | null;
+        //     type: string | null;
+        //     formula: string | null | undefined;
+        //     function: string | null | undefined;
+        //     sortdir: keyof typeof Sort;
+        //     whenorderedby: string | null | undefined;
+        //     whenorderedbyjoin: string | null | undefined;
+        //     whenorderedbyalias: string | null | undefined;
+        // };
     }
 
     export interface Result {

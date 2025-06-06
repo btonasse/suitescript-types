@@ -82,10 +82,10 @@ declare module "N/entryPoints" {
     namespace Client {
         interface fieldChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
+            sublistId: string | null;
             fieldId: string;
-            line: number;
-            column: number;
+            line?: number;
+            column?: number;
         }
 
         type fieldChanged = (scriptContext: fieldChangedContext) => void;
@@ -106,7 +106,7 @@ declare module "N/entryPoints" {
 
         interface postSourcingContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
+            sublistId?: string;
             fieldId: string;
         }
 
@@ -139,7 +139,7 @@ declare module "N/entryPoints" {
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string | null;
+            sublistId?: string;
             fieldId: string;
             line?: number;
             column?: number;
@@ -192,7 +192,7 @@ declare module "N/entryPoints" {
             form: N_ui_serverWidget.Form;
             type: UserEventType;
             UserEventType: UserEventTypes;
-            request: N_http.ServerRequest;
+            request: N_http.ServerRequest | undefined;
         }
 
         type beforeLoad = (scriptContext: beforeLoadContext) => void;
