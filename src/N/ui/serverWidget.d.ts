@@ -62,7 +62,7 @@ declare module "N/ui/serverWidget" {
          * Note: For radio fields only, the source parameter must contain the internal ID for the field.
          * For more information about working with radio buttons, see "Working with Radio Buttons" in Help.
          */
-        source?: string;
+        source?: string | number;
         /**
          * The internal ID of the tab or field group to add the field to.
          * By default, the field is added to the main section of the form.
