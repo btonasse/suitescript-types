@@ -1,8 +1,8 @@
+import { FieldValue } from "N/record";
+import { ServerResponse } from "N/http";
+import { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from "N/portlet";
+import { Message, MessageCreateOptions } from "N/ui/message";
 declare module "N/ui/serverWidget" {
-    import { ServerResponse } from "N/http";
-    import { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from "N/portlet";
-    import { Message, MessageCreateOptions } from "N/ui/message";
-
     export interface AddButtonOptions {
         /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
         id?: string;
@@ -400,7 +400,7 @@ declare module "N/ui/serverWidget" {
         /** An alternate name that you can assign to a serverWidget.Field object. */
         alias: string;
         /** The default value for this field. */
-        defaultValue: string | string[] | number;
+        defaultValue: FieldValue;
         /** The field internal ID. */
         id: string;
         /** Indicates whether the field is mandatory or optional. */
