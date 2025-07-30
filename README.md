@@ -22,11 +22,13 @@ Once installed, create a file called `tsconfig.json` in your project root and ha
 {
     "compilerOptions": {
         "module": "ES6",
+        "lib": ["es2022", "DOM"],
         "allowJs": true,
         "checkJs": true,
         "noEmit": true,
-        "typeRoots": ["./node_modules/@btonasse/suitescript-types"],
-        "strict": true
+        "typeRoots": ["./node_modules/@btonasse/suitescript-types", "./node_modules/@btonasse/suitescript-types/src"],
+        "strict": true,
+        "target": "ES2022"
     },
     "include": ["src/**/*.js"],
     "exclude": ["node_modules"]
@@ -35,7 +37,7 @@ Once installed, create a file called `tsconfig.json` in your project root and ha
 
 You can download the latest published typings library at any time by simply running the install command again.
 
-### IDE set-up (WebStorm)
+### In IDE options (WebStorm)
 
 1. Clone this repo to a local folder
 2. Go to `Settings -> Languages & Frameworks -> JavaScript -> Libraries`
