@@ -584,6 +584,10 @@ declare module "N/entryPoints" {
         }
     }
 
+    namespace CustomModule {
+        type returnObject = Record<string, any>;
+    }
+
     interface IKeyValuePair {
         key: string | object;
         value: string | object;
@@ -605,5 +609,6 @@ declare module "N/entryPoints" {
         | Plugins.FiConnectivity.returnObject
         | Plugins.DatasetBuilder.returnObject
         | Plugins.WorkbookBuilder.returnObject
-        | CustomRecordAction.returnObject;
+        | CustomRecordAction.returnObject
+        | CustomModule.returnObject;
 }
