@@ -9,17 +9,7 @@ import type * as N_GlPlugin from "./plugins/glPlugin";
 import type * as N_dataset from "./dataset";
 import type * as N_workbook from "./workbook";
 
-/*Don't export these into the Namespace as we don't
-want to accidentally use a comparison like this:
-export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context) => {
-    //THIS IS WRONG
-    if(context.Type == EntryPoints.UserEvent.Type.EDIT) {
-        ...
-    }
-};
-*/
-
-declare enum UserEventType {
+enum UserEventType {
     APPROVE,
     CANCEL,
     CHANGEPASSWORD,
@@ -46,7 +36,7 @@ declare enum UserEventType {
     XEDIT,
 }
 
-declare interface UserEventTypes {
+interface UserEventTypes {
     APPROVE: UserEventType;
     CANCEL: UserEventType;
     CHANGEPASSWORD: UserEventType;
@@ -73,7 +63,7 @@ declare interface UserEventTypes {
     XEDIT: UserEventType;
 }
 
-declare enum ScheduledInvocationType {
+enum ScheduledInvocationType {
     SCHEDULED, // The normal execution according to the deployment options specified in the UI.
     ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
     USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
@@ -81,7 +71,7 @@ declare enum ScheduledInvocationType {
     SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
 }
 
-declare interface ScheduledInvocationTypes {
+interface ScheduledInvocationTypes {
     SCHEDULED: ScheduledInvocationType;
     ON_DEMAND: ScheduledInvocationType;
     USER_INTERFACE: ScheduledInvocationType;
@@ -89,426 +79,549 @@ declare interface ScheduledInvocationTypes {
     SKIPPED: ScheduledInvocationType;
 }
 
-export namespace EntryPoints {
-    namespace Client {
-        interface fieldChangedContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string | null;
-            fieldId: string;
-            line?: number;
-            column?: number;
-        }
-
-        type fieldChanged = (scriptContext: fieldChangedContext) => void;
-
-        interface lineInitContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
-        }
-
-        type lineInit = (scriptContext: lineInitContext) => void;
-
-        interface pageInitContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            mode: "create" | "copy" | "edit" | "view";
-        }
-
-        type pageInit = (scriptContext: pageInitContext) => void;
-
-        interface postSourcingContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId?: string;
-            fieldId: string;
-        }
-
-        type postSourcing = (scriptContext: postSourcingContext) => void;
-
-        interface saveRecordContext {
-            currentRecord: N_record.ClientCurrentRecord;
-        }
-
-        type saveRecord = (scriptContext: saveRecordContext) => boolean;
-
-        interface sublistChangedContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
-            /**
-             * Commit, etc.
-             */
-            operation: string;
-        }
-
-        type sublistChanged = (scriptContext: sublistChangedContext) => void;
-
-        interface validateDeleteContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
-            lineCount: number; // As of 2020.2
-        }
-
-        type validateDelete = (scriptContext: validateDeleteContext) => boolean;
-
-        interface validateFieldContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId?: string;
-            fieldId: string;
-            line?: number;
-            column?: number;
-        }
-
-        type validateField = (scriptContext: validateFieldContext) => boolean;
-
-        interface validateInsertContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
-        }
-
-        type validateInsert = (scriptContext: validateInsertContext) => boolean;
-
-        interface validateLineContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
-        }
-
-        type validateLine = (scriptContext: validateLineContext) => boolean;
-
-        interface localizationContext {
-            currentRecord: N_record.ClientCurrentRecord;
-            locale: string;
-        }
-
-        type localizationContextEnter = (scriptContext: localizationContext) => void;
-        type localizationContextExit = (scriptContext: localizationContext) => void;
+namespace Client {
+    interface fieldChangedContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId: string | null;
+        fieldId: string;
+        line?: number;
+        column?: number;
     }
 
-    namespace UserEvent {
-        interface beforeLoadContext {
-            newRecord: N_record.Record;
-            form: N_ui_serverWidget.Form;
-            type: UserEventType;
-            UserEventType: UserEventTypes;
-            request: N_http.ServerRequest | undefined;
-        }
+    type fieldChanged = (scriptContext: fieldChangedContext) => void;
 
-        type beforeLoad = (scriptContext: beforeLoadContext) => void;
-
-        interface beforeSubmitContext {
-            newRecord: N_record.Record;
-            oldRecord: N_record.Record | null;
-            type: UserEventType;
-            UserEventType: UserEventTypes;
-        }
-
-        type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
-
-        interface afterSubmitContext {
-            newRecord: N_record.Record & { id: number };
-            oldRecord: N_record.Record | null;
-            type: UserEventType;
-            UserEventType: UserEventTypes;
-        }
-
-        type afterSubmit = (scriptContext: afterSubmitContext) => void;
+    interface lineInitContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId: string;
     }
 
-    namespace Scheduled {
-        interface executeContext {
-            type: ScheduledInvocationType;
-            InvocationType: ScheduledInvocationTypes;
-        }
+    type lineInit = (scriptContext: lineInitContext) => void;
 
-        type execute = (scriptContext: executeContext) => void | Promise<void>;
+    interface pageInitContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        mode: "create" | "copy" | "edit" | "view";
     }
 
-    namespace MapReduce {
-        interface Configuration {
-            retryCount?: 0 | 1 | 2 | 3;
-            exitOnError?: boolean;
-        }
+    type pageInit = (scriptContext: pageInitContext) => void;
 
-        type config = Configuration;
-
-        interface ObjectReference {
-            id: string;
-            type: string;
-        }
-
-        interface getInputDataContext {
-            readonly isRestarted: boolean;
-            ObjectRef: ObjectReference;
-        }
-
-        type GetInputDataResponse = N_search.Search | any | any[] | ObjectReference;
-        type getInputData = (
-            scriptContext: getInputDataContext
-        ) => Promise<GetInputDataResponse> | GetInputDataResponse;
-
-        interface mapContext {
-            readonly isRestarted: boolean;
-            readonly executionNo: number;
-            readonly errors: MapReduceErrorIteratorContainer;
-            readonly key: string;
-            readonly value: string;
-            write(key: string | object, value: string | object): void;
-            write(options: IKeyValuePair): void;
-        }
-
-        type map = (scriptContext: mapContext) => Promise<void> | void;
-
-        interface reduceContext {
-            readonly isRestarted: boolean;
-            readonly executionNo: number;
-            readonly errors: MapReduceErrorIteratorContainer;
-            readonly key: string;
-            readonly values: string[];
-            write(key: string | object, value: string | object): void;
-            write(options: IKeyValuePair): void;
-        }
-
-        type reduce = (scriptContext: reduceContext) => Promise<void> | void;
-
-        interface MapReduceOutputIterator {
-            each(callback: (key: string, value: string) => boolean): void;
-        }
-
-        interface MapReduceOutputIteratorContainer {
-            iterator(): MapReduceOutputIterator;
-        }
-
-        interface MapReduceSummaryIterator {
-            each(callback: (key: string, executionCount: number, completionState: string) => boolean): void;
-        }
-
-        interface MapReduceSummaryIteratorContainer {
-            iterator(): MapReduceSummaryIterator;
-        }
-
-        interface MapReduceErrorIterator {
-            each(callback: (key: string, error: string, executionNo: number) => boolean): void;
-        }
-
-        interface MapReduceErrorIteratorContainer {
-            iterator(): MapReduceErrorIterator;
-        }
-
-        interface InputSummary {
-            dateCreated: Date;
-            error: string;
-            seconds: number;
-            usage: number;
-        }
-
-        interface MapSummary {
-            dateCreated: Date;
-            seconds: number;
-            usage: number;
-            concurrency: number;
-            yields: number;
-            keys: MapReduceSummaryIteratorContainer;
-            errors: MapReduceErrorIteratorContainer;
-        }
-
-        interface ReduceSummary {
-            dateCreated: Date;
-            seconds: number;
-            usage: number;
-            concurrency: number;
-            yields: number;
-            keys: MapReduceSummaryIteratorContainer;
-            errors: MapReduceErrorIteratorContainer;
-        }
-
-        interface summarizeContext {
-            readonly isRestarted: boolean;
-            dateCreated: Date;
-            seconds: number;
-            usage: number;
-            concurrency: number;
-            yields: number;
-            inputSummary: InputSummary;
-            mapSummary: MapSummary;
-            reduceSummary: ReduceSummary;
-            output: MapReduceOutputIteratorContainer;
-        }
-
-        type summarize = (summary: summarizeContext) => Promise<void> | void;
+    interface postSourcingContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId?: string;
+        fieldId: string;
     }
 
-    namespace Portlet {
-        interface renderContext {
-            portlet: N_portlet.Portlet;
-            column: number;
-            /** This is entityid in the docs, but entity in practice */
-            entity: string;
-        }
+    type postSourcing = (scriptContext: postSourcingContext) => void;
 
-        type render = (scriptContext: renderContext) => void;
+    interface saveRecordContext {
+        currentRecord: N_record.ClientCurrentRecord;
     }
 
-    namespace Suitelet {
-        interface onRequestContext {
-            request: N_http.ServerRequest;
-            response: N_http.ServerResponse;
-        }
+    type saveRecord = (scriptContext: saveRecordContext) => boolean;
 
-        type onRequest = (scriptContext: onRequestContext) => void;
+    interface sublistChangedContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId: string;
+        /**
+         * Commit, etc.
+         */
+        operation: string;
     }
 
-    namespace MassUpdate {
-        interface eachContext {
-            id: number;
-            type: string;
-        }
+    type sublistChanged = (scriptContext: sublistChangedContext) => void;
 
-        type each = (scriptContext: eachContext) => void;
+    interface validateDeleteContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId: string;
+        lineCount: number; // As of 2020.2
     }
 
-    namespace WorkflowAction {
-        interface onActionContext {
-            newRecord: N_record.Record;
-            oldRecord: N_record.Record | null;
-            form?: N_ui_serverWidget.Form;
-            type?: string;
-            workflowId?: number;
-        }
+    type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
-        type onAction = (scriptContext: onActionContext) => void;
+    interface validateFieldContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId?: string;
+        fieldId: string;
+        line?: number;
+        column?: number;
     }
 
-    namespace RESTlet {
-        type get<T = unknown, Y = string> = (requestParams?: Partial<T>) => Promise<Y> | Y;
-        type delete_<T = unknown, Y = string> = (requestParams?: Partial<T>) => Promise<Y> | Y;
-        type post<T = unknown, Y = string> = (requestBody?: Partial<T> | string) => Promise<Y> | Y;
-        type put<T = unknown, Y = string> = (requestBody?: Partial<T> | string) => Promise<Y> | Y;
+    type validateField = (scriptContext: validateFieldContext) => boolean;
+
+    interface validateInsertContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId: string;
     }
 
-    namespace BundleInstallation {
-        interface onAfterInstallContext {
-            version: number;
-        }
+    type validateInsert = (scriptContext: validateInsertContext) => boolean;
 
-        type afterInstall = (scriptContext: onAfterInstallContext) => void;
-
-        interface onAfterUpdateContext {
-            fromVersion: number;
-            toVersion: number;
-        }
-
-        type afterUpdate = (scriptContext: onAfterUpdateContext) => void;
-
-        interface onBeforeInstallContext {
-            version: number;
-        }
-
-        type beforeInstall = (scriptContext: onBeforeInstallContext) => void;
-
-        interface onBeforeUninstallContext {
-            version: number;
-        }
-
-        type beforeUninstall = (scriptContext: onBeforeUninstallContext) => void;
-
-        interface onBeforeUpdateContext {
-            fromVersion: number;
-            toVersion: number;
-        }
-
-        type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
+    interface validateLineContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        sublistId: string;
     }
 
-    namespace SDFInstallation {
-        interface runContext {
-            /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
-            fromVersion: string;
-            /** The version of the SuiteApp that will be installed on the account. */
-            toVersion: string;
-        }
+    type validateLine = (scriptContext: validateLineContext) => boolean;
 
-        type run = (scriptContext: runContext) => void;
+    interface localizationContext {
+        currentRecord: N_record.ClientCurrentRecord;
+        locale: string;
     }
 
-    namespace Plugins {
-        namespace FiParser {
-            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
+    type localizationContextEnter = (scriptContext: localizationContext) => void;
+    type localizationContextExit = (scriptContext: localizationContext) => void;
 
-            interface parseDataContext extends N_FiParser.parseDataContext {}
+    interface returnObject {
+        fieldChanged?: fieldChanged;
+        lineInit?: lineInit;
+        pageInit?: pageInit;
+        postSourcing?: postSourcing;
+        sublistChanged?: sublistChanged;
+        validateField?: validateField;
+        validateLine?: validateLine;
+        validateInsert?: validateInsert;
+        validateDelete?: validateDelete;
+        saveRecord?: saveRecord;
+        localizationContextEnter?: localizationContextEnter;
+        localizationContextExit?: localizationContextExit;
+        [key: string]: Function | undefined;
+    }
+}
 
-            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
+namespace UserEvent {
+    interface beforeLoadContext {
+        newRecord: N_record.Record;
+        form: N_ui_serverWidget.Form;
+        type: UserEventType;
+        UserEventType: UserEventTypes;
+        request: N_http.ServerRequest | undefined;
+    }
 
-            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
+    type beforeLoad = (scriptContext: beforeLoadContext) => void;
 
-            type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
-            type parseData = N_FiParser.parseData;
-            type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
-            type getExpenseCodes = N_FiParser.getExpenseCodes;
-        }
+    interface beforeSubmitContext {
+        newRecord: N_record.Record;
+        oldRecord: N_record.Record | null;
+        type: UserEventType;
+        UserEventType: UserEventTypes;
+    }
 
-        namespace FiConnectivity {
-            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
+    type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
-            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
+    interface afterSubmitContext {
+        newRecord: N_record.Record & { id: number };
+        oldRecord: N_record.Record | null;
+        type: UserEventType;
+        UserEventType: UserEventTypes;
+    }
 
-            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
+    type afterSubmit = (scriptContext: afterSubmitContext) => void;
 
-            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
+    interface returnObject {
+        beforeLoad?: beforeLoad;
+        beforeSubmit?: beforeSubmit;
+        afterSubmit?: afterSubmit;
+    }
+}
 
-            type getTransactionData = N_FiConnectivity.getTransactionData;
-            type getAccounts = N_FiConnectivity.getAccounts;
-            type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
-        }
+namespace Scheduled {
+    interface executeContext {
+        type: ScheduledInvocationType;
+        InvocationType: ScheduledInvocationTypes;
+    }
 
-        namespace DatasetBuilder {
-            interface createDatasetContext {
-                dataset: N_dataset.Dataset;
-                readonly description: string;
-                readonly name: string;
-                readonly owner: number;
-                readonly role: number;
-            }
+    type execute = (scriptContext: executeContext) => void | Promise<void>;
 
-            type createDataset = (scriptContext: createDatasetContext) => void;
-        }
+    interface returnObject {
+        execute: execute;
+    }
+}
 
-        namespace WorkbookBuilder {
-            interface createWorkbookContext {
-                workbook: N_workbook.Workbook;
-                readonly description: string;
-                readonly name: string;
-                readonly owner: number;
-                readonly role: number;
-            }
+namespace MapReduce {
+    interface Configuration {
+        retryCount?: 0 | 1 | 2 | 3;
+        exitOnError?: boolean;
+    }
 
-            type createWorkbook = (scriptContext: createWorkbookContext) => void;
-        }
+    type config = Configuration;
 
-        namespace GlPlugin {
-            interface glPluginContext extends N_GlPlugin.glPluginContext {}
+    interface ObjectReference {
+        id: string;
+        type: string;
+    }
 
-            type customizeGlImpact = N_GlPlugin.customizeGlImpact;
+    interface getInputDataContext {
+        readonly isRestarted: boolean;
+        ObjectRef: ObjectReference;
+    }
+
+    type GetInputDataResponse = N_search.Search | any | any[] | ObjectReference;
+    type getInputData = (scriptContext: getInputDataContext) => Promise<GetInputDataResponse> | GetInputDataResponse;
+
+    interface mapContext {
+        readonly isRestarted: boolean;
+        readonly executionNo: number;
+        readonly errors: MapReduceErrorIteratorContainer;
+        readonly key: string;
+        readonly value: string;
+        write(key: string | object, value: string | object): void;
+        write(options: IKeyValuePair): void;
+    }
+
+    type map = (scriptContext: mapContext) => Promise<void> | void;
+
+    interface reduceContext {
+        readonly isRestarted: boolean;
+        readonly executionNo: number;
+        readonly errors: MapReduceErrorIteratorContainer;
+        readonly key: string;
+        readonly values: string[];
+        write(key: string | object, value: string | object): void;
+        write(options: IKeyValuePair): void;
+    }
+
+    type reduce = (scriptContext: reduceContext) => Promise<void> | void;
+
+    interface MapReduceOutputIterator {
+        each(callback: (key: string, value: string) => boolean): void;
+    }
+
+    interface MapReduceOutputIteratorContainer {
+        iterator(): MapReduceOutputIterator;
+    }
+
+    interface MapReduceSummaryIterator {
+        each(callback: (key: string, executionCount: number, completionState: string) => boolean): void;
+    }
+
+    interface MapReduceSummaryIteratorContainer {
+        iterator(): MapReduceSummaryIterator;
+    }
+
+    interface MapReduceErrorIterator {
+        each(callback: (key: string, error: string, executionNo: number) => boolean): void;
+    }
+
+    interface MapReduceErrorIteratorContainer {
+        iterator(): MapReduceErrorIterator;
+    }
+
+    interface InputSummary {
+        dateCreated: Date;
+        error: string;
+        seconds: number;
+        usage: number;
+    }
+
+    interface MapSummary {
+        dateCreated: Date;
+        seconds: number;
+        usage: number;
+        concurrency: number;
+        yields: number;
+        keys: MapReduceSummaryIteratorContainer;
+        errors: MapReduceErrorIteratorContainer;
+    }
+
+    interface ReduceSummary {
+        dateCreated: Date;
+        seconds: number;
+        usage: number;
+        concurrency: number;
+        yields: number;
+        keys: MapReduceSummaryIteratorContainer;
+        errors: MapReduceErrorIteratorContainer;
+    }
+
+    interface summarizeContext {
+        readonly isRestarted: boolean;
+        dateCreated: Date;
+        seconds: number;
+        usage: number;
+        concurrency: number;
+        yields: number;
+        inputSummary: InputSummary;
+        mapSummary: MapSummary;
+        reduceSummary: ReduceSummary;
+        output: MapReduceOutputIteratorContainer;
+    }
+
+    type summarize = (summary: summarizeContext) => Promise<void> | void;
+
+    interface returnObject {
+        getInputData: getInputData;
+        map?: map;
+        reduce?: reduce;
+        summarize: summarize;
+    }
+}
+
+namespace Portlet {
+    interface renderContext {
+        portlet: N_portlet.Portlet;
+        column: number;
+        /** This is entityid in the docs, but entity in practice */
+        entity: string;
+    }
+
+    type render = (scriptContext: renderContext) => void;
+
+    interface returnObject {
+        render: render;
+    }
+}
+
+namespace Suitelet {
+    interface onRequestContext {
+        request: N_http.ServerRequest;
+        response: N_http.ServerResponse;
+    }
+
+    type onRequest = (scriptContext: onRequestContext) => void;
+
+    interface returnObject {
+        onRequest: onRequest;
+    }
+}
+
+namespace MassUpdate {
+    interface eachContext {
+        id: number;
+        type: string;
+    }
+
+    type each = (scriptContext: eachContext) => void;
+
+    interface returnObject {
+        each: each;
+    }
+}
+
+namespace WorkflowAction {
+    interface onActionContext {
+        newRecord: N_record.Record;
+        oldRecord: N_record.Record | null;
+        form?: N_ui_serverWidget.Form;
+        type?: string;
+        workflowId?: number;
+    }
+
+    type onAction = (scriptContext: onActionContext) => void;
+
+    interface returnObject {
+        onAction: onAction;
+    }
+}
+
+namespace RESTlet {
+    type get<T = Record<string, unknown>, Y = string | Record<string, unknown>> = (requestParams: T) => Promise<Y> | Y;
+    type delete_<T = Record<string, unknown>, Y = string | Record<string, unknown>> = (
+        requestParams: T
+    ) => Promise<Y> | Y;
+    type post<T = string | Record<string, unknown>, Y = string | Record<string, unknown>> = (
+        requestBody: T
+    ) => Promise<Y> | Y;
+    type put<T = string | Record<string, unknown>, Y = string | Record<string, unknown>> = (
+        requestBody: T
+    ) => Promise<Y> | Y;
+
+    interface returnObject {
+        get?: get;
+        delete?: delete_;
+        post?: post;
+        put?: put;
+    }
+}
+
+namespace BundleInstallation {
+    interface onAfterInstallContext {
+        version: number;
+    }
+
+    type afterInstall = (scriptContext: onAfterInstallContext) => void;
+
+    interface onAfterUpdateContext {
+        fromVersion: number;
+        toVersion: number;
+    }
+
+    type afterUpdate = (scriptContext: onAfterUpdateContext) => void;
+
+    interface onBeforeInstallContext {
+        version: number;
+    }
+
+    type beforeInstall = (scriptContext: onBeforeInstallContext) => void;
+
+    interface onBeforeUninstallContext {
+        version: number;
+    }
+
+    type beforeUninstall = (scriptContext: onBeforeUninstallContext) => void;
+
+    interface onBeforeUpdateContext {
+        fromVersion: number;
+        toVersion: number;
+    }
+
+    type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
+
+    interface returnObject {
+        afterInstall?: afterInstall;
+        afterUpdate?: afterUpdate;
+        beforeInstall?: beforeInstall;
+        beforeUninstall?: beforeUninstall;
+        beforeUpdate?: beforeUpdate;
+    }
+}
+
+namespace SDFInstallation {
+    interface runContext {
+        /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
+        fromVersion: string;
+        /** The version of the SuiteApp that will be installed on the account. */
+        toVersion: string;
+    }
+
+    type run = (scriptContext: runContext) => void;
+
+    interface returnObject {
+        run: run;
+    }
+}
+
+namespace Plugins {
+    namespace FiParser {
+        interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
+
+        interface parseDataContext extends N_FiParser.parseDataContext {}
+
+        interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
+
+        interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
+
+        type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
+        type parseData = N_FiParser.parseData;
+        type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
+        type getExpenseCodes = N_FiParser.getExpenseCodes;
+
+        interface returnObject {
+            getConfigurationPageUrl?: getConfigurationPageUrl;
+            parseData?: N_FiParser.parseData;
+            getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
+            getExpenseCodes?: N_FiParser.getExpenseCodes;
         }
     }
 
-    namespace CustomRecordAction {
-        interface isQualifiedContext {
-            ids: string[];
-            recordType: string;
-            qualified: Map<string, string>;
+    namespace FiConnectivity {
+        interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
+
+        interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
+
+        interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
+
+        interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
+
+        type getTransactionData = N_FiConnectivity.getTransactionData;
+        type getAccounts = N_FiConnectivity.getAccounts;
+        type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
+
+        interface returnObject {
+            getTransactionData?: getTransactionData;
+            getAccounts?: getAccounts;
+            getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
         }
-
-        type isQualified = (scriptContext: isQualifiedContext) => void;
-
-        interface executeActionContext {
-            ids: string[];
-            recordType: string;
-            params: object;
-            response: object;
-        }
-
-        type executeAction = (scriptContext: executeActionContext) => void;
     }
+
+    namespace DatasetBuilder {
+        interface createDatasetContext {
+            dataset: N_dataset.Dataset;
+            readonly description: string;
+            readonly name: string;
+            readonly owner: number;
+            readonly role: number;
+        }
+
+        type createDataset = (scriptContext: createDatasetContext) => void;
+
+        interface returnObject {
+            createDataset: createDataset;
+        }
+    }
+
+    namespace WorkbookBuilder {
+        interface createWorkbookContext {
+            workbook: N_workbook.Workbook;
+            readonly description: string;
+            readonly name: string;
+            readonly owner: number;
+            readonly role: number;
+        }
+
+        type createWorkbook = (scriptContext: createWorkbookContext) => void;
+
+        interface returnObject {
+            createWorkbook: createWorkbook;
+        }
+    }
+
+    namespace GlPlugin {
+        interface glPluginContext extends N_GlPlugin.glPluginContext {}
+
+        type customizeGlImpact = N_GlPlugin.customizeGlImpact;
+        interface returnObject {
+            customizeGlImpact: customizeGlImpact;
+        }
+    }
+}
+
+namespace CustomRecordAction {
+    interface isQualifiedContext {
+        ids: string[];
+        recordType: string;
+        qualified: Map<string, string>;
+    }
+
+    type isQualified = (scriptContext: isQualifiedContext) => void;
+
+    interface executeActionContext {
+        ids: string[];
+        recordType: string;
+        params: object;
+        response: object;
+    }
+
+    type executeAction = (scriptContext: executeActionContext) => void;
+
+    interface returnObject {
+        isQualified?: isQualified;
+        executeAction?: executeAction;
+    }
+}
+
+namespace CustomModule {
+    type returnObject = Record<string, any>;
 }
 
 interface IKeyValuePair {
     key: string | object;
     value: string | object;
 }
+
+export type CallbackReturn =
+    | Client.returnObject
+    | UserEvent.returnObject
+    | Scheduled.returnObject
+    | MapReduce.returnObject
+    | Portlet.returnObject
+    | Suitelet.returnObject
+    | MassUpdate.returnObject
+    | WorkflowAction.returnObject
+    | RESTlet.returnObject
+    | BundleInstallation.returnObject
+    | SDFInstallation.returnObject
+    | Plugins.FiParser.returnObject
+    | Plugins.FiConnectivity.returnObject
+    | Plugins.DatasetBuilder.returnObject
+    | Plugins.WorkbookBuilder.returnObject
+    | Plugins.GlPlugin.returnObject
+    | CustomRecordAction.returnObject
+    | CustomModule.returnObject;

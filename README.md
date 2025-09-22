@@ -1,113 +1,138 @@
-# SuiteScript 2.0 Typings
+# SuiteScript 2.1 Typings
 
-[![Build Status](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0.png?branch=master)](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0)
-[![devDependencies Status](https://david-dm.org/headintheclouddev/typings-suitescript-2.0/dev-status.svg)](https://david-dm.org/headintheclouddev/typings-suitescript-2.0?type=dev)
-[![Join the chat at https://gitter.im/typings-suitescript-2-0/Lobby](https://badges.gitter.im/typings-suitescript-2-0/Lobby.svg)](https://gitter.im/typings-suitescript-2-0/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+This is a fork of the awesome `@hitc/netsuite-types`. The main purpose of this library is to provide typing support for vanilla JS development alongside the Typescript support of the original library.
+
+In other words, you can either use Typescript, or keep writing vanilla JS and enjoy full Intellisense/autocompletion on:
+
+- The imported module instance objects (as long as they're valid `N/` modules)
+- The entry point context objects
+- Global modules like `N/log` and `N/util`
 
 ## Installation Instructions
 
-`npm install --save-dev @hitc/netsuite-types`
+`npm install --save-dev @btonasse/suitescript-types`
 
-## Usage
+Once installed, create a file called `tsconfig.json` (for Typescript projects) or `jsconfig.json` (for vanilla JS):
 
-Once installed, you need to configure TypeScript to find the library declarations and `import` the libraries as needed
-into your scripts.
+`jsconfig.json`:
 
-### TSC (TypeScript Compiler) Configuration
+```json
+{
+    "compilerOptions": {
+        "lib": ["es2022", "DOM"],
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true,
+        "strict": true,
+        "target": "ES2022",
+        "skipLibCheck": true,
+        "moduleResolution": "node",
+        "paths": {
+            "N/*": ["./node_modules/@btonasse/suitescript-types/types/N/*"]
+        }
+    },
+    "files": [
+        "./node_modules/@btonasse/suitescript-types/types/index.d.ts",
+        "./node_modules/@btonasse/suitescript-types/types/SuiteScriptV1.d.ts"
+    ],
+    "include": ["./**/*.js"],
+    "exclude": ["node_modules"]
+}
+```
 
-You can import the modules and use them like normal using standard TypeScript syntax. Just make sure your compiler is configured to use the amd module format and the es5 target. Create a file called `tsconfig.json` in your project root and have these options configured:
+`tsconfig.json`:
 
 ```json
 {
     "compilerOptions": {
         "module": "amd",
-        "target": "es5",
+        "lib": ["es2022", "DOM"],
+        "allowJs": true,
+        "checkJs": true,
+        "strict": true,
+        "target": "ES2022",
+        "skipLibCheck": true,
         "moduleResolution": "node",
-        "sourceMap": false,
-        "newLine": "LF",
-        "experimentalDecorators": true,
-        "baseUrl": ".",
-        "lib": ["es5", "es2015.promise", "dom"],
         "paths": {
-            "N": ["node_modules/@hitc/netsuite-types/N"],
-            "N/*": ["node_modules/@hitc/netsuite-types/N/*"]
+            "N/*": ["./node_modules/@btonasse/suitescript-types/types/N/*"]
         }
     },
+    "files": [
+        "./node_modules/@btonasse/suitescript-types/types/index.d.ts",
+        "./node_modules/@btonasse/suitescript-types/types/SuiteScriptV1.d.ts"
+    ],
+    "include": ["./**/*.ts"],
     "exclude": ["node_modules"]
 }
 ```
 
-The key components are **baseUrl** and **paths**.
+## Usage
 
-Then simply import your modules and go.
+### Callback function and entry points
 
-### Writing SuiteScript
+To get Intellisense/autocompletion in JS files, you can structure your callback function in two different ways:
 
-At the top of every script you will want to have the following lines added:
-
-```typescript
+```javascript
 /**
- * @NAPIVersion 2.0
- * @NScriptType ClientScript
- */
-
-import type { EntryPoints } from "N/types";
-```
-
-`N/types` and `EntryPoints` isn't actually in the NetSuite API, but it is something that is included with this library to give you type definitons for your entry point functions. For example:
-
-```typescript
-import type { EntryPoints } from "N/types";
-export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
-    //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
-};
-```
-
-Notice that we are exporting the function `pageInit` that will need to be referenced in the NetSuite Client Script record as an entry point.
-
-Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-cheking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
-
-## User Event Example
-
-Full example for a User Event Script might look something like this:
-
-```typescript
-/**
- * @NAPIVersion 2.0
+ * @NApiVersion 2.1
  * @NScriptType UserEventScript
  */
-
-import type { EntryPoints } from "N/types";
-import * as log from "N/log";
-
-export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
-    let x = context.newRecord.getValue({ fieldId: "companyname" });
-    log.audit("value", `companyname is: ${x}`);
-};
+define(["N/record", "N/search"], (record, search) => {
+    return {
+        beforeLoad: (scriptContext) => {
+            // entry point implementation
+        },
+        beforeSubmit: (scriptContext) => {
+            // entry point implementation
+        },
+    };
+});
 ```
 
-## Suitelet Example
+Or
 
-```typescript
+```javascript
 /**
- * @NApiVersion 2.x
- * @NScriptType Suitelet
+ * @NApiVersion 2.1
+ * @NScriptType UserEventScript
  */
+define(["N/record", "N/search"], (record, search) => {
+    /** @type {import("N/entryPoints").UserEvent.beforeLoad} */
+    const beforeLoad = (scriptContext) => {
+        // entry point implementation
+    };
+    /** @type {import("N/entryPoints").UserEvent.beforeSubmit} */
+    const beforeSubmit = (scriptContext) => {
+        // entry point implementation
+    };
 
-import type { EntryPoints } from "N/types";
-import * as record from "N/record";
+    return {
+        beforeLoad: beforeLoad,
+        beforeSubmit: beforeSubmit,
+    };
+});
+```
 
-export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
-    let folder = record.load({ type: "folder", id: 36464 });
-    let allfields = folder.getFields().join(", ");
-    context.response.write(`<br>all fields: ${allfields}`);
+### JSDoc types
+
+Usually your IDE will pick-up the correct type in a JSDoc annotation. However, for certain interfaces like `Record` and `Sublist`, there can be conflicts with either built-in interfaces or other `N` modules. For example:
+
+```javascript
+/**
+ * @param {Record} currentRecord
+ */
+const myFunc = (currentRecord) => {
+    // What is the type of currentRecord?
 };
 ```
 
-This example exports the function `onRequest` that needs to be referenced in the script record.
+In the example above the IDE might not infer the type correctly (are we're referring to `N/record`, `N/workbook` or even the typescript built-in with the same name?). To solve this, use import types as per [the official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#other)
 
-## Updates
-
-You can download the latest published typings library at any time by simply running the command:
-
-`npm install --save-dev @hitc/netsuite-types`
+```javascript
+/**
+ * @param {import("N/record").Record} currentRecord
+ */
+const myFunc = (currentRecord) => {
+    // Now we know we're talking about N/record!
+};
+```
