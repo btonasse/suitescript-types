@@ -11,42 +11,44 @@
  *
  * For more information about linking datasets in SuiteAnalytics Workbook, see Dataset Linking in SuiteAnalytics Workbook.
  */
-import type { Dataset } from "./dataset";
-import type { Expression } from "./workbook";
+declare module "N/datasetLink" {
+    import type { Dataset } from "N/dataset";
+    import type { Expression } from "N/workbook";
 
-interface CreateDatasetLinkOptions {
+    interface CreateDatasetLinkOptions {
+        /**
+         * The datasets to link.
+         */
+        datasets: Dataset[];
+        /**
+         * The column expressions to use to link the datasets.
+         */
+        expressions: Array<Expression[]>;
+        /**
+         * The ID of the linked dataset.
+         * The Help Center indicates this is optional, but testing on 2021.2 indicates it is required.
+         */
+        id: string;
+    }
+
+    /** A representation of two datasets that are linked using datasetLink.create(options). */
+    interface DatasetLink {
+        /**
+         * The linked datasets that the datasetLink.DatasetLink object represents.
+         */
+        datasets: Dataset[];
+        /**
+         * The column expressions for the datasetLink.DatasetLink object.
+         */
+        expressions: Array<Expression[]>;
+        id: string;
+    }
+
     /**
-     * The datasets to link.
+     * Links two datasets using a common column expression.
+     * To link two datasets, both datasets must include a column that shares common data, such as a date.
+     * You use Dataset.getExpressionFromColumn(options) to obtain expressions for each column, then you specify these expressions (and the datasets they are part of) when you call datasetLink.create(options).
+     * @throws {SuiteScriptError} NO_DATASET_DEFINED if the value of the options.datasets parameter is an empty array.
      */
-    datasets: Dataset[];
-    /**
-     * The column expressions to use to link the datasets.
-     */
-    expressions: Array<Expression[]>;
-    /**
-     * The ID of the linked dataset.
-     * The Help Center indicates this is optional, but testing on 2021.2 indicates it is required.
-     */
-    id: string;
+    export function create(option: CreateDatasetLinkOptions): DatasetLink;
 }
-
-/** A representation of two datasets that are linked using datasetLink.create(options). */
-interface DatasetLink {
-    /**
-     * The linked datasets that the datasetLink.DatasetLink object represents.
-     */
-    datasets: Dataset[];
-    /**
-     * The column expressions for the datasetLink.DatasetLink object.
-     */
-    expressions: Array<Expression[]>;
-    id: string;
-}
-
-/**
- * Links two datasets using a common column expression.
- * To link two datasets, both datasets must include a column that shares common data, such as a date.
- * You use Dataset.getExpressionFromColumn(options) to obtain expressions for each column, then you specify these expressions (and the datasets they are part of) when you call datasetLink.create(options).
- * @throws {SuiteScriptError} NO_DATASET_DEFINED if the value of the options.datasets parameter is an empty array.
- */
-export function create(option: CreateDatasetLinkOptions): DatasetLink;
