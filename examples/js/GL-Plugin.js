@@ -4,28 +4,30 @@
  */
 
 /* This example is taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1016997 */
+define([], () => {
+    return {
+        customizeGlImpact: (context) => {
+            const customLines = context.customLines;
+            const amount = "100.00";
 
-/**@type{import("N/plugins/glPlugin").customizeGlImpact} */
-const customizeGlImpact = (context) => {
-    const customLines = context.customLines;
-    const amount = "100.00";
+            const memo = context.transactionRecord.getValue({ fieldId: "memo" });
+            const firstAccount = context.standardLines.getLine({ index: 0 }).accountId;
+            const secondAccount = context.standardLines.getLine({ index: 1 }).accountId;
+            const bookId = context.book.id;
 
-    const memo = context.transactionRecord.getValue({ fieldId: "memo" });
-    const firstAccount = context.standardLines.getLine({ index: 0 }).accountId;
-    const secondAccount = context.standardLines.getLine({ index: 1 }).accountId;
-    const bookId = context.book.id;
+            const firstLine = customLines.addNewLine();
+            firstLine.accountId = firstAccount;
+            firstLine.creditAmount = amount;
+            firstLine.memo = memo + " for book " + bookId;
+            firstLine.isBookSpecific = false;
 
-    const firstLine = customLines.addNewLine();
-    firstLine.accountId = firstAccount;
-    firstLine.creditAmount = amount;
-    firstLine.memo = memo + " for book " + bookId;
-    firstLine.isBookSpecific = false;
+            const secondLine = customLines.addNewLine();
+            secondLine.accountId = secondAccount;
+            secondLine.debitAmount = amount;
+            secondLine.memo = memo + " for book " + bookId;
+            secondLine.isBookSpecific = false;
 
-    const secondLine = customLines.addNewLine();
-    secondLine.accountId = secondAccount;
-    secondLine.debitAmount = amount;
-    secondLine.memo = memo + " for book " + bookId;
-    secondLine.isBookSpecific = false;
-
-    log.audit("Added GL Entries", { customLines });
-};
+            log.audit("Added GL Entries", { customLines });
+        },
+    };
+});
