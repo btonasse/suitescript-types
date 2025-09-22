@@ -1,4 +1,4 @@
-import type { File } from "../file";
+import type { File } from "N/file";
 
 interface getConfigurationFieldValueOptions {
     /** This property is required and refers to the name of the configuration value to retrieve */
