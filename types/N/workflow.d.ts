@@ -1,4 +1,4 @@
-import type {Type} from "./record";
+import type { Type } from "./record";
 
 interface InitiateOptions {
     recordType: string | Type;
