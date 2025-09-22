@@ -10,13 +10,15 @@ declare module "N/log" {
         details: any;
     }
 
-    interface LogFunction {
-        (title: string, details: any): void;
-        (options: LogOptions): void;
-    }
+    function debug(title: string, details: any): void;
+    function debug(options: LogOptions): void;
 
-    export const debug: LogFunction;
-    export const audit: LogFunction;
-    export const error: LogFunction;
-    export const emergency: LogFunction;
+    function audit(title: string, details: any): void;
+    function audit(options: LogOptions): void;
+
+    function error(title: string, details: any): void;
+    function error(options: LogOptions): void;
+
+    function emergency(title: string, details: any): void;
+    function emergency(options: LogOptions): void;
 }

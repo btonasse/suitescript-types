@@ -1,4 +1,5 @@
 declare module "N/ui/serverWidget" {
+    import type { FieldValue } from "N/record";
     import type { ServerResponse } from "N/http";
     import type { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from "N/portlet";
     import type { Message, MessageCreateOptions } from "N/ui/message";
@@ -62,7 +63,7 @@ declare module "N/ui/serverWidget" {
          * Note: For radio fields only, the source parameter must contain the internal ID for the field.
          * For more information about working with radio buttons, see "Working with Radio Buttons" in Help.
          */
-        source?: string;
+        source?: string | number;
         /**
          * The internal ID of the tab or field group to add the field to.
          * By default, the field is added to the main section of the form.
@@ -183,6 +184,8 @@ declare module "N/ui/serverWidget" {
     interface InsertFieldOptions {
         /** The Field object to insert. */
         field: Field;
+        /** Used to specify whether the field is inserted before or after the next field (options.nextfield). */
+        isBefore?: boolean;
         /** The internal ID name of the field you are inserting a field in front of. */
         nextfield: string;
     }
@@ -400,7 +403,7 @@ declare module "N/ui/serverWidget" {
         /** An alternate name that you can assign to a serverWidget.Field object. */
         alias: string;
         /** The default value for this field. */
-        defaultValue: string | string[] | number;
+        defaultValue: FieldValue;
         /** The field internal ID. */
         id: string;
         /** Indicates whether the field is mandatory or optional. */

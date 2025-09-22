@@ -1,12 +1,12 @@
 /**
- * @NAPIVersion 2.0
+ * @NAPIVersion 2.1
  * @NScriptType ClientScript
  */
 
-import type { EntryPoints } from "N/types";
+import type { Client } from "N/entryPoints";
 import * as search from "N/search";
 
-export function pageInit(context: EntryPoints.Client.pageInitContext) {
+export function pageInit(context: Client.pageInitContext) {
     if (context.mode != "edit") return;
 
     const customerId = context.currentRecord.getValue("entity"); // Assume this script is running on a transaction

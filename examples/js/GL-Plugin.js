@@ -5,12 +5,8 @@
 
 /* This example is taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1016997 */
 
-import type { EntryPoints } from "N/types";
-import * as log from "N/log";
-
-export const customizeGlImpact: EntryPoints.Plugins.GlPlugin.customizeGlImpact = (
-    context: EntryPoints.Plugins.GlPlugin.glPluginContext
-) => {
+/**@type{import("N/plugins/glPlugin").customizeGlImpact} */
+const customizeGlImpact = (context) => {
     const customLines = context.customLines;
     const amount = "100.00";
 

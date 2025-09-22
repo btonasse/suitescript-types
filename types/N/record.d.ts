@@ -1,6 +1,5 @@
 declare module "N/record" {
-    import type { AddSelectOptionOptions } from "N/ui/serverWidget";
-
+    import { AddSelectOptionOptions } from "N/ui/serverWidget";
     /**
      * Submits a new record or saves edits to an existing record.
      *
@@ -23,7 +22,7 @@ declare module "N/record" {
 
     interface AttachRecordOptions {
         /** The type of record to attach. */
-        type: Type | string;
+        type: RecordType;
         /** The internal ID of the record to attach. */
         id: number | string;
     }
@@ -40,9 +39,9 @@ declare module "N/record" {
         sublistId: string;
     }
 
-    export interface CopyLoadOptions {
+    interface CopyLoadOptions {
         /** The record type. */
-        type: Type | string;
+        type: RecordType;
         /** The internal ID of the existing record instance in NetSuite. */
         id: FieldValue | number | string;
         /**
@@ -275,7 +274,7 @@ declare module "N/record" {
         forceSyncSourcing?: boolean;
     }
 
-    export interface SetValueOptions {
+    interface SetValueOptions {
         /** The internal ID of a standard or custom body field. */
         fieldId: string;
         /**
@@ -474,6 +473,9 @@ declare module "N/record" {
 
     export type FieldValue = Date | number | number[] | string | string[] | boolean | null;
 
+    /** The record type. */
+    export type RecordType = Type | `${Type}` | `customrecord${string}`;
+
     /** Almost like a full Record, except without things like save(). */
     export interface ClientCurrentRecord {
         /** Cancels the currently selected line on a sublist. */
@@ -481,7 +483,6 @@ declare module "N/record" {
         cancelLine(sublistId: string): Record;
         /** Commits the currently selected line on a sublist. */
         commitLine(options: CommitLineOptions): Record;
-        copy: RecordCopyFunction;
         /** Performs macro operation and returns its result in a plain JavaScript object. */
         executeMacro: ExecuteMacroFunction;
         /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
@@ -630,7 +631,7 @@ declare module "N/record" {
         setValue(fieldId: string, value: FieldValue): this;
 
         /** The record type. */
-        readonly type: Type | `${Type}`;
+        type: RecordType;
     }
 
     // Exported for other modules to be able to consume this type
@@ -700,7 +701,7 @@ declare module "N/record" {
 
     interface SubmitFieldsOptions {
         /** The type of record. */
-        type: Type | string;
+        type: RecordType;
         /** The internal ID of the existing record instance in NetSuite. */
         id: string | number;
         /** The ID-value pairs for each field you want to edit and submit. */
@@ -728,7 +729,7 @@ declare module "N/record" {
         promise(options: CopyLoadOptions): Promise<Record>;
     }
 
-    export type RecordCreateOptions = Omit<CopyLoadOptions, "id">;
+    type RecordCreateOptions = Omit<CopyLoadOptions, "id">;
 
     /**
      * Create a new record object based on provided type
@@ -746,7 +747,7 @@ declare module "N/record" {
         /**
          * The record type.
          */
-        type: Type | string;
+        type: RecordType;
         /**
          * The internal ID of the record instance to be deleted.
          */
@@ -797,11 +798,11 @@ declare module "N/record" {
 
     interface RecordTransformOptions {
         /** The record type of the existing record instance being transformed. */
-        fromType: string | Type;
+        fromType: RecordType;
         /** The internal ID of the existing record instance being transformed. */
         fromId: number;
         /** The record type of the record returned when the transformation is complete. */
-        toType: string | Type;
+        toType: RecordType;
         /** If set to true, the new record is created in dynamic mode. If set to false, the new record is created in standard mode. */
         isDynamic?: boolean;
         /** Name-value pairs containing default values of fields in the new record. */
