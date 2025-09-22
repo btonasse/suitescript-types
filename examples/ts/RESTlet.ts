@@ -1,12 +1,12 @@
 /**
- * @NAPIVersion 2.0
- * @NScriptType UserEventScript
+ * @NAPIVersion 2.1
+ * @NScriptType Restlet
  */
 
-import type { EntryPoints } from "N/types";
+import type { RESTlet } from "N/entryPoints";
 import * as log from "N/log";
 
-const del: EntryPoints.RESTlet.delete_ = (requestParams) => {
+const del: RESTlet.delete_ = (requestParams) => {
     let type = requestParams.type;
     let id = requestParams.id;
 
@@ -16,6 +16,6 @@ const del: EntryPoints.RESTlet.delete_ = (requestParams) => {
 };
 export { del as delete };
 
-export const post: EntryPoints.RESTlet.post = (requestBody) => {
+export const post: RESTlet.post = (requestBody) => {
     return { success: true };
 };
