@@ -7,5 +7,5 @@
         "moduleResolution": "node",
         "lib": ["ES6", "DOM", "DOM.Iterable"]
     },
-    "exclude": ["node_modules", "examples"]
+    "exclude": ["node_modules", "examples", "tests"]
 }

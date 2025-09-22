@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "strict": true,
+        "target": "es6",
+        "skipLibCheck": true,
+        "lib": ["ES6", "DOM", "DOM.Iterable"],
+        "moduleResolution": "node",
+        "paths": {
+            "N/*": ["../types/N/*"]
+        }
+    },
+    "files": ["../types/index.d.ts", "../types/SuiteScriptV1.d.ts"],
+    "include": ["./**/*.ts"]
+}
