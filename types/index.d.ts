@@ -1,5 +1,10 @@
 import { CallbackReturn } from "N/entryPoints";
-import * as SuiteScriptV1 from "SuiteScriptV1";
+import "SuiteScriptV1";
+
+// Make plugins not defined in N/entryPoints available for import
+import "N/plugins/EPPlugin";
+import "N/plugins/EmailCapturePlugin";
+import "N/plugins/glPluginV1";
 
 declare global {
     function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
