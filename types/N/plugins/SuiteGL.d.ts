@@ -1,8 +1,8 @@
 /**
  * NOTE: This file is for SSV1 as of Sept 2024 SSV2 is now supported and has been added to the SSV2. To use
- * the SSV2 version (recommended) the types can be found in EntryPoints namespace in N/types
+ * the SSV2 version (recommended) the types can be found in Plugins namespace in N/entryPoints
  *
- * EntryPoints.Plugins.GlPlugin.customizeGlImpact
+ * Plugins.GlPlugin.customizeGlImpact
  *
  *
  */

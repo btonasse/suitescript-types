@@ -1,95 +1,85 @@
-import type * as N_http from "N/http";
-import type * as N_portlet from "N/portlet";
-import type * as N_record from "N/record";
-import type * as N_search from "N/search";
-import type * as N_ui_serverWidget from "N/ui/serverWidget";
-import type * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
-import type * as N_FiParser from "./plugins/fiParserPlugin";
-import type * as N_GlPlugin from "./plugins/glPlugin";
-import type * as N_dataset from "N/dataset";
-import type * as N_workbook from "N/workbook";
+declare module "N/entryPoints" {
+    import * as N_http from "N/http";
+    import * as N_portlet from "N/portlet";
+    import * as N_record from "N/record";
+    import * as N_search from "N/search";
+    import * as N_ui_serverWidget from "N/ui/serverWidget";
+    import * as N_FiConnectivity from "N/plugins/fiConnectivityPlugin";
+    import * as N_GlPlugin from "N/plugins/glPlugin";
+    import * as N_FiParser from "N/plugins/fiParserPlugin";
+    import * as N_dataset from "N/dataset";
+    import * as N_workbook from "N/workbook";
 
-/*Don't export these into the Namespace as we don't
-want to accidentally use a comparison like this:
-export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context) => {
-    //THIS IS WRONG
-    if(context.Type == EntryPoints.UserEvent.Type.EDIT) {
-        ...
+    enum UserEventType {
+        APPROVE,
+        CANCEL,
+        CHANGEPASSWORD,
+        COPY,
+        CREATE,
+        DELETE,
+        DROPSHIP,
+        EDIT,
+        EDITFORECAST,
+        EMAIL,
+        MARKCOMPLETE,
+        ORDERITEMS,
+        PACK,
+        PAYBILLS,
+        PRINT,
+        QUICKVIEW,
+        REASSIGN,
+        REJECT,
+        SAVESUBMIT,
+        SHIP,
+        SPECIALORDER,
+        TRANSFORM,
+        VIEW,
+        XEDIT,
     }
-};
-*/
 
-declare enum UserEventType {
-    APPROVE,
-    CANCEL,
-    CHANGEPASSWORD,
-    COPY,
-    CREATE,
-    DELETE,
-    DROPSHIP,
-    EDIT,
-    EDITFORECAST,
-    EMAIL,
-    MARKCOMPLETE,
-    ORDERITEMS,
-    PACK,
-    PAYBILLS,
-    PRINT,
-    QUICKVIEW,
-    REASSIGN,
-    REJECT,
-    SAVESUBMIT,
-    SHIP,
-    SPECIALORDER,
-    TRANSFORM,
-    VIEW,
-    XEDIT,
-}
+    interface UserEventTypes {
+        APPROVE: UserEventType;
+        CANCEL: UserEventType;
+        CHANGEPASSWORD: UserEventType;
+        COPY: UserEventType;
+        CREATE: UserEventType;
+        DELETE: UserEventType;
+        DROPSHIP: UserEventType;
+        EDIT: UserEventType;
+        EDITFORECAST: UserEventType;
+        EMAIL: UserEventType;
+        MARKCOMPLETE: UserEventType;
+        ORDERITEMS: UserEventType;
+        PACK: UserEventType;
+        PAYBILLS: UserEventType;
+        PRINT: UserEventType;
+        QUICKVIEW: UserEventType;
+        REASSIGN: UserEventType;
+        REJECT: UserEventType;
+        SAVESUBMIT: UserEventType;
+        SHIP: UserEventType;
+        SPECIALORDER: UserEventType;
+        TRANSFORM: UserEventType;
+        VIEW: UserEventType;
+        XEDIT: UserEventType;
+    }
 
-declare interface UserEventTypes {
-    APPROVE: UserEventType;
-    CANCEL: UserEventType;
-    CHANGEPASSWORD: UserEventType;
-    COPY: UserEventType;
-    CREATE: UserEventType;
-    DELETE: UserEventType;
-    DROPSHIP: UserEventType;
-    EDIT: UserEventType;
-    EDITFORECAST: UserEventType;
-    EMAIL: UserEventType;
-    MARKCOMPLETE: UserEventType;
-    ORDERITEMS: UserEventType;
-    PACK: UserEventType;
-    PAYBILLS: UserEventType;
-    PRINT: UserEventType;
-    QUICKVIEW: UserEventType;
-    REASSIGN: UserEventType;
-    REJECT: UserEventType;
-    SAVESUBMIT: UserEventType;
-    SHIP: UserEventType;
-    SPECIALORDER: UserEventType;
-    TRANSFORM: UserEventType;
-    VIEW: UserEventType;
-    XEDIT: UserEventType;
-}
+    enum ScheduledInvocationType {
+        SCHEDULED, // The normal execution according to the deployment options specified in the UI.
+        ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
+        USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
+        ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
+        SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
+    }
 
-declare enum ScheduledInvocationType {
-    SCHEDULED, // The normal execution according to the deployment options specified in the UI.
-    ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
-    USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
-    ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
-    SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
-}
+    interface ScheduledInvocationTypes {
+        SCHEDULED: ScheduledInvocationType;
+        ON_DEMAND: ScheduledInvocationType;
+        USER_INTERFACE: ScheduledInvocationType;
+        ABORTED: ScheduledInvocationType;
+        SKIPPED: ScheduledInvocationType;
+    }
 
-declare interface ScheduledInvocationTypes {
-    SCHEDULED: ScheduledInvocationType;
-    ON_DEMAND: ScheduledInvocationType;
-    USER_INTERFACE: ScheduledInvocationType;
-    ABORTED: ScheduledInvocationType;
-    SKIPPED: ScheduledInvocationType;
-}
-
-export namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -179,6 +169,22 @@ export namespace EntryPoints {
 
         type localizationContextEnter = (scriptContext: localizationContext) => void;
         type localizationContextExit = (scriptContext: localizationContext) => void;
+
+        interface returnObject {
+            fieldChanged?: fieldChanged;
+            lineInit?: lineInit;
+            pageInit?: pageInit;
+            postSourcing?: postSourcing;
+            sublistChanged?: sublistChanged;
+            validateField?: validateField;
+            validateLine?: validateLine;
+            validateInsert?: validateInsert;
+            validateDelete?: validateDelete;
+            saveRecord?: saveRecord;
+            localizationContextEnter?: localizationContextEnter;
+            localizationContextExit?: localizationContextExit;
+            [key: string]: Function | undefined;
+        }
     }
 
     namespace UserEvent {
@@ -209,6 +215,12 @@ export namespace EntryPoints {
         }
 
         type afterSubmit = (scriptContext: afterSubmitContext) => void;
+
+        interface returnObject {
+            beforeLoad?: beforeLoad;
+            beforeSubmit?: beforeSubmit;
+            afterSubmit?: afterSubmit;
+        }
     }
 
     namespace Scheduled {
@@ -218,6 +230,10 @@ export namespace EntryPoints {
         }
 
         type execute = (scriptContext: executeContext) => void | Promise<void>;
+
+        interface returnObject {
+            execute: execute;
+        }
     }
 
     namespace MapReduce {
@@ -332,6 +348,13 @@ export namespace EntryPoints {
         }
 
         type summarize = (summary: summarizeContext) => Promise<void> | void;
+
+        interface returnObject {
+            getInputData: getInputData;
+            map?: map;
+            reduce?: reduce;
+            summarize: summarize;
+        }
     }
 
     namespace Portlet {
@@ -343,6 +366,10 @@ export namespace EntryPoints {
         }
 
         type render = (scriptContext: renderContext) => void;
+
+        interface returnObject {
+            render: render;
+        }
     }
 
     namespace Suitelet {
@@ -352,6 +379,10 @@ export namespace EntryPoints {
         }
 
         type onRequest = (scriptContext: onRequestContext) => void;
+
+        interface returnObject {
+            onRequest: onRequest;
+        }
     }
 
     namespace MassUpdate {
@@ -361,6 +392,10 @@ export namespace EntryPoints {
         }
 
         type each = (scriptContext: eachContext) => void;
+
+        interface returnObject {
+            each: each;
+        }
     }
 
     namespace WorkflowAction {
@@ -373,13 +408,32 @@ export namespace EntryPoints {
         }
 
         type onAction = (scriptContext: onActionContext) => void;
+
+        interface returnObject {
+            onAction: onAction;
+        }
     }
 
     namespace RESTlet {
-        type get<T = unknown, Y = string> = (requestParams?: Partial<T>) => Promise<Y> | Y;
-        type delete_<T = unknown, Y = string> = (requestParams?: Partial<T>) => Promise<Y> | Y;
-        type post<T = unknown, Y = string> = (requestBody?: Partial<T> | string) => Promise<Y> | Y;
-        type put<T = unknown, Y = string> = (requestBody?: Partial<T> | string) => Promise<Y> | Y;
+        type get<T = Record<string, unknown>, Y = string | Record<string, unknown>> = (
+            requestParams: T
+        ) => Promise<Y> | Y;
+        type delete_<T = Record<string, unknown>, Y = string | Record<string, unknown>> = (
+            requestParams: T
+        ) => Promise<Y> | Y;
+        type post<T = string | Record<string, unknown>, Y = string | Record<string, unknown>> = (
+            requestBody: T
+        ) => Promise<Y> | Y;
+        type put<T = string | Record<string, unknown>, Y = string | Record<string, unknown>> = (
+            requestBody: T
+        ) => Promise<Y> | Y;
+
+        interface returnObject {
+            get?: get;
+            delete?: delete_;
+            post?: post;
+            put?: put;
+        }
     }
 
     namespace BundleInstallation {
@@ -414,6 +468,14 @@ export namespace EntryPoints {
         }
 
         type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
+
+        interface returnObject {
+            afterInstall?: afterInstall;
+            afterUpdate?: afterUpdate;
+            beforeInstall?: beforeInstall;
+            beforeUninstall?: beforeUninstall;
+            beforeUpdate?: beforeUpdate;
+        }
     }
 
     namespace SDFInstallation {
@@ -425,6 +487,10 @@ export namespace EntryPoints {
         }
 
         type run = (scriptContext: runContext) => void;
+
+        interface returnObject {
+            run: run;
+        }
     }
 
     namespace Plugins {
@@ -441,6 +507,13 @@ export namespace EntryPoints {
             type parseData = N_FiParser.parseData;
             type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
             type getExpenseCodes = N_FiParser.getExpenseCodes;
+
+            interface returnObject {
+                getConfigurationPageUrl?: getConfigurationPageUrl;
+                parseData?: N_FiParser.parseData;
+                getStandardTransactionCodes?: N_FiParser.getStandardTransactionCodes;
+                getExpenseCodes?: N_FiParser.getExpenseCodes;
+            }
         }
 
         namespace FiConnectivity {
@@ -455,6 +528,12 @@ export namespace EntryPoints {
             type getTransactionData = N_FiConnectivity.getTransactionData;
             type getAccounts = N_FiConnectivity.getAccounts;
             type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
+
+            interface returnObject {
+                getTransactionData?: getTransactionData;
+                getAccounts?: getAccounts;
+                getConfigurationIFrameUrl?: getConfigurationIFrameUrl;
+            }
         }
 
         namespace DatasetBuilder {
@@ -467,6 +546,10 @@ export namespace EntryPoints {
             }
 
             type createDataset = (scriptContext: createDatasetContext) => void;
+
+            interface returnObject {
+                createDataset: createDataset;
+            }
         }
 
         namespace WorkbookBuilder {
@@ -479,12 +562,19 @@ export namespace EntryPoints {
             }
 
             type createWorkbook = (scriptContext: createWorkbookContext) => void;
+
+            interface returnObject {
+                createWorkbook: createWorkbook;
+            }
         }
 
         namespace GlPlugin {
             interface glPluginContext extends N_GlPlugin.glPluginContext {}
 
             type customizeGlImpact = N_GlPlugin.customizeGlImpact;
+            interface returnObject {
+                customizeGlImpact: customizeGlImpact;
+            }
         }
     }
 
@@ -505,10 +595,39 @@ export namespace EntryPoints {
         }
 
         type executeAction = (scriptContext: executeActionContext) => void;
-    }
-}
 
-interface IKeyValuePair {
-    key: string | object;
-    value: string | object;
+        interface returnObject {
+            isQualified?: isQualified;
+            executeAction?: executeAction;
+        }
+    }
+
+    namespace CustomModule {
+        type returnObject = Record<string, any>;
+    }
+
+    interface IKeyValuePair {
+        key: string | object;
+        value: string | object;
+    }
+
+    export type CallbackReturn =
+        | Client.returnObject
+        | UserEvent.returnObject
+        | Scheduled.returnObject
+        | MapReduce.returnObject
+        | Portlet.returnObject
+        | Suitelet.returnObject
+        | MassUpdate.returnObject
+        | WorkflowAction.returnObject
+        | RESTlet.returnObject
+        | BundleInstallation.returnObject
+        | SDFInstallation.returnObject
+        | Plugins.FiParser.returnObject
+        | Plugins.FiConnectivity.returnObject
+        | Plugins.DatasetBuilder.returnObject
+        | Plugins.WorkbookBuilder.returnObject
+        | Plugins.GlPlugin.returnObject
+        | CustomRecordAction.returnObject
+        | CustomModule.returnObject;
 }
