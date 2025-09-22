@@ -319,7 +319,8 @@ export function checkStatus(
     | WorkflowTriggerTaskStatus
     | SuiteQLTaskStatus
     | QueryTaskStatus
-    | RecordActionTaskStatus;
+    | RecordActionTaskStatus
+    | SearchTaskStatus;
 
 /** Holds the string values for the possible record action conditions. */
 export enum ActionCondition {

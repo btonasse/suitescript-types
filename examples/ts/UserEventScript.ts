@@ -3,12 +3,12 @@
  * @NScriptType UserEventScript
  */
 
-import type { EntryPoints } from "N/types";
+import type { UserEvent } from "N/entryPoints";
 import * as log from "N/log";
 import * as query from "N/query";
 
 // Let's assume this example is deployed to sales orders
-export function beforeSubmit(context: EntryPoints.UserEvent.beforeSubmitContext) {
+export function beforeSubmit(context: UserEvent.beforeSubmitContext) {
     if (context.type == context.UserEventType.CREATE) {
         const customerId = context.newRecord.getValue("entity") as string;
         log.debug("beforeSubmit", `Submitting new transaction for entity: ${customerId}`); // When creating a transaction from an entity, log the entity internal id

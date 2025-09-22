@@ -1,9 +1,9 @@
-interface IAddress {
+interface Address {
     getEmail(): string;
     getName(): string;
 }
 
-interface IAttachment {
+interface Attachment {
     /**
      * Object that represents an attachment in an email message sent to an Email Capture plug-in implementation.
      * Each Attachment object contains properties for the attachment file name, attachment type, and the value of the attachment file.
@@ -19,14 +19,16 @@ interface IAttachment {
 }
 
 /** Object that represents an email message sent to the Email Capture plug-in implementation. */
-interface IEmail {
-    getAttachments(): IAttachment[];
-    getCc(): IAddress;
-    getFrom(): IAddress[];
+interface Email {
+    getAttachments(): Attachment[];
+    getCc(): Address[];
+    getFrom(): Address;
     getHtmlBody(): string;
-    getReplyTo(): IAddress;
+    getReplyTo(): Address;
     getSentDate(): Date;
     getSubject(): string;
     getTextBody(): string;
-    getTo(): IAddress;
+    getTo(): Address[];
 }
+
+export function process(email: Email): void;

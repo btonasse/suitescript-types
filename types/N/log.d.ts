@@ -9,12 +9,14 @@ interface LogOptions {
     details?: any;
 }
 
-interface LogFunction {
-    (title: string, details: any): void;
-    (options: LogOptions): void;
-}
+export function debug(title: string, details: any): void;
+export function debug(options: LogOptions): void;
 
-export const debug: LogFunction;
-export const audit: LogFunction;
-export const error: LogFunction;
-export const emergency: LogFunction;
+export function audit(title: string, details: any): void;
+export function audit(options: LogOptions): void;
+
+export function error(title: string, details: any): void;
+export function error(options: LogOptions): void;
+
+export function emergency(title: string, details: any): void;
+export function emergency(options: LogOptions): void;
