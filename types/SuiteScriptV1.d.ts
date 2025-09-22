@@ -8,7 +8,7 @@ interface NLObjAssistant {
      * @param {number|string} source script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
      * @param {string} group group name that this field will live on. If empty then the field is added to the main section of the page
      */
-    addField(name: string, type: string, label?: string, source?: number|string, group?: string): NLObjField;
+    addField(name: string, type: string, label?: string, source?: number | string, group?: string): NLObjField;
     /**
      * Add a field group to the page.
      * @param {string} name field group name
@@ -133,7 +133,7 @@ interface NLObjAssistant {
      * Set the script ID for Client Script used for this form.
      * @param {string|number} script Script ID or internal ID for global client script used to enable Client SuiteScript on page.
      */
-    setScript(script: string|number): void;
+    setScript(script: string | number): void;
     /**
      * Show/hide shortcut link. Always hidden on external pages.
      * @param {boolean} show Enable/disable "Add To Shortcut" link on this page.
@@ -198,13 +198,12 @@ interface NLObjAssistantStep {
      * Set helper text for this assistant step.
      * @param {string} help inline help text to display on assistant page for this step
      */
-    setHelpText(help: string): NLObjAssistantStep
+    setHelpText(help: string): NLObjAssistantStep;
     /**
      * Set the label for this assistant step.
      * @param {string} label display label used for this assistant step
      */
     setLabel(label: string): void;
-
 }
 
 /** Buttons used for triggering custom behaviors on pages. */
@@ -514,7 +513,7 @@ interface NLObjCSVImport {
      * @param {string} sublist The internal ID of the record sublist for which data is being imported.
      * @param {string|NLObjFile} file Raw data or nlobjFile object containing CSV data.
      */
-    setLinkedFile(sublist: string, file: string|NLObjFile): NLObjCSVImport;
+    setLinkedFile(sublist: string, file: string | NLObjFile): NLObjCSVImport;
     /**
      * Sets the name of the saved import map to be used for an import, by referencing the internal ID or script ID of the import map.
      *
@@ -533,7 +532,7 @@ interface NLObjCSVImport {
      *
      * @param {string|NLObjFile} file Raw data or nlobjFile object containing CSV data.
      */
-    setPrimaryFile(file: string|NLObjFile): void;
+    setPrimaryFile(file: string | NLObjFile): void;
     /**
      * Sets the data to be imported in the primary file for an import job, by referencing a file in the file cabinet using nlapiLoadFile, or by inputting CSV data as raw string.
      *
@@ -555,7 +554,7 @@ interface NLObjEmailMerger {
      * Perform the merge and return an object containing email subject and body.
      * @governance 20 units
      */
-    merge(): { subject: string, body: string };
+    merge(): { subject: string; body: string };
     /**
      * Associate a custom record to the merger.
      * @param {string} recordType type of the custom record
@@ -766,7 +765,7 @@ interface NLObjFile {
      * Return the id of the file (if stored in the FC).
      */
     getId(): number;
-	/**
+    /**
      * Return the name of the file.
      */
     getName(): string;
@@ -824,7 +823,6 @@ interface NLObjFile {
      * @param {string} name the name of the file.
      */
     setName(name: string): void;
-
 }
 
 interface NLObjForm {
@@ -847,7 +845,15 @@ interface NLObjForm {
      * @param {boolean} entityMatch Controls whether use of nlapiRequestUrlWithCredentials with this credential is restricted to the same entity that originally entered the credential.
      * @param {string} tab The tab parameter can be used to specify either a tab or a field group (if you have added nlobjFieldGroup objects to your form).
      */
-    addCredentialField(id: string, label: string, website?: string, scriptId?: string, value?: string, entityMatch?: boolean, tab?: string): NLObjField;
+    addCredentialField(
+        id: string,
+        label: string,
+        website?: string,
+        scriptId?: string,
+        value?: string,
+        entityMatch?: boolean,
+        tab?: string
+    ): NLObjField;
     /**
      * Add a field (nlobjField) to this form and return it.
      *
@@ -857,7 +863,7 @@ interface NLObjForm {
      * @param {string|number} sourceOrRadio Script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
      * @param {string} tab Tab name that this field will live on. If empty then the field is added to the main section of the form (immediately below the title bar).
      */
-    addField(name: string, type: string, label: string, sourceOrRadio?: string|number, tab?: string): NLObjField;
+    addField(name: string, type: string, label: string, sourceOrRadio?: string | number, tab?: string): NLObjField;
     /**
      * Add a field group to the form.
      * @param {string} name field group name
@@ -987,7 +993,7 @@ interface NLObjForm {
      *
      * @param {string|number} script Script ID or internal ID for global client script used to enable Client SuiteScript on page
      */
-    setScript(script: string|number): void;
+    setScript(script: string | number): void;
     /**
      * Set the page title.
      *
@@ -1009,9 +1015,7 @@ interface NLObjJobManager {
     submit(request: NLObjJobRequest): string;
 }
 
-interface NLObjJobRequest {
-
-}
+interface NLObjJobRequest {}
 
 interface NLObjList {
     /**
@@ -1044,19 +1048,19 @@ interface NLObjList {
      *
      * @param {string[]|NLObjSearchResult} row data used to add a single row
      */
-    addRow(row: string[]|NLObjSearchResult): void;
+    addRow(row: string[] | NLObjSearchResult): void;
     /**
      * Add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this portlet.
      *
      * @param {string[][]|NLObjSearchResult[]} rows data used to add multiple rows
      */
-    addRows(rows: string[][]|NLObjSearchResult[]): void;
+    addRows(rows: string[][] | NLObjSearchResult[]): void;
     /**
      * Set the Client SuiteScript used for this page.
      *
      * @param {string|number} script script ID or internal ID for global client script used to enable Client SuiteScript on page
      */
-    setScript(script: string|number): void;
+    setScript(script: string | number): void;
     /**
      * Set the global style for this list: grid|report|plain|normal.
      *
@@ -1191,7 +1195,7 @@ interface NLObjPortlet {
      * @param {string} label field label
      * @param {string|number} source Script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
      */
-    addField(name: string, type: string, label?: string, source?: string|number): NLObjField;
+    addField(name: string, type: string, label?: string, source?: string | number): NLObjField;
     /**
      * Add a line (containing text or simple HTML) with optional indenting and URL to this LINKS portlet.
      *
@@ -1205,13 +1209,13 @@ interface NLObjPortlet {
      *
      * @param {string[]|NLObjSearchResult} row
      */
-    addRow(row: string[]|NLObjSearchResult): void;
+    addRow(row: string[] | NLObjSearchResult): void;
     /**
      * Add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this LIST portlet.
      *
      * @param {string[][]|NLObjSearchResult[]} rows
      */
-    addRows(rows: string[][]|NLObjSearchResult[]): void;
+    addRows(rows: string[][] | NLObjSearchResult[]): void;
     /**
      * Set the entire contents of the HTML portlet (will be placed inside a <TD>...</TD>).
      *
@@ -1231,7 +1235,7 @@ interface NLObjPortlet {
      *
      * @param {number|string} scriptId The script internalId or custom scriptId of a record-level client script.
      */
-    setScript(scriptId: number|string): void;
+    setScript(scriptId: number | string): void;
     /**
      * Add a FORM submit button to this FORM portlet.
      *
@@ -1544,14 +1548,14 @@ interface NLObjRecord {
      * @param {string} name sublist field name
      * @param {string|number} value sublist field value
      */
-    setCurrentLineItemText(group: string, name: string, value: string|number): void;
+    setCurrentLineItemText(group: string, name: string, value: string | number): void;
     /**
      * Set the current value of a sublist field.
      * @param {string} group sublist name
      * @param {string} name sublist field name
      * @param {string|number} value sublist field value
      */
-    setCurrentLineItemValue(group: string, name: string, value: string|number): void;
+    setCurrentLineItemValue(group: string, name: string, value: string | number): void;
     /**
      * Set the value of a field.
      *
@@ -1582,7 +1586,7 @@ interface NLObjRecord {
      * @param {string} name Field name
      * @param {string|number} value Field value
      */
-    setFieldValue(name: string, value: string|number): void;
+    setFieldValue(name: string, value: string | number): void;
     /**
      * Set the values of a multi-select field.
      *
@@ -1608,7 +1612,7 @@ interface NLObjRecord {
      * @param {number|string} line line number (1-based)
      * @param {string|number} value sublist field value
      */
-    setLineItemValue(group: string, name: string, line: number|string, value: string|number): void;
+    setLineItemValue(group: string, name: string, line: number | string, value: string | number): void;
     /**
      * Set the value of a matrix header field.
      *
@@ -1658,8 +1662,8 @@ interface NLObjReportColumn {
 
 interface NLObjReportColumnHierarchy {
     /**
-    * Get the children reference of this column hierarchy.
-    */
+     * Get the children reference of this column hierarchy.
+     */
     getChildren(): NLObjReportColumnHierarchy;
     /**
      * Get the parent reference of this column hierarchy.
@@ -1669,64 +1673,82 @@ interface NLObjReportColumnHierarchy {
 
 interface NLObjReportDefinition {
     /**
-    * Add a column to the report definition.
-    * @param {string} alias The column alias.
-    * @param {boolean} isMeasure A value of true means that the column is flagged as a measure.
-    * @param {string} label The column label that will be displayed on the report.
-    * @param {NLObjReportColumnHierarchy} parent The reference to the parent column in the hierarchy. If null, then this column will not be associated with a parent column.
-    * @param {string} format The data type that this column represents
-    * @param {string} formula A string which describes a mathematical formula in the format of 'F(x,y,z) = mathematical function', where x,y,z are previously defined aliases from addRowHierarchy, addColumnHierarchy, or addColumn calls.
-    */
-    addColumn(alias: string, isMeasure: boolean, label: string, parent?: NLObjReportColumnHierarchy, format?: string, formula?: string): NLObjReportColumn;
+     * Add a column to the report definition.
+     * @param {string} alias The column alias.
+     * @param {boolean} isMeasure A value of true means that the column is flagged as a measure.
+     * @param {string} label The column label that will be displayed on the report.
+     * @param {NLObjReportColumnHierarchy} parent The reference to the parent column in the hierarchy. If null, then this column will not be associated with a parent column.
+     * @param {string} format The data type that this column represents
+     * @param {string} formula A string which describes a mathematical formula in the format of 'F(x,y,z) = mathematical function', where x,y,z are previously defined aliases from addRowHierarchy, addColumnHierarchy, or addColumn calls.
+     */
+    addColumn(
+        alias: string,
+        isMeasure: boolean,
+        label: string,
+        parent?: NLObjReportColumnHierarchy,
+        format?: string,
+        formula?: string
+    ): NLObjReportColumn;
     /**
-    * Add a column hierarchy to the report definition.
-    *
-    * @param {string} alias The column alias.
-    * @param {string} label The column label that will be displayed on the report.
-    * @param {NLObjReportColumnHierarchy}  parent The reference of the parent column in the hierarchy. If null, then this column will be the root (top level) column.
-    * @param {string} format The data type that this column represents
-    *
-    * return {nlobjReportColumnHierarchy}
-    *
-    * @since 2012.2
-    */
-    addColumnHierarchy(alias: string, label: string, parent?: NLObjReportColumnHierarchy, format?: string): NLObjReportColumnHierarchy;
+     * Add a column hierarchy to the report definition.
+     *
+     * @param {string} alias The column alias.
+     * @param {string} label The column label that will be displayed on the report.
+     * @param {NLObjReportColumnHierarchy}  parent The reference of the parent column in the hierarchy. If null, then this column will be the root (top level) column.
+     * @param {string} format The data type that this column represents
+     *
+     * return {nlobjReportColumnHierarchy}
+     *
+     * @since 2012.2
+     */
+    addColumnHierarchy(
+        alias: string,
+        label: string,
+        parent?: NLObjReportColumnHierarchy,
+        format?: string
+    ): NLObjReportColumnHierarchy;
     /**
-    * Add a row hierarchy to the report definition.
-    *
-    * @param {string} alias The row alias.
-    * @param {string} label The row label that will be displayed on the report.
-    * @param {string} format The data type that this row represents.
-    */
+     * Add a row hierarchy to the report definition.
+     *
+     * @param {string} alias The row alias.
+     * @param {string} label The row label that will be displayed on the report.
+     * @param {string} format The data type that this row represents.
+     */
     addRowHierarchy(alias: string, label: string, format: string): NLObjReportRowHierarchy;
     /**
-    * Attaches a search as a data source to the report definition.
-    *
-    * @param {string} searchType The type of records to search.
-    * @param {string} id The internal id if you are using a saved search as a data source.
-    * @param {NLObjSearchFilter[]} filters The array of search filters.
-    * @param {NLObjSearchColumn[]} columns The array of search columns.
-    * @param {string} map The mapping of rows/columns of the search to the report.
-    */
-    addSearchDatasource(searchType: string, id?: string, filters?: NLObjSearchFilter[], columns?: NLObjSearchColumn[], map?: string): void;
+     * Attaches a search as a data source to the report definition.
+     *
+     * @param {string} searchType The type of records to search.
+     * @param {string} id The internal id if you are using a saved search as a data source.
+     * @param {NLObjSearchFilter[]} filters The array of search filters.
+     * @param {NLObjSearchColumn[]} columns The array of search columns.
+     * @param {string} map The mapping of rows/columns of the search to the report.
+     */
+    addSearchDatasource(
+        searchType: string,
+        id?: string,
+        filters?: NLObjSearchFilter[],
+        columns?: NLObjSearchColumn[],
+        map?: string
+    ): void;
     /**
-    * Creates the form for rendering from the report definition.
-    *
-    * @param {NLObjReportForm} form The form object created with nlapiCreateReportForm.
-    */
+     * Creates the form for rendering from the report definition.
+     *
+     * @param {NLObjReportForm} form The form object created with nlapiCreateReportForm.
+     */
     executeReport(form: NLObjReportForm): NLObjPivotTableHandle;
     /**
-    * Sets the title of the report definition.
-    *
-    * @param {string} title The name of the report definition.
-    */
+     * Sets the title of the report definition.
+     *
+     * @param {string} title The name of the report definition.
+     */
     setTitle(title?: string): NLObjPivotTableHandle;
 }
 
 interface NLObjReportRowHierarchy {
     /**
-    * Get the children reference of this column hierarchy.
-    */
+     * Get the children reference of this column hierarchy.
+     */
     getChildren(): NLObjReportRowHierarchy;
     /**
      * Get the parent reference of this column hierarchy.
@@ -1734,7 +1756,7 @@ interface NLObjReportRowHierarchy {
     getParent(): NLObjReportRowHierarchy;
 }
 
-interface NLObjReportForm { }
+interface NLObjReportForm {}
 
 interface NLObjRequest {
     /**
@@ -1969,7 +1991,7 @@ interface NLObjSearch {
      * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
      * @param {(string|string[])[]} filterExpression The filter expression you want to set in the search. Passing in null or [] removes all filters from the search.
      */
-    setFilterExpression(filterExpression: (string|string[])[]): void;
+    setFilterExpression(filterExpression: (string | string[])[]): void;
     /**
      * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
      *
@@ -2079,7 +2101,13 @@ interface NLObjSearchColumn {
  * @param {string|string[]} value
  * @param {string} value2
  */
-declare function nlobjSearchFilter(name: string, join: string, operator: string, value?: string|string[], value2?: string): void;
+declare function nlobjSearchFilter(
+    name: string,
+    join: string,
+    operator: string,
+    value?: string | string[],
+    value2?: string
+): void;
 interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
@@ -2236,7 +2264,7 @@ interface NLObjSubList {
      * @param {string} label Field label
      * @param {string|number} source Script ID or internal ID for source list used for this select field
      */
-    addField(name: string, type: string, label: string, source?: string|number): NLObjField;
+    addField(name: string, type: string, label: string, source?: string | number): NLObjField;
     /**
      * Add "Mark All" and "Unmark All" buttons to this sublist of type "list".
      */
@@ -2296,7 +2324,7 @@ interface NLObjSubList {
      *
      * @param {string[][]|NLObjSearchResult[]|Object} values
      */
-    setLineItemValues(values: string[][]|NLObjSearchResult[]|Object): void;
+    setLineItemValues(values: string[][] | NLObjSearchResult[] | Object): void;
     /**
      * Designate a field on sublist that must be unique across all lines (only supported on sublists of type inlineeditor, editor).
      * @param {string} fldnam the name of a field on this sublist whose value must be unique across all lines
@@ -2342,7 +2370,7 @@ interface NLObjSubrecord {
      * @param {string} name Field name
      * @param {string|number} value Field value
      */
-    setFieldValue(name: string, value: string|number): void;
+    setFieldValue(name: string, value: string | number): void;
 }
 
 interface NLObjTab {
@@ -2378,7 +2406,7 @@ interface NLObjTemplateRenderer {
      * @governance 20 units
      * @return {object} pure javascript object with two properties: subject and body
      */
-    merge(): { subject: string, body: string };
+    merge(): { subject: string; body: string };
     /**
      * Render the output of the template engine into the response.
      * @param {NLObjResponse} nlobjResponse
@@ -2394,7 +2422,7 @@ interface NLObjTemplateRenderer {
      * @param  {number} recordId ID of the record to be associated with the merger
      */
     setCustomRecord(recordType: string, recordId: number): void;
-     /**
+    /**
      * Associate an entity to the merger.
      * @param  {string} entityType Type of the entity (customer/contact/partner/vendor/employee)
      * @param  {number} entityId ID of the entity to be associated with the merger.
@@ -2453,7 +2481,13 @@ declare function nlapiAddMonths(d: Date, months: number): Date;
  * @param {number|string} id2 The internal ID for the record being attached to.
  * @param {Object} properties Object containing name/value pairs used to configure attach operation.
  */
-declare function nlapiAttachRecord(type1: string, id1: number|string, type2: string, id2: number|string, properties?: Object): void;
+declare function nlapiAttachRecord(
+    type1: string,
+    id1: number | string,
+    type2: string,
+    id2: number | string,
+    properties?: Object
+): void;
 /**
  * Cancel any changes made on the currently selected line.
  * @restriction Only supported for sublists of type inlineeditor and editor
@@ -2473,7 +2507,7 @@ declare function nlapiCommitLineItem(type: string): void;
  * @param {number|string} id The internal ID of the record to copy.
  * @param {Object} initializeValues Contains an array of name/value pairs of defaults to be used during record initialization.
  */
-declare function nlapiCopyRecord(type: string, id: number|string, initializeValues?: Object): NLObjRecord;
+declare function nlapiCopyRecord(type: string, id: number | string, initializeValues?: Object): NLObjRecord;
 /**
  * Return a new assistant page.
  * @restriction Suitelets only
@@ -2558,7 +2592,11 @@ declare function nlapiCreateReportForm(title: string): NLObjReportForm;
  * @param {NLObjSearchFilter|NLObjSearchFilter[]|Object[]} filters A single nlobjSearchFilter object or an array of nlobjSearchFilter objects or a search filter expression
  * @param {NLObjSearchColumn|NLObjSearchColumn[]} columns A single nlobjSearchColumn object or an array of nlobjSearchColumn objects.
  */
-declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|any[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
+declare function nlapiCreateSearch(
+    type: string,
+    filters?: NLObjSearchFilter | any[],
+    columns?: NLObjSearchColumn | NLObjSearchColumn[]
+): NLObjSearch;
 /**
  * Create a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -2591,7 +2629,7 @@ declare function nlapiDeleteFile(id: number): number;
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to delete.
  */
-declare function nlapiDeleteRecord(type: string, id: number|string): void;
+declare function nlapiDeleteRecord(type: string, id: number | string): void;
 /**
  * Detach a single record from another with optional properties.
  * @param {string} type1 The record type name being attached.
@@ -2651,7 +2689,11 @@ declare function nlapiEscapeXML(text: string): string;
  * @param {string|number} toCurrency Internal ID or currency code of currency we are converting to.
  * @param {string} date String containing date of effective exchange rate. defaults to today.
  */
-declare function nlapiExchangeRate(fromCurrency: string|number, toCurrency: string|number, date?: string): number | string;
+declare function nlapiExchangeRate(
+    fromCurrency: string | number,
+    toCurrency: string | number,
+    date?: string
+): number | string;
 /**
  * Return the first line number that a matrix field value appears in.
  *
@@ -2674,7 +2716,7 @@ declare function nlapiFindLineItemValue(type: string, fldnam: string, val: strin
  *
  * @param {string|number} str Numeric string used to format for display as currency using user's locale.
  */
-declare function nlapiFormatCurrency(str: string|number): string;
+declare function nlapiFormatCurrency(str: string | number): string;
 /**
  * Return context information about the current user/script.
  */
@@ -2725,7 +2767,7 @@ declare function nlapiGetDepartment(): number;
  * @param {string} fieldId the internal field ID of a datetime field
  * @param {string|number} timeZone One of values (string) or keys (int) from the Olson Values table
  */
-declare function nlapiGetDateTimeValue(fieldId: string, timeZone?: string|number): string;
+declare function nlapiGetDateTimeValue(fieldId: string, timeZone?: string | number): string;
 /**
  * Return field definition for a field.
  * @param {string} fldnam The name of the field.
@@ -2764,7 +2806,12 @@ declare function nlapiGetJobManager(jobType: string): NLObjJobManager;
  * @param {int} 	linenum Line number (1-based)
  * @param {string} 	timezone
  */
-declare function nlapiGetLineItemDateTimeValue(type: string, fldnam: string, linenum: number, timezone?: string): string;
+declare function nlapiGetLineItemDateTimeValue(
+    type: string,
+    fldnam: string,
+    linenum: number,
+    timezone?: string
+): string;
 /**
  * Return the number of sublists in a sublist on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -2796,7 +2843,13 @@ declare function nlapiGetLineItemMatrixField(type: string, fldnam: string, linen
  * @param {number} 	column Column index (1-based)
  * @param {string}  value
  */
-declare function nlapiGetLineItemMatrixValue(type: string, fldnam: string, linenum: number, column: number, value: string): string;
+declare function nlapiGetLineItemMatrixValue(
+    type: string,
+    fldnam: string,
+    linenum: number,
+    column: number,
+    value: string
+): string;
 /**
  * Return the label of a select field's current selection for a particular line.
  *
@@ -2891,7 +2944,7 @@ declare function nlapiGetUser(): number;
  * @param {number} id Internal ID of the base record.
  * @param {string|number} workflowId Internal ID or script ID for the workflow definition.
  */
-declare function nlapiInitiateWorkflow(recordtype: string, id: number, workflowId: string|number): number;
+declare function nlapiInitiateWorkflow(recordtype: string, id: number, workflowId: string | number): number;
 /**
  * Initiates a workflow on-demand and returns the workflow instance ID for the workflow-record combination.
  * @governance 20 units
@@ -2901,7 +2954,12 @@ declare function nlapiInitiateWorkflow(recordtype: string, id: number, workflowI
  * @param {string|number} workflowId Internal ID or script ID for the workflow definition.
  * @param {Object} parameters
  */
-declare function nlapiInitiateWorkflowAsync(recordtype: string, id: number, workflowId: string|number, parameters: Object): number;
+declare function nlapiInitiateWorkflowAsync(
+    recordtype: string,
+    id: number,
+    workflowId: string | number,
+    parameters: Object
+): number;
 /**
  * Insert and select a new line into the sublist on a page or user event.
  *
@@ -2919,7 +2977,13 @@ declare function nlapiInsertLineItem(type: string, line?: number): void;
  * @param {string} text Display text for select option
  * @param {boolean} selected If true then option will be selected by default
  */
-declare function nlapiInsertLineItemOption(type: string, fldnam: string, value: string, text: string, selected?: boolean): void;
+declare function nlapiInsertLineItemOption(
+    type: string,
+    fldnam: string,
+    value: string,
+    text: string,
+    selected?: boolean
+): void;
 /**
  * Adds a select option to a scripted select or multiselect field.
  * @restriction Client SuiteScript only
@@ -2952,14 +3016,14 @@ declare function nlapiLoadConfiguration(type: string): NLObjConfiguration;
  *
  * @param {string|number} id Internal ID or relative path to file in the file cabinet (i.e. /SuiteScript/foo.js)
  */
-declare function nlapiLoadFile(id: string|number): NLObjFile;
+declare function nlapiLoadFile(id: string | number): NLObjFile;
 /**
  * Load an existing record from the system.
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to copy.
  * @param {Object} initializeValues Key-value pair of supported initial values.
  */
-declare function nlapiLoadRecord(type: string, id: number|string, initializeValues?: any): NLObjRecord;
+declare function nlapiLoadRecord(type: string, id: number | string, initializeValues?: any): NLObjRecord;
 /**
  * Loads an existing saved search.
  *
@@ -2975,7 +3039,11 @@ declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
  * @param {string} title Log title (up to 90 characters supported)
  * @param {string|number|boolean} details Log details (up to 3000 characters supported)
  */
-declare function nlapiLogExecution(type: 'DEBUG' | 'AUDIT' | 'ERROR' | 'EMERGENCY' | 'debug' | 'audit' | 'error' | 'emergency', title: string, details?: string|number|boolean): void;
+declare function nlapiLogExecution(
+    type: "DEBUG" | "AUDIT" | "ERROR" | "EMERGENCY" | "debug" | "audit" | "error" | "emergency",
+    title: string,
+    details?: string | number | boolean
+): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
@@ -2984,7 +3052,12 @@ declare function nlapiLogExecution(type: 'DEBUG' | 'AUDIT' | 'ERROR' | 'EMERGENC
  * @param {string|string[]} fields Field or fields to look up.
  * @param {boolean} text If true then the display value is returned instead for select fields.
  */
-declare function nlapiLookupField(type: string, id: number|string, fields: string|string[], text?: boolean): string|Object;
+declare function nlapiLookupField(
+    type: string,
+    id: number | string,
+    fields: string | string[],
+    text?: boolean
+): string | Object;
 /**
  * Perform a mail merge operation using any template and up to 2 records and returns an nlobjFile with the results.
  * @restriction only supported for record types that are available in mail merge: transactions, entities, custom records, and cases
@@ -2998,7 +3071,14 @@ declare function nlapiLookupField(type: string, id: number|string, fields: strin
  * @param {number} altId internal ID of secondary record
  * @param {Object} fields Object of merge field values to use in the mail merge (by default all field values are obtained from records) which overrides those from the record.
  */
-declare function nlapiMergeRecord(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
+declare function nlapiMergeRecord(
+    id: number,
+    baseType: string,
+    baseId: number,
+    altType?: string,
+    altId?: number,
+    fields?: Object
+): NLObjFile;
 /**
  * This API is deprecated as of NetSuite Version 2008 Release 1.
  *
@@ -3011,7 +3091,14 @@ declare function nlapiMergeRecord(id: number, baseType: string, baseId: number, 
  *
  * @deprecated
  */
-declare function nlapiMergeTemplate(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
+declare function nlapiMergeTemplate(
+    id: number,
+    baseType: string,
+    baseId: number,
+    altType?: string,
+    altId?: number,
+    fields?: Object
+): NLObjFile;
 /**
  * Return a URL with a generated OAuth token.
  * @restriction Suitelets and Portlets only
@@ -3088,7 +3175,13 @@ declare function nlapiRemoveSubrecord(fldnam: string): void;
  * @param {function} callback Available on the Client to support asynchronous requests. Function is passed an nlobjServerResponse with the results.
  * @param {string} method HTTP method: GET, POST, PUT, DELETE, etc.
  */
-declare function nlapiRequestURL(url: string, postdata?: string|Object, headers?: Object, callback?: Function, method?: string): NLObjServerResponse;
+declare function nlapiRequestURL(
+    url: string,
+    postdata?: string | Object,
+    headers?: Object,
+    callback?: Function,
+    method?: string
+): NLObjServerResponse;
 /**
  * Allows you to send credentials outside of NetSuite. This API securely accesses a handle to credentials that users specify in a NetSuite credential field.
  * @param {string[]} credentials List of credential handles.
@@ -3097,7 +3190,13 @@ declare function nlapiRequestURL(url: string, postdata?: string|Object, headers?
  * @param {Object} headers Object containing request headers.
  * @param {string} method HTTP method: GET, POST, PUT, DELETE, etc.
  */
-declare function nlapiRequestURLWithCredentials(credentials: string[], url: string, postData: string|Object, headers: Object, method: string): NLObjServerResponse;
+declare function nlapiRequestURLWithCredentials(
+    credentials: string[],
+    url: string,
+    postData: string | Object,
+    headers: Object,
+    method: string
+): NLObjServerResponse;
 /**
  * Causes a custom form portlet to be resized.
  */
@@ -3109,7 +3208,7 @@ declare function nlapiResizePortlet(): void;
  * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a.
  * @param {string|boolean} pageMode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
  */
-declare function nlapiResolveURL(type: string, subtype: string, id?: string, pageMode?: string|boolean): string;
+declare function nlapiResolveURL(type: string, subtype: string, id?: string, pageMode?: string | boolean): string;
 /**
  * Queue a scheduled script for immediate execution and return the status QUEUED if successful.
  * @restriction Server SuiteScript only
@@ -3120,7 +3219,11 @@ declare function nlapiResolveURL(type: string, subtype: string, id?: string, pag
  * @param {Object} parameters Object of parameter name->values used in this scheduled script instance
  * @return {string} QUEUED or null if no available deployments were found or the current status of the deployment specified if it was not available.
  */
-declare function nlapiScheduleScript(script: string|number, deployment?: string|number, parameters?: Object): string;
+declare function nlapiScheduleScript(
+    script: string | number,
+    deployment?: string | number,
+    parameters?: Object
+): string;
 /**
  * Perform a duplicate record search using Duplicate Detection criteria.
  * @param {string} type The recordType you are checking duplicates for (for example, customer|lead|prospect|partner|vendor|contact).
@@ -3141,10 +3244,10 @@ declare function nlapiSearchGlobal(keywords: string): NLObjSearchResult[];
  * @param {NLObjSearchColumn|NLObjSearchColumn[]} columns A single column object or an array of column objects.
  */
 declare function nlapiSearchRecord(
-    type:     string,
-    id?:      number|string,
-    filters?: NLObjSearchFilter|any[],
-    columns?: NLObjSearchColumn|NLObjSearchColumn[]
+    type: string,
+    id?: number | string,
+    filters?: NLObjSearchFilter | any[],
+    columns?: NLObjSearchColumn | NLObjSearchColumn[]
 ): NLObjSearchResult[];
 /**
  * Select an existing line in a sublist.
@@ -3210,12 +3313,12 @@ declare function nlapiSendCampaignEmail(campaignEventId: number, recipientId: nu
  * @param {string} replyTo Email reply-to address.
  */
 declare function nlapiSendEmail(
-    from: number|string,
-    to: string|number|string[], // NOTE: The help file says that the options are string | int, but the documentation also notes that string[] is valid.
+    from: number | string,
+    to: string | number | string[], // NOTE: The help file says that the options are string | int, but the documentation also notes that string[] is valid.
     subject: string,
     body: string,
-    cc?: string|string[],
-    bcc?: string|string[],
+    cc?: string | string[],
+    bcc?: string | string[],
     records?: Object,
     files?: NLObjFile[],
     notifySenderOnBounce?: boolean,
@@ -3231,7 +3334,14 @@ declare function nlapiSendEmail(
  * @param {Object} records Object of base types -> internal IDs used to associate fax to records. i.e. {entity: 100, record: 23, recordtype: customrecord_surveys}.
  * @param {NLObjFile[]} files Array of nlObjFile objects (files) to include as attachments.
  */
-declare function nlapiSendFax(from: number, to: string|number, subject: string, body: string, records?: Object, files?: NLObjFile[]): void;
+declare function nlapiSendFax(
+    from: number,
+    to: string | number,
+    subject: string,
+    body: string,
+    records?: Object,
+    files?: NLObjFile[]
+): void;
 /**
  * Set the value of a field on the currently selected line.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3241,7 +3351,12 @@ declare function nlapiSendFax(from: number, to: string|number, subject: string, 
  * @param {string} value Field value
  * @param {string} timezone Timezone
  */
-declare function nlapiSetCurrentLineItemDateTimeValue(type: string,fldnam: string, value: string, timezone?: string): void;
+declare function nlapiSetCurrentLineItemDateTimeValue(
+    type: string,
+    fldnam: string,
+    value: string,
+    timezone?: string
+): void;
 /**
  * Set the current value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3254,7 +3369,14 @@ declare function nlapiSetCurrentLineItemDateTimeValue(type: string,fldnam: strin
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true)
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetCurrentLineItemMatrixValue(type: string, fldnam: string, column: number, value: string, fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetCurrentLineItemMatrixValue(
+    type: string,
+    fldnam: string,
+    column: number,
+    value: string,
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the value of a field on the currently selected line using it's label.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3265,7 +3387,13 @@ declare function nlapiSetCurrentLineItemMatrixValue(type: string, fldnam: string
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true)
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetCurrentLineItemText(type: string, fldnam: string, txt: string, fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetCurrentLineItemText(
+    type: string,
+    fldnam: string,
+    txt: string,
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the value of a field on the currently selected line.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3276,7 +3404,13 @@ declare function nlapiSetCurrentLineItemText(type: string, fldnam: string, txt: 
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true)
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string|number, fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetCurrentLineItemValue(
+    type: string,
+    fldnam: string,
+    value: string | number,
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the value of a multi-select field on the currently selected line.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3287,7 +3421,13 @@ declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, valu
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true)
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetCurrentLineItemValues(type: string, fldnam: string, values: string[], fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetCurrentLineItemValues(
+    type: string,
+    fldnam: string,
+    values: string[],
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the values of a date/time field.
  *
@@ -3295,7 +3435,7 @@ declare function nlapiSetCurrentLineItemValues(type: string, fldnam: string, val
  * @param {string} value The date and time in format mm/dd/yyyy hh:mm:ss am|pm
  * @param {string|number} [timeZone] One of values (string) or keys (int) from the Olson Values table.
  */
-declare function nlapiSetDateTimeValue(fieldId: string, value: string, timeZone?: string|number): void;
+declare function nlapiSetDateTimeValue(fieldId: string, value: string, timeZone?: string | number): void;
 /**
  * Set whether or not a field is displayed.  This function is not documented but still works as of 2017.1.
  * @param fieldId
@@ -3309,7 +3449,12 @@ declare function nlapiSetFieldDisplay(fieldId: string, show: boolean): void;
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true).
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetFieldText(fldnam: string, txt: string, fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetFieldText(
+    fldnam: string,
+    txt: string,
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the values (via display text) of a multiselect field on the current record on a page.
  * @param {string} fldnam The field name.
@@ -3317,7 +3462,12 @@ declare function nlapiSetFieldText(fldnam: string, txt: string, fireFieldChanged
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true).
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetFieldTexts(fldnam: string, texts: string[], fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetFieldTexts(
+    fldnam: string,
+    texts: string[],
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the value of a field on the current record on a page.
  * @param {string} fldnam The field name.
@@ -3325,7 +3475,12 @@ declare function nlapiSetFieldTexts(fldnam: string, texts: string[], fireFieldCh
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true).
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetFieldValue(fldnam: string, value: string|number, fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetFieldValue(
+    fldnam: string,
+    value: string | number,
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the values of a multiselect field on the current record on a page.
  * @param {string} fldnam The field name.
@@ -3333,7 +3488,12 @@ declare function nlapiSetFieldValue(fldnam: string, value: string|number, fireFi
  * @param {boolean} fireFieldChanged If false then the field change event is suppressed (defaults to true).
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetFieldValues(fldnam: string, values: string[], fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetFieldValues(
+    fldnam: string,
+    values: string[],
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Set the value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3343,7 +3503,13 @@ declare function nlapiSetFieldValues(fldnam: string, values: string[], fireField
  * @param {string}  datetime Date/Time value
  * @param {string}  timezone Timezone
  */
-declare function nlapiSetLineItemDateTimeValue(type: string, fldnam: string, linenum: number, datetime: string, timezone?: string): void;
+declare function nlapiSetLineItemDateTimeValue(
+    type: string,
+    fldnam: string,
+    linenum: number,
+    datetime: string,
+    timezone?: string
+): void;
 /**
  * Undocumented function that disables a line item column.  Best used in lineInit().
  * @param {string} type Sublist Id.
@@ -3360,7 +3526,7 @@ declare function nlapiSetLineItemDisabled(type: string, fldnam: string, val: boo
  * @param {number} 	linenum Line number (1-based)
  * @param {string|number} value
  */
-declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string|number): void;
+declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string | number): void;
 /**
  * Set the value of a matrix header field.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3375,7 +3541,14 @@ declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: nu
  *
  * @since	2009.2
  */
-declare function nlapiSetMatrixValue(type: string, fldnam: string, column: number, value: string, fireFieldChanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetMatrixValue(
+    type: string,
+    fldnam: string,
+    column: number,
+    value: string,
+    fireFieldChanged?: boolean,
+    synchronous?: boolean
+): void;
 /**
  * Creates a recovery point saving the state of the script's execution.
  */
@@ -3388,7 +3561,13 @@ declare function nlapiSetRecoveryPoint(): Object;
  * @param {boolean} editMode For RECORD calls, this determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode.
  * @param {Object} parameters Additional URL parameters as name/value pairs
  */
-declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, editMode?: boolean, parameters?: Object): void;
+declare function nlapiSetRedirectURL(
+    type: string,
+    subtype: string,
+    id?: string | number,
+    editMode?: boolean,
+    parameters?: Object
+): void;
 /**
  * Convert a String into a Date object.
  *
@@ -3425,7 +3604,13 @@ declare function nlapiSubmitCSVImport(csvImport: NLObjCSVImport): string;
  * @param {number|string|string[]} values Field value or field values for updating.
  * @param {boolean} doSourcing If not set, this argument defaults to false and field sourcing does not occur.
  */
-declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: number|string|string[], doSourcing?: boolean): void;
+declare function nlapiSubmitField(
+    type: string,
+    id: number | string,
+    fields: string | string[],
+    values: number | string | string[],
+    doSourcing?: boolean
+): void;
 /**
  * Add/update a file in the file cabinet.
  * @governance 20 units
@@ -3448,7 +3633,12 @@ declare function nlapiSubmitRecord(record: NLObjRecord, doSourcing?: boolean, ig
  * @param {string} transformType The recordType you are transforming the existing record into.
  * @param {Object} transformValues An object containing transform default option/value pairs used to pre-configure transformed record.
  */
-declare function nlapiTransformRecord(type: string, id: string|number, transformType: string, transformValues?: Object): NLObjRecord;
+declare function nlapiTransformRecord(
+    type: string,
+    id: string | number,
+    transformType: string,
+    transformValues?: Object
+): NLObjRecord;
 /**
  * Triggers a workflow on a record.
  * @governance 20 units
@@ -3459,7 +3649,13 @@ declare function nlapiTransformRecord(type: string, id: string|number, transform
  * @param {string|number} actionId Internal ID or script ID of the action script
  * @param {string|number} stateId Internal ID or script ID of the state contains the referenced add button action
  */
-declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowId: string|number, actionId?: string|number, stateId?: string|number): number;
+declare function nlapiTriggerWorkflow(
+    recordtype: string,
+    id: number,
+    workflowId: string | number,
+    actionId?: string | number,
+    stateId?: string | number
+): number;
 /**
  * Validate that a given XML document conforms to a given XML schema. XML Schema Definition (XSD) is the expected schema format.
  *

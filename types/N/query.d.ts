@@ -83,14 +83,14 @@ interface CreateConditionWithFormulaOptions {
 
 interface ColumnContextOptions {
     /** The name of the field context. */
-    name: string | FieldContext,
+    name: string | FieldContext;
     /** The additional parameters to use with the specified field context. */
     params?: {
         /** The internal ID of the currency to convert to. */
-        currencyId?: number,
+        currencyId?: number;
         /** The date to use for the actual exchange rate between the base currency and the currency to convert to. */
-        date?: RelativeDate | Date
-    }
+        date?: RelativeDate | Date;
+    };
 }
 
 interface CreateColumnOptions {
@@ -112,8 +112,8 @@ interface CreateColumnOptions {
 
     /**
      * An alias for this column. An alias is an alternate name for a column, and the alias is used in mapped results.
-     * In general, the alias is an optional property. 
-     * 
+     * In general, the alias is an optional property.
+     *
      * To use mapped results, you must specify an alias in the following situations:
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
@@ -121,11 +121,10 @@ interface CreateColumnOptions {
     alias?: string;
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
-    context?: string | FieldContext | ColumnContextOptions
+    context?: string | FieldContext | ColumnContextOptions;
 }
 
 interface CreateColumnWithFormulaOptions {
-
     /**
      * Formula
      */
@@ -149,8 +148,8 @@ interface CreateColumnWithFormulaOptions {
 
     /**
      * An alias for this column. An alias is an alternate name for a column, and the alias is used in mapped results.
-     * In general, the alias is an optional property. 
-     * 
+     * In general, the alias is an optional property.
+     *
      * To use mapped results, you must specify an alias in the following situations:
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
@@ -158,7 +157,7 @@ interface CreateColumnWithFormulaOptions {
     alias?: string;
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
-    context?: string | FieldContext | ColumnContextOptions
+    context?: string | FieldContext | ColumnContextOptions;
 }
 
 interface CreateSortOptions {
@@ -207,7 +206,7 @@ export interface RunSuiteQLOptions {
     query: string;
 
     params?: Array<string | number | boolean>;
-        
+
     customScriptId?: string;
 }
 
@@ -663,7 +662,7 @@ export interface Result {
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
     asMap(): QueryResultMap;
-    asMap<QueryResultMap>(): QueryResultMap
+    asMap<QueryResultMap>(): QueryResultMap;
 }
 
 /**
@@ -753,7 +752,7 @@ interface Period {
     readonly code: string;
     /**
      * The type of the period. This property uses values from the query.PeriodType enum.
-     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type 
+     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type
      * parameter, the default value of this property is query.PeriodType.START.
      */
     readonly type: string;
@@ -846,7 +845,7 @@ export const enum DateId {
     WEEKS_AGO = "wago",
     WEEKS_FROM_NOW = "wfn",
     YEARS_AGO = "yago",
-    YEARS_FROM_NOW = "yfn"
+    YEARS_FROM_NOW = "yfn",
 }
 
 /**
@@ -941,7 +940,6 @@ interface CreateRelativeDateOptions {
     value: number;
 }
 
-
 /**
  * Creates a query.RelativeDate object that represents a date relative to the current date.
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT If options or id are undefined.
@@ -996,7 +994,8 @@ export enum Operator {
     WITHIN_NOT = "WITHIN_NOT",
 }
 
-export enum Type { // As of 15 June 2020
+export enum Type {
+    // As of 15 June 2020
     ACCOUNT = "account",
     ACCOUNTING_CONTEXT = "accountingcontext",
     ACCOUNTING_PERIOD = "accountingperiod",
@@ -1217,7 +1216,7 @@ export enum Type { // As of 15 June 2020
     WEB_SITE = "website",
     WORKFLOW_ACTION_SCRIPT = "workflowactionscript",
     WORKFLOW_ACTION_SCRIPT_DEPLOYMENT = "workflowactionscriptdeployment",
-    WORK_CALENDAR = "workcalendar"
+    WORK_CALENDAR = "workcalendar",
 }
 
 export enum Aggregate {
@@ -1260,7 +1259,7 @@ export enum FieldContext {
     CONVERTED = "CONVERTED",
     /** Displays consolidated currency amounts in the base currency. */
     CURRENCY_CONSOLIDATED = "CURRENCY_CONSOLIDATED",
-    /** 
+    /**
      * Displays user-friendly field values.
      * For example, for the entity field on Transaction records, using the DISPLAY enum value displays the name of the entity instead of its ID.
      */
@@ -1279,12 +1278,12 @@ export enum FieldContext {
      * Displays raw field values.
      * For example, for the entity field on Transaction records, using the RAW enum value displays the ID of the entity.
      */
-    RAW = "RAW"
+    RAW = "RAW",
 }
 
 declare enum PeriodAdjustment {
     ALL,
-    NOT_LAST
+    NOT_LAST,
 }
 
 declare enum PeriodCode {
@@ -1317,12 +1316,12 @@ declare enum PeriodCode {
     THIS_FISCAL_QUARTER_TO_PERIOD,
     THIS_FISCAL_YEAR,
     THIS_FISCAL_YEAR_TO_PERIOD,
-    THIS_PERIOD
+    THIS_PERIOD,
 }
 
 declare enum PeriodType {
     END,
-    START
+    START,
 }
 
 export enum SortLocale {
@@ -1630,5 +1629,5 @@ export enum RelativeDateRange {
     WEEK_AFTER_NEXT_TO_DATE,
     WEEK_BEFORE_LAST,
     WEEK_BEFORE_LAST_TO_DATE,
-    YESTERDAY
+    YESTERDAY,
 }

@@ -1,12 +1,12 @@
-import type {File} from './file';
-import type {Query} from './query';
+import type { File } from "./file";
+import type { Query } from "./query";
 
 interface CheckStatusOptions {
     taskId: string;
 }
 
 type TaskCreateOptions =
-    CsvImportTaskCreateOptions
+    | CsvImportTaskCreateOptions
     | EntityDeduplicationTaskCreateOptions
     | MapReduceScriptTaskCreateOptions
     | ScheduledScriptTaskCreateOptions
@@ -17,7 +17,7 @@ type TaskCreateOptions =
     | SearchTaskCreateOptions;
 
 interface RecordActionTaskCreateOptions {
-    taskType: TaskType.RECORD_ACTION
+    taskType: TaskType.RECORD_ACTION;
     action: string;
     condition: ActionCondition;
     params: {}[];
@@ -63,7 +63,7 @@ interface AddInboundDependencyOptions {
     /** The script ID of the script deployment record for the dependent task. */
     deploymentId?: string;
     /** The parameters for the scheduled script or map/reduce script. */
-    params?: {}
+    params?: {};
 }
 
 interface SuiteQLTaskCreateOptions {
@@ -75,14 +75,14 @@ interface SuiteQLTaskCreateOptions {
      * This parameter is mutually exclusive with the options.fileId parameter. If you specify values for both parameters, an error occurs.
      */
     filePath?: string;
-    params?: (string|boolean|number)[];
-    query?: Query|string;
+    params?: (string | boolean | number)[];
+    query?: Query | string;
 }
 
 /** The status of an asynchronous SuiteQL task (task.SuiteQLTask) in the NetSuite task queue. */
 interface SuiteQLTaskStatus {
     readonly fileId: number;
-    params: (string|boolean|number)[];
+    params: (string | boolean | number)[];
     readonly query: string;
     readonly status: string;
     readonly taskId: string;
@@ -92,7 +92,12 @@ interface SuiteQLTask {
     /** Submits the SuiteQL task for asynchronous processing. */
     submit(): string;
     /** Adds a scheduled script task or map/reduce script task as a dependent task to the SuiteQL task. */
-    addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask | { taskType: TaskType, scriptId: string, deploymentId?: string, params?: {} } ): void;
+    addInboundDependency(
+        dependency:
+            | ScheduledScriptTask
+            | MapReduceScriptTask
+            | { taskType: TaskType; scriptId: string; deploymentId?: string; params?: {} }
+    ): void;
     query: string;
     fileId: number;
     filePath: string;
@@ -104,20 +109,29 @@ interface SuiteQLTask {
      * Dependent tasks are indexed in the order they are added to the SuiteQL task.
      * Each nested object contains the task type, script ID, script deployment ID, and script parameters.
      */
-    readonly inboundDependencies: Record<string, {id: string; type: TaskType.SCHEDULED_SCRIPT | TaskType.MAP_REDUCE, scriptId: string; deploymentId: string; params?: {}}>;
+    readonly inboundDependencies: Record<
+        string,
+        {
+            id: string;
+            type: TaskType.SCHEDULED_SCRIPT | TaskType.MAP_REDUCE;
+            scriptId: string;
+            deploymentId: string;
+            params?: {};
+        }
+    >;
     /** Parameters for the SuiteQL query. */
-    params: (string|boolean|number)[];
+    params: (string | boolean | number)[];
 }
 
 interface SearchTaskCreateOptions {
-    taskType: TaskType.SEARCH
+    taskType: TaskType.SEARCH;
     savedSearchId?: number | string;
     fileId?: number;
     filePath?: string;
 }
 
 interface QueryTaskCreateOptions {
-    taskType: TaskType.QUERY
+    taskType: TaskType.QUERY;
     query: Query;
     fileId?: number;
     filePath?: string;
@@ -146,7 +160,10 @@ interface SearchTask {
     savedSearchId: number;
     fileId: number;
     filePath: string;
-    inboundDependencies: Record<string, Readonly<{id?: string; type: string; scriptId: string; deploymentId: string; params: any}>>;
+    inboundDependencies: Record<
+        string,
+        Readonly<{ id?: string; type: string; scriptId: string; deploymentId: string; params: any }>
+    >;
 }
 
 interface SearchTaskStatus {
@@ -160,7 +177,7 @@ interface SearchTaskStatus {
 interface CsvImportTaskCreateOptions {
     taskType: TaskType.CSV_IMPORT;
     importFile?: File | string;
-    linkedFiles?: {[key: string]: any};
+    linkedFiles?: { [key: string]: any };
     mappingId?: number | string;
     name?: string;
     queueId?: number;
@@ -283,7 +300,7 @@ interface WorkflowTriggerTaskStatus {
     status: TaskStatus | `${TaskStatus}`;
 }
 
-export function create(options: CsvImportTaskCreateOptions):  CsvImportTask;
+export function create(options: CsvImportTaskCreateOptions): CsvImportTask;
 export function create(options: EntityDeduplicationTaskCreateOptions): EntityDeduplicationTask;
 export function create(options: MapReduceScriptTaskCreateOptions): MapReduceScriptTask;
 export function create(options: ScheduledScriptTaskCreateOptions): ScheduledScriptTask;
@@ -292,11 +309,21 @@ export function create(options: SearchTaskCreateOptions): SearchTask;
 export function create(options: QueryTaskCreateOptions): QueryTask;
 export function create(options: RecordActionTaskCreateOptions): RecordActionTask;
 export function create(options: SuiteQLTaskCreateOptions): SuiteQLTask;
-export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus | SuiteQLTaskStatus | QueryTaskStatus | RecordActionTaskStatus;
+export function checkStatus(
+    options: CheckStatusOptions
+):
+    | ScheduledScriptTaskStatus
+    | MapReduceScriptTaskStatus
+    | CsvImportTaskStatus
+    | EntityDeduplicationTaskStatus
+    | WorkflowTriggerTaskStatus
+    | SuiteQLTaskStatus
+    | QueryTaskStatus
+    | RecordActionTaskStatus;
 
 /** Holds the string values for the possible record action conditions. */
 declare enum ActionCondition {
-    ALL_QUALIFIED_INSTANCES
+    ALL_QUALIFIED_INSTANCES,
 }
 
 export enum DedupeEntityType {
@@ -318,7 +345,7 @@ export enum MapReduceStage {
     MAP = "MAP",
     SHUFFLE = "SHUFFLE",
     REDUCE = "REDUCE",
-    SUMMARIZE = "SUMMARIZE"
+    SUMMARIZE = "SUMMARIZE",
 }
 export enum MasterSelectionMode {
     CREATED_EARLIEST,
@@ -341,5 +368,5 @@ export enum TaskType {
     SEARCH = "SEARCH",
     RECORD_ACTION = "RECORD_ACTION",
     SUITE_QL = "SUITE_QL",
-    QUERY = "QUERY"
+    QUERY = "QUERY",
 }

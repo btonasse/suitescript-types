@@ -16,7 +16,7 @@ interface Response {
     readonly chatHistory: ChatMessage[];
 }
 
-export function createChatMessage(options: { role: string, text: string }): ChatMessage;
+export function createChatMessage(options: { role: string; text: string }): ChatMessage;
 
 export const generateText: GenerateTextFunction;
 
@@ -106,13 +106,13 @@ declare enum ChatRole {
     /** Identifies the author of the chat message (prompt) sent to the large language model. */
     USER = "USER",
     /** Identifies the author of the chat message (response text) received from the large language model. */
-    CHATBOT = "CHATBOT"
+    CHATBOT = "CHATBOT",
 }
 
 /** The large language model to be used. */
 declare enum ModelFamily {
     /** Always uses the latest supported Cohere model. Cohere Command-R is the default when the options.modelFamily parameter is omitted. */
-    COHERE_COMMAND = 'cohere.command-r-16k',
+    COHERE_COMMAND = "cohere.command-r-16k",
     /** Always uses the latest supported Meta Llama model. */
-    META_LLAMA = 'meta.llama-3.1-70b-instruct'
+    META_LLAMA = "meta.llama-3.1-70b-instruct",
 }
