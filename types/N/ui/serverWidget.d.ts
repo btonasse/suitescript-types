@@ -184,6 +184,8 @@ declare module "N/ui/serverWidget" {
     interface InsertFieldOptions {
         /** The Field object to insert. */
         field: Field;
+        /** Used to specify whether the field is inserted before or after the next field (options.nextfield). */
+        isBefore?: boolean;
         /** The internal ID name of the field you are inserting a field in front of. */
         nextfield: string;
     }
