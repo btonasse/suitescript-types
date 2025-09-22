@@ -1,4 +1,5 @@
 declare module "N/ui/serverWidget" {
+    import type { FieldValue } from "N/record";
     import type { ServerResponse } from "N/http";
     import type { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from "N/portlet";
     import type { Message, MessageCreateOptions } from "N/ui/message";
@@ -400,7 +401,7 @@ declare module "N/ui/serverWidget" {
         /** An alternate name that you can assign to a serverWidget.Field object. */
         alias: string;
         /** The default value for this field. */
-        defaultValue: string | string[] | number;
+        defaultValue: FieldValue;
         /** The field internal ID. */
         id: string;
         /** Indicates whether the field is mandatory or optional. */
