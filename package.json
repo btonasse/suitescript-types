@@ -14,7 +14,8 @@
         "suitescript"
     ],
     "scripts": {
-        "test": "vitest --typecheck"
+        "test": "vitest run --typecheck --config ./vitest.config.ts",
+        "test:watch": "vitest --typecheck --config ./vitest.config.ts"
     },
     "devDependencies": {
         "prettier": "^3.6.2",

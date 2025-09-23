@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "strict": true,
+        "target": "es6",
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "lib": ["ES6", "DOM", "DOM.Iterable"],
+        "typeRoots": ["../types", "../node_modules/@types"]
+    },
+    "files": ["../types/index.d.ts"],
+    "include": ["./**/*.ts"]
+}
