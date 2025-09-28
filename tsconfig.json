@@ -3,9 +3,9 @@
         "noEmit": true,
         "strict": true,
         "target": "es6",
-        "moduleResolution": "bundler",
         "skipLibCheck": true,
-        "lib": ["ES6", "DOM", "DOM.Iterable"],
-        "baseUrl": "./types"
-    }
+        "moduleResolution": "node",
+        "lib": ["ES6", "DOM", "DOM.Iterable"]
+    },
+    "exclude": ["node_modules"]
 }

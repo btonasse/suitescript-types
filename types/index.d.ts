@@ -1,5 +1,4 @@
 import { CallbackReturn } from "N/entryPoints";
-import * as SuiteScriptV1 from "SuiteScriptV1";
 
 declare global {
     function define<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => CallbackReturn): void;
