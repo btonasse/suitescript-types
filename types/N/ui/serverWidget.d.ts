@@ -1,3 +1,4 @@
+import type { FieldValue } from "../record";
 import type { ServerResponse } from "../http";
 import type { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from "../portlet";
 import type { Message, MessageCreateOptions } from "./message";
@@ -61,7 +62,7 @@ interface AddFieldOptions {
      * Note: For radio fields only, the source parameter must contain the internal ID for the field.
      * For more information about working with radio buttons, see "Working with Radio Buttons" in Help.
      */
-    source?: string;
+    source?: string | number;
     /**
      * The internal ID of the tab or field group to add the field to.
      * By default, the field is added to the main section of the form.
@@ -182,6 +183,8 @@ interface GetSublistValueOptions {
 interface InsertFieldOptions {
     /** The Field object to insert. */
     field: Field;
+    /** Used to specify whether the field is inserted before or after the next field (options.nextfield). */
+    isBefore?: boolean;
     /** The internal ID name of the field you are inserting a field in front of. */
     nextfield: string;
 }
@@ -408,7 +411,7 @@ export interface Field {
     /** An alternate name that you can assign to a serverWidget.Field object. */
     alias: string;
     /** The default value for this field. */
-    defaultValue: string | string[] | number;
+    defaultValue: FieldValue;
     /** The field internal ID. */
     id: string;
     /** Indicates whether the field is mandatory or optional. */
