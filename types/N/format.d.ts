@@ -1,3 +1,4 @@
+import type { FieldValue } from "./record";
 interface FormatOptions {
     /**
      * The input data to format.
@@ -8,8 +9,6 @@ interface FormatOptions {
      */
     type: Type;
 }
-
-import type { FieldValue } from "./record";
 
 interface FormatDateTimeOptions {
     /**

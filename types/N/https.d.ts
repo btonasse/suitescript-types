@@ -75,7 +75,7 @@ interface HttpsCreateSecureStringFunction {
     promise(options: CreateSecureStringOptions): Promise<SecureString>;
 }
 
-export interface RequestRestletOptions {
+interface RequestRestletOptions {
     /** The PUT/POST data. This is ignored if the options.method is not POST or PUT. */
     body?: string | Object;
     /** The script ID of the script deployment record. */

@@ -12,9 +12,9 @@ interface ChangeEmailOptions {
 /**
  * Method used to change the current user’s NetSuite email address (user name).
  */
-export declare function changeEmail(options: ChangeEmailOptions): void;
+export function changeEmail(options: ChangeEmailOptions): void;
 
 /**
  * Method used to change the current user’s NetSuite password.
  */
-export declare function changePassword(options: ChangePasswordOptions): void;
+export function changePassword(options: ChangePasswordOptions): void;

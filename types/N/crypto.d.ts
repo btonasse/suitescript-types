@@ -130,7 +130,7 @@ export interface CheckPasswordFieldOptions {
     value: string;
 }
 
-export declare enum EncryptionAlg {
+export enum EncryptionAlg {
     AES,
 }
 
@@ -138,12 +138,12 @@ export declare enum EncryptionAlg {
  * Holds the string values for supported hashing algorithms.
  * Use this enum to set the value of the options.algorithm parameter for crypto.createHash(options) and crypto.createHmac(options).
  */
-export declare enum HashAlg {
+export enum HashAlg {
     SHA256,
     SHA512,
 }
 
-export declare enum Padding {
+export enum Padding {
     NoPadding,
     PKCS5Padding,
 }
@@ -152,15 +152,15 @@ export declare enum Padding {
  * Method used to create and return a new crypto.EncryptionAlg object.
  * NOTE: we are NOT returning an EncryptionAlg, as it is not a real object. (5/9/2016)
  */
-export declare function createCipher(options: CreateCipherOptions): Cipher;
+export function createCipher(options: CreateCipherOptions): Cipher;
 /** Method used to create a new crypto.Decipher object. */
-export declare function createDecipher(options: CreateDecipherOptions): Decipher;
+export function createDecipher(options: CreateDecipherOptions): Decipher;
 /** Method used to create a new crypto.Hash object. */
-export declare function createHash(options?: CreateHashOptions): Hash;
+export function createHash(options?: CreateHashOptions): Hash;
 /** Method used to create a new crypto.Hmac object. */
-export declare function createHmac(options: CreateHmacOptions): Hmac;
+export function createHmac(options: CreateHmacOptions): Hmac;
 /** Method used to create a new crypto.SecretKey object. */
-export declare function createSecretKey(options: CreateSecretKeyOptions): SecretKey;
+export function createSecretKey(options: CreateSecretKeyOptions): SecretKey;
 
 /**
  * Checks whether a password in a record corresponds to the password entered by the user.
@@ -169,4 +169,4 @@ export declare function createSecretKey(options: CreateSecretKeyOptions): Secret
  * You should no longer use those methods for custom password fields.
  * This method provides a more secure way to check custom password fields.
  */
-export declare function checkPasswordField(options: CheckPasswordFieldOptions): boolean;
+export function checkPasswordField(options: CheckPasswordFieldOptions): boolean;

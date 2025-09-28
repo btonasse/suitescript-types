@@ -17,4 +17,4 @@ interface ExchangeRateOptions {
  * Method used to return the exchange rate between two currencies based on a certain date.
  * The exchange rate values are sourced from the Currency Exchange Rate record.
  */
-export declare function exchangeRate(options: ExchangeRateOptions): number;
+export function exchangeRate(options: ExchangeRateOptions): number;

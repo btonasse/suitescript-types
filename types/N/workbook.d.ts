@@ -1060,7 +1060,7 @@ export function load(options: { id: string }): Workbook;
  */
 export const DescendantOrSelfNodesSelector: unknown;
 
-declare enum Aggregation {
+export enum Aggregation {
     COUNT,
     COUNT_DISTINCT,
     MAX,
@@ -1069,12 +1069,12 @@ declare enum Aggregation {
     SUM,
 }
 
-declare enum AspectType {
+export enum AspectType {
     COLOR = "color",
     VALUE = "value",
 }
 
-declare enum Color {
+export enum Color {
     BLACK,
     BLUE,
     BROWN,
@@ -1088,14 +1088,14 @@ declare enum Color {
     YELLOW,
 }
 
-declare enum ChartType {
+export enum ChartType {
     AREA,
     BAR,
     COLUMN,
     LINE,
 }
 
-declare enum ConstantType {
+export enum ConstantType {
     BOOLEAN,
     CURRENCY,
     DATE,
@@ -1105,12 +1105,12 @@ declare enum ConstantType {
     TEXT,
 }
 
-declare enum DateTimeHierarchy {
+export enum DateTimeHierarchy {
     MONTH_BASED,
     WEEK_BASED,
 }
 
-declare enum DateTimeProperty {
+export enum DateTimeProperty {
     DATE,
     DAY_OF_MONTH,
     DAY_OF_WEEK,
@@ -1120,7 +1120,7 @@ declare enum DateTimeProperty {
     YEAR,
 }
 
-declare enum ExpressionType {
+export enum ExpressionType {
     // Last updated 22 June 2022, NetSuite version 2022.1
     AND,
     // ANY_IN_HIERARCHY,
@@ -1154,7 +1154,7 @@ declare enum ExpressionType {
     TRUNCATE_DATE_TIME,
 }
 
-declare enum FontSize {
+export enum FontSize {
     LARGE,
     LARGER,
     MEDIUM,
@@ -1166,24 +1166,24 @@ declare enum FontSize {
     X_SMALL,
 }
 
-declare enum FontStyle {
+export enum FontStyle {
     ITALIC,
     NORMAL,
     OBLIQUE,
 }
 
-declare enum FontWeight {
+export enum FontWeight {
     BOLD,
     NORMAL,
 }
 
-declare enum Image {
+export enum Image {
     EXCLAMATION,
     QUESTION,
     SMILE,
 }
 
-declare enum Position {
+export enum Position {
     BOTTOM,
     CENTER,
     LEFT,
@@ -1191,32 +1191,32 @@ declare enum Position {
     TOP,
 }
 
-declare enum Stacking {
+export enum Stacking {
     DISABLED,
     NORMAL,
     PERCENT,
 }
 
-declare enum TemporalUnit {
+export enum TemporalUnit {
     HOURS,
     MINUTES,
 }
 
-declare enum TextAlign {
+export enum TextAlign {
     CENTER,
     JUSTIFY,
     LEFT,
     RIGHT,
 }
 
-declare enum TextDecorationLine {
+export enum TextDecorationLine {
     LINE_THROUGH,
     NONE,
     OVERLINE,
     UNDERLINE,
 }
 
-declare enum TextDecorationStyle {
+export enum TextDecorationStyle {
     DASHED,
     DOTTED,
     DOUBLE,
@@ -1224,13 +1224,13 @@ declare enum TextDecorationStyle {
     WAVY,
 }
 
-declare enum TotalLine {
+export enum TotalLine {
     FIRST_LINE,
     HIDDEN,
     LAST_LINE,
 }
 
-declare enum Unit {
+export enum Unit {
     CH,
     CM,
     EM,
@@ -1247,7 +1247,7 @@ declare enum Unit {
     VW,
 }
 
-declare enum Operator {
+export enum Operator {
     AFTER = "AFTER",
     AFTER_NOT = "AFTER_NOT",
     ANY_OF = "ANY_OF",

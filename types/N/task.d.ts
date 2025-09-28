@@ -322,7 +322,7 @@ export function checkStatus(
     | RecordActionTaskStatus;
 
 /** Holds the string values for the possible record action conditions. */
-declare enum ActionCondition {
+export enum ActionCondition {
     ALL_QUALIFIED_INSTANCES,
 }
 

@@ -1295,12 +1295,12 @@ export enum FieldContext {
     RAW = "RAW",
 }
 
-declare enum PeriodAdjustment {
+export enum PeriodAdjustment {
     ALL,
     NOT_LAST,
 }
 
-declare enum PeriodCode {
+export enum PeriodCode {
     FIRST_FISCAL_QUARTER_LAST_FY,
     FIRST_FISCAL_QUARTER_THIS_FY,
     FISCAL_QUARTER_BEFORE_LAST,
@@ -1333,7 +1333,7 @@ declare enum PeriodCode {
     THIS_PERIOD,
 }
 
-declare enum PeriodType {
+export enum PeriodType {
     END,
     START,
 }

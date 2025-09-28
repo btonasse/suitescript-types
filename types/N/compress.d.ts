@@ -42,7 +42,7 @@ export function gzip(options: GZipOptions): File;
 export function gunzip(options: { file: File }): File;
 
 /** Creates a compress.Archiver object that can be used for creating file archives, such as ZIP or TAR files. */
-export declare function createArchiver(): Archiver;
+export function createArchiver(): Archiver;
 
 export enum Type {
     CPIO,

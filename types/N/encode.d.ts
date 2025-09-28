@@ -4,7 +4,7 @@ interface ConvertOptions {
     outputEncoding: Encoding;
 }
 
-export declare enum Encoding {
+export enum Encoding {
     UTF_8,
     BASE_16,
     BASE_32,
@@ -16,4 +16,4 @@ export declare enum Encoding {
 /**
  * Converts a string to another type of encoding and returns the re-encoded string.
  */
-export declare function convert(options: ConvertOptions): string;
+export function convert(options: ConvertOptions): string;

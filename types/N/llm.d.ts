@@ -262,7 +262,7 @@ interface IOCIConfig {
     userId?: string;
 }
 
-declare enum ChatRole {
+export enum ChatRole {
     /** Identifies the author of the chat message (prompt) sent to the large language model. */
     USER = "USER",
     /** Identifies the author of the chat message (response text) received from the large language model. */
@@ -270,7 +270,7 @@ declare enum ChatRole {
 }
 
 /** The large language model to be used to generate embeddings. */
-declare enum EmbedModelFamily {
+export enum EmbedModelFamily {
     COHERE_EMBED_ENGLISH = "cohere.embed-english-v3.0",
     /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
     COHERE_EMBED_ENGLISH_LIGHT = "cohere.embed-english-light-v3.0",
@@ -280,7 +280,7 @@ declare enum EmbedModelFamily {
 }
 
 /** The large language model to be used. */
-declare enum ModelFamily {
+export enum ModelFamily {
     /** Always uses the latest supported Cohere model. Cohere Command-R is the default when the options.modelFamily parameter is omitted. */
     COHERE_COMMAND = "cohere.command-r-16k",
     /** Always uses the latest supported Meta Llama model. */
@@ -288,7 +288,7 @@ declare enum ModelFamily {
 }
 
 /** The truncation method to use when embeddings input exceeds 512 tokens. Use this enum to set the value of the options.truncate parameter in llm.embed(options). */
-declare enum Truncate {
+export enum Truncate {
     END = "END",
     NONE = "NONE",
     START = "START",
