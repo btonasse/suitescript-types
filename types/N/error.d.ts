@@ -1,7 +1,7 @@
 interface EventType {
-    beforeLoad:   string;
+    beforeLoad: string;
     beforeSubmit: string;
-    afterSubmit:  string;
+    afterSubmit: string;
 }
 
 interface CreateOptions {

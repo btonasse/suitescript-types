@@ -3,7 +3,7 @@
  * You can use this module to send requests to the large language models (LLMs) supported by NetSuite and to receive LLM responses to use in your scripts.
  */
 
-import type {File} from './file';
+import type { File } from "./file";
 
 /** The chat message object returned by the llm.createChatMessage(options) method. */
 interface ChatMessage {
@@ -51,7 +51,7 @@ interface StreamedResponse {
  * Chat messages can be used in the chatHistory parameter of the llm.generateText(options) method.
  * Supported roles are defined by the llm.ChatRole enum.
  */
-export function createChatMessage(options: { role: string, text: string }): ChatMessage;
+export function createChatMessage(options: { role: string; text: string }): ChatMessage;
 
 /**
  * Creates a document with the specified ID and content.
@@ -63,9 +63,9 @@ export function createChatMessage(options: { role: string, text: string }): Chat
  * You do not need to use this method to create a document before providing the document to llm.generateText(options) or llm.generateText.promise(options).
  * You can also provide a plain JavaScript object that uses the id and data properties.
  */
-export function createDocument(options: { data: string, id: string }): Document;
+export function createDocument(options: { data: string; id: string }): Document;
 
-export const embed: IEmbededFunction
+export const embed: IEmbededFunction;
 
 /**
  * Takes the ID of an existing prompt and values for variables used in the prompt and returns the response from the LLM.
@@ -151,7 +151,7 @@ interface IEmbedOptions {
 }
 
 interface IEvaluatePromptOptions {
-    id: string|number;
+    id: string | number;
     /**
      * Configuration needed for unlimited usage through OCI Generative AI Service.
      * Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service.
@@ -266,30 +266,30 @@ declare enum ChatRole {
     /** Identifies the author of the chat message (prompt) sent to the large language model. */
     USER = "USER",
     /** Identifies the author of the chat message (response text) received from the large language model. */
-    CHATBOT = "CHATBOT"
+    CHATBOT = "CHATBOT",
 }
 
 /** The large language model to be used to generate embeddings. */
 declare enum EmbedModelFamily {
-    COHERE_EMBED_ENGLISH = 'cohere.embed-english-v3.0',
+    COHERE_EMBED_ENGLISH = "cohere.embed-english-v3.0",
     /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
-    COHERE_EMBED_ENGLISH_LIGHT = 'cohere.embed-english-light-v3.0',
-    COHERE_EMBED_MULTILINGUAL = 'cohere.embed-multilingual-v3.0',
+    COHERE_EMBED_ENGLISH_LIGHT = "cohere.embed-english-light-v3.0",
+    COHERE_EMBED_MULTILINGUAL = "cohere.embed-multilingual-v3.0",
     /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
-    COHERE_EMBED_MULTILINGUAL_LIGHT = 'cohere.embed-multilingual-light-v3.0'
+    COHERE_EMBED_MULTILINGUAL_LIGHT = "cohere.embed-multilingual-light-v3.0",
 }
 
 /** The large language model to be used. */
 declare enum ModelFamily {
     /** Always uses the latest supported Cohere model. Cohere Command-R is the default when the options.modelFamily parameter is omitted. */
-    COHERE_COMMAND = 'cohere.command-r-16k',
+    COHERE_COMMAND = "cohere.command-r-16k",
     /** Always uses the latest supported Meta Llama model. */
-    META_LLAMA = 'meta.llama-3.1-70b-instruct'
+    META_LLAMA = "meta.llama-3.1-70b-instruct",
 }
 
 /** The truncation method to use when embeddings input exceeds 512 tokens. Use this enum to set the value of the options.truncate parameter in llm.embed(options). */
 declare enum Truncate {
-    END = 'END',
-    NONE = 'NONE',
-    START = 'START'
+    END = "END",
+    NONE = "NONE",
+    START = "START",
 }

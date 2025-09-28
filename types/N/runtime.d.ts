@@ -57,10 +57,10 @@ interface User {
     /** The internal ID of the role for the currently logged-in user. */
     role: number;
     /** The script ID of the center type, or role center, for the currently logged-in user.
-      *  NOTE: The actual behavior of this strays from the documentation. This in practice returns the script id
-      *  of the role center as opposed to its internal id. That is why the return type is string | number instead of
-      *  what the documentation claims (just number).
-      */
+     *  NOTE: The actual behavior of this strays from the documentation. This in practice returns the script id
+     *  of the role center as opposed to its internal id. That is why the return type is string | number instead of
+     *  what the documentation claims (just number).
+     */
     roleCenter: string | number;
     /** The custom scriptId of the role for the currently logged-in user. */
     roleId: string;
@@ -437,7 +437,7 @@ export enum ContextType {
     WEBSERVICES = "WEBSERVICES",
     WEBSTORE = "WEBSTORE",
     WORKBOOKBUILDER = "WORKBOOKBUILDER",
-    WORKFLOW = "WORKFLOW"
+    WORKFLOW = "WORKFLOW",
 }
 
 /** Enumeration that holds all possible environment types that the current script can execute in. */

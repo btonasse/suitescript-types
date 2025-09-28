@@ -1,5 +1,5 @@
-import type {Search} from './search';
-import type {Type} from './record';
+import type { Search } from "./search";
+import type { Type } from "./record";
 
 interface RedirectOptions {
     /** The URL of a Suitelet that is available externally. */

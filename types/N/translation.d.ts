@@ -79,7 +79,7 @@ export enum Locale {
 /**
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE The function parameters were not passed as an array.
  */
-export type Translator = (options?: {params: string[]}) => string;
+export type Translator = (options?: { params: string[] }) => string;
 
 /**
  * Creates a translator function for the chosen key in the desired locale
@@ -99,18 +99,12 @@ export type Translator = (options?: {params: string[]}) => string;
  * @since 2019.1
  * @version 2021.1
  */
-export function get(
-    options: {
-        collection: string,
-        key: string,
-        locale?: Locale,
-    },
-): Translator;
+export function get(options: { collection: string; key: string; locale?: Locale }): Translator;
 
 export type Collection = {
-    alias: string,
-    collection: string,
-    keys?: string[],
+    alias: string;
+    collection: string;
+    keys?: string[];
 };
 
 /**
@@ -136,12 +130,7 @@ export type Collection = {
  * @since 2019.1
  * @version 2021.1
  */
-export function load(
-    options: {
-        collections: Collection[],
-        locales?: Locale[],
-    },
-): Handle
+export function load(options: { collections: Collection[]; locales?: Locale[] }): Handle;
 
 /**
  * Creates a translations.Handle from an existing Handle for a specific locale
@@ -159,12 +148,7 @@ export function load(
  * @since 2019.1
  * @version 2021.1
  */
-export function selectLocale(
-    options: {
-        handle: Handle,
-        locale: Locale,
-    }
-): Handle;
+export function selectLocale(options: { handle: Handle; locale: Locale }): Handle;
 
 /**
  * Translations.Handle has a hierarchical structure.
@@ -172,16 +156,15 @@ export function selectLocale(
  * Each of its nodes is either another Handle or a translator function
  */
 export interface Handle {
-
     /**
      * JSON.stringify() implementation.
      */
     toJSON(): {
-        type: string,
-        allRawTranslations: Object,
-        allTranslations: Object,
-        locales: Locale[],
-        recentLocale: Locale
+        type: string;
+        allRawTranslations: Object;
+        allTranslations: Object;
+        locales: Locale[];
+        recentLocale: Locale;
     };
 
     /**

@@ -54,13 +54,21 @@ interface CreateConditionOptions {
      * Array of values to use for the condition.
      * Required if options.fieldId and options.operator are used, and options.operator does not have a value of query.Operator.EMPTY or query.Operator.EMPTY_NOT.
      */
-    values: string | boolean |
-        string[] | readonly string[] |
-        boolean[] | readonly boolean[] | // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
-        number[] | readonly number[] |
-        Date[] | readonly Date[] |
-        RelativeDate[] | readonly RelativeDate[] |
-        Period[] | readonly Period[];
+    values:
+        | string
+        | boolean
+        | string[]
+        | readonly string[]
+        | boolean[]
+        | readonly boolean[] // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
+        | number[]
+        | readonly number[]
+        | Date[]
+        | readonly Date[]
+        | RelativeDate[]
+        | readonly RelativeDate[]
+        | Period[]
+        | readonly Period[];
 
     /**
      * If you use the options.formula parameter, use this parameter to explicitly define the formula’s return type. This value sets the Condition.type property.
@@ -89,14 +97,14 @@ interface CreateConditionWithFormulaOptions {
 
 interface ColumnContextOptions {
     /** The name of the field context. */
-    name: string | FieldContext,
+    name: string | FieldContext;
     /** The additional parameters to use with the specified field context. */
     params?: {
         /** The internal ID of the currency to convert to. */
-        currencyId?: number,
+        currencyId?: number;
         /** The date to use for the actual exchange rate between the base currency and the currency to convert to. */
-        date?: RelativeDate | Date
-    }
+        date?: RelativeDate | Date;
+    };
 }
 
 interface CreateColumnOptions {
@@ -127,11 +135,10 @@ interface CreateColumnOptions {
     alias?: string;
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
-    context?: string | FieldContext | ColumnContextOptions
+    context?: string | FieldContext | ColumnContextOptions;
 }
 
 interface CreateColumnWithFormulaOptions {
-
     /**
      * Formula
      */
@@ -164,7 +171,7 @@ interface CreateColumnWithFormulaOptions {
     alias?: string;
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
-    context?: string | FieldContext | ColumnContextOptions
+    context?: string | FieldContext | ColumnContextOptions;
 }
 
 interface CreateSortOptions {
@@ -212,8 +219,7 @@ export interface RunSuiteQLOptions {
      */
     query: string;
 
-    params?: Array<string | number | boolean> |
-        ReadonlyArray<string | number | boolean>;
+    params?: Array<string | number | boolean> | ReadonlyArray<string | number | boolean>;
 
     customScriptId?: string;
 }
@@ -670,7 +676,7 @@ export interface Result {
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
     asMap(): QueryResultMap;
-    asMap<QueryResultMap>(): QueryResultMap
+    asMap<QueryResultMap>(): QueryResultMap;
 }
 
 /**
@@ -853,7 +859,7 @@ export const enum DateId {
     WEEKS_AGO = "wago",
     WEEKS_FROM_NOW = "wfn",
     YEARS_AGO = "yago",
-    YEARS_FROM_NOW = "yfn"
+    YEARS_FROM_NOW = "yfn",
 }
 
 /**
@@ -948,7 +954,6 @@ interface CreateRelativeDateOptions {
     value: number;
 }
 
-
 /**
  * Creates a query.RelativeDate object that represents a date relative to the current date.
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT If options or id are undefined.
@@ -1003,7 +1008,8 @@ export enum Operator {
     WITHIN_NOT = "WITHIN_NOT",
 }
 
-export enum Type { // As of 15 June 2020
+export enum Type {
+    // As of 15 June 2020
     ACCOUNT = "account",
     ACCOUNTING_CONTEXT = "accountingcontext",
     ACCOUNTING_PERIOD = "accountingperiod",
@@ -1224,7 +1230,7 @@ export enum Type { // As of 15 June 2020
     WEB_SITE = "website",
     WORKFLOW_ACTION_SCRIPT = "workflowactionscript",
     WORKFLOW_ACTION_SCRIPT_DEPLOYMENT = "workflowactionscriptdeployment",
-    WORK_CALENDAR = "workcalendar"
+    WORK_CALENDAR = "workcalendar",
 }
 
 export enum Aggregate {
@@ -1286,12 +1292,12 @@ export enum FieldContext {
      * Displays raw field values.
      * For example, for the entity field on Transaction records, using the RAW enum value displays the ID of the entity.
      */
-    RAW = "RAW"
+    RAW = "RAW",
 }
 
 declare enum PeriodAdjustment {
     ALL,
-    NOT_LAST
+    NOT_LAST,
 }
 
 declare enum PeriodCode {
@@ -1324,12 +1330,12 @@ declare enum PeriodCode {
     THIS_FISCAL_QUARTER_TO_PERIOD,
     THIS_FISCAL_YEAR,
     THIS_FISCAL_YEAR_TO_PERIOD,
-    THIS_PERIOD
+    THIS_PERIOD,
 }
 
 declare enum PeriodType {
     END,
-    START
+    START,
 }
 
 export enum SortLocale {
@@ -1637,5 +1643,5 @@ export enum RelativeDateRange {
     WEEK_AFTER_NEXT_TO_DATE,
     WEEK_BEFORE_LAST,
     WEEK_BEFORE_LAST_TO_DATE,
-    YESTERDAY
+    YESTERDAY,
 }

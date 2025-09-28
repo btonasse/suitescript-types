@@ -1,8 +1,8 @@
-import type * as N_http from './http';
-import type * as N_portlet from './portlet';
-import type * as N_record from './record';
-import type * as N_search from './search';
-import type * as N_ui_serverWidget from './ui/serverWidget';
+import type * as N_http from "./http";
+import type * as N_portlet from "./portlet";
+import type * as N_record from "./record";
+import type * as N_search from "./search";
+import type * as N_ui_serverWidget from "./ui/serverWidget";
 import type * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
 import type * as N_FiParser from "./plugins/fiParserPlugin";
 import type * as N_GlPlugin from "./plugins/glPlugin";
@@ -74,11 +74,11 @@ declare interface UserEventTypes {
 }
 
 declare enum ScheduledInvocationType {
-    SCHEDULED,      // The normal execution according to the deployment options specified in the UI.
-    ON_DEMAND,      // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
+    SCHEDULED, // The normal execution according to the deployment options specified in the UI.
+    ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
     USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
-    ABORTED,        // The script re-executed automatically following an aborted execution (system went down during execution).
-    SKIPPED         // The script is executed automatically following downtime during which the script should have been executed.
+    ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
+    SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
 }
 
 declare interface ScheduledInvocationTypes {
@@ -110,7 +110,7 @@ export namespace EntryPoints {
 
         interface pageInitContext {
             currentRecord: N_record.ClientCurrentRecord;
-            mode: 'create' | 'copy' | 'edit' | 'view';
+            mode: "create" | "copy" | "edit" | "view";
         }
 
         type pageInit = (scriptContext: pageInitContext) => void;
@@ -239,7 +239,9 @@ export namespace EntryPoints {
         }
 
         type GetInputDataResponse = N_search.Search | any | any[] | ObjectReference;
-        type getInputData = (scriptContext: getInputDataContext) => Promise<GetInputDataResponse> | GetInputDataResponse;
+        type getInputData = (
+            scriptContext: getInputDataContext
+        ) => Promise<GetInputDataResponse> | GetInputDataResponse;
 
         interface mapContext {
             readonly isRestarted: boolean;
@@ -426,24 +428,14 @@ export namespace EntryPoints {
     }
 
     namespace Plugins {
-
         namespace FiParser {
+            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
 
-            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {
+            interface parseDataContext extends N_FiParser.parseDataContext {}
 
-            }
+            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
 
-            interface parseDataContext extends N_FiParser.parseDataContext {
-
-            }
-
-            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {
-
-            }
-
-            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {
-
-            }
+            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
 
             type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
             type parseData = N_FiParser.parseData;
@@ -452,22 +444,13 @@ export namespace EntryPoints {
         }
 
         namespace FiConnectivity {
+            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
 
-            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {
+            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
 
-            }
+            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
 
-            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {
-
-            }
-
-            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {
-
-            }
-
-            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {
-
-            }
+            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
 
             type getTransactionData = N_FiConnectivity.getTransactionData;
             type getAccounts = N_FiConnectivity.getAccounts;
@@ -499,8 +482,7 @@ export namespace EntryPoints {
         }
 
         namespace GlPlugin {
-            interface glPluginContext extends N_GlPlugin.glPluginContext {
-            }
+            interface glPluginContext extends N_GlPlugin.glPluginContext {}
 
             type customizeGlImpact = N_GlPlugin.customizeGlImpact;
         }
@@ -527,6 +509,6 @@ export namespace EntryPoints {
 }
 
 interface IKeyValuePair {
-    key: string|object;
-    value: string|object;
+    key: string | object;
+    value: string | object;
 }
