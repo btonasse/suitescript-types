@@ -483,7 +483,6 @@ export interface ClientCurrentRecord {
     cancelLine(sublistId: string): Record;
     /** Commits the currently selected line on a sublist. */
     commitLine(options: CommitLineOptions): Record;
-    copy: RecordCopyFunction;
     /** Performs macro operation and returns its result in a plain JavaScript object. */
     executeMacro: ExecuteMacroFunction;
     /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
