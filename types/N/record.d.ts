@@ -705,7 +705,7 @@ interface SubmitFieldsOptions {
     /** The internal ID of the existing record instance in NetSuite. */
     id: string | number;
     /** The ID-value pairs for each field you want to edit and submit. */
-    values: any;
+    values: Record<string, FieldValue>;
     /** Additional options to set for the record. */
     options?: SubmitConfig;
 }
