@@ -5,61 +5,65 @@ declare global {
     function require<T extends string[]>(deps: [...T], callback: (...args: ModuleTypes<T>) => void): void;
     var log: typeof import("N/log");
     var util: typeof import("N/util");
+    interface ModuleMap {
+        "N/action": typeof import("N/action");
+        "N/auth": typeof import("N/auth");
+        "N/cache": typeof import("N/cache");
+        "N/certificateControl": typeof import("N/certificateControl");
+        "N/compress": typeof import("N/compress");
+        "N/config": typeof import("N/config");
+        "N/crypto": typeof import("N/crypto");
+        "N/crypto/certificate": typeof import("N/crypto/certificate");
+        "N/crypto/random": typeof import("N/crypto/random");
+        "N/currency": typeof import("N/currency");
+        "N/currentRecord": typeof import("N/currentRecord");
+        "N/dataset": typeof import("N/dataset");
+        "N/email": typeof import("N/email");
+        "N/encode": typeof import("N/encode");
+        "N/error": typeof import("N/error");
+        "N/file": typeof import("N/file");
+        "N/format": typeof import("N/format");
+        "N/http": typeof import("N/http");
+        "N/https": typeof import("N/https");
+        "N/keyControl": typeof import("N/keyControl");
+        "N/llm": typeof import("N/llm");
+        "N/log": typeof import("N/log");
+        "N/machineTranslation": typeof import("N/machineTranslation");
+        "N/plugin": typeof import("N/plugin");
+        "N/portlet": typeof import("N/portlet");
+        "N/query": typeof import("N/query");
+        "N/pgp": typeof import("N/pgp");
+        "N/piremoval": typeof import("N/piremoval");
+        "N/recordContext": typeof import("N/recordContext");
+        "N/record": typeof import("N/record");
+        "N/redirect": typeof import("N/redirect");
+        "N/render": typeof import("N/render");
+        "N/runtime": typeof import("N/runtime");
+        "N/search": typeof import("N/search");
+        "N/sftp": typeof import("N/sftp");
+        "N/sso": typeof import("N/sso");
+        "N/suiteAppInfo": typeof import("N/suiteAppInfo");
+        "N/task": typeof import("N/task");
+        "N/transaction": typeof import("N/transaction");
+        "N/translation": typeof import("N/translation");
+        "N/url": typeof import("N/url");
+        "N/workbook": typeof import("N/workbook");
+        "N/workflow": typeof import("N/workflow");
+        "N/xml": typeof import("N/xml");
+        "N/commerce/recordView": typeof import("N/commerce/recordView");
+        "N/ui/dialog": typeof import("N/ui/dialog");
+        "N/ui/message": typeof import("N/ui/message");
+        "N/ui/serverWidget": typeof import("N/ui/serverWidget");
+        "N/scriptTypes/restlet": typeof import("N/scriptTypes/restlet");
+    }
 }
 
 // prettier-ignore
 type ModuleTypes<T extends readonly string[]> = {
-    [K in keyof T]: T[K] extends "N/action" ? typeof import("N/action") :
-                    T[K] extends "N/auth"   ? typeof import("N/auth")   :
-                    T[K] extends "N/cache"  ? typeof import("N/cache")  :
-                    T[K] extends "N/certificateControl" ? typeof import("N/certificateControl") :
-                    T[K] extends "N/compress" ? typeof import("N/compress") :
-                    T[K] extends "N/config"  ? typeof import("N/config") :
-                    T[K] extends "N/crypto"  ? typeof import("N/crypto") :
-                    T[K] extends "N/crypto/certificate"  ? typeof import("N/crypto/certificate") :
-                    T[K] extends "N/crypto/random"  ? typeof import("N/crypto/random") :
-                    T[K] extends "N/currency" ? typeof import("N/currency") :
-                    T[K] extends "N/currentRecord" ? typeof import("N/currentRecord") :
-                    T[K] extends "N/dataset" ? typeof import("N/dataset") :
-                    T[K] extends "N/email"   ? typeof import("N/email") :
-                    T[K] extends "N/encode"  ? typeof import("N/encode") :
-                    T[K] extends "N/error"   ? typeof import("N/error") :
-                    T[K] extends "N/file"    ? typeof import("N/file") :
-                    T[K] extends "N/format"  ? typeof import("N/format") :
-                    T[K] extends "N/http"    ? typeof import("N/http") :
-                    T[K] extends "N/https"   ? typeof import("N/https") :
-                    T[K] extends "N/keyControl" ? typeof import("N/keyControl") :
-                    T[K] extends "N/llm" ? typeof import("N/llm") :
-                    T[K] extends "N/log"     ? typeof import("N/log") :
-                    T[K] extends "N/machineTranslation" ? typeof import("N/machineTranslation") :
-                    T[K] extends "N/plugin"  ? typeof import("N/plugin") :
-                    T[K] extends "N/portlet" ? typeof import("N/portlet") :
-                    T[K] extends "N/query"   ? typeof import("N/query") :
-                    T[K] extends "N/pgp" ? typeof import("N/pgp") :
-                    T[K] extends "N/piremoval" ? typeof import("N/piremoval") :
-                    T[K] extends "N/recordContext" ? typeof import("N/recordContext") :
-                    T[K] extends "N/record" ? typeof import("N/record") :
-                    T[K] extends "N/redirect" ? typeof import("N/redirect") :
-                    T[K] extends "N/render"  ? typeof import("N/render") :
-                    T[K] extends "N/runtime" ? typeof import("N/runtime") :
-                    T[K] extends "N/search" ? typeof import("N/search") :
-                    T[K] extends "N/sftp"   ? typeof import("N/sftp") :
-                    T[K] extends "N/sso"    ? typeof import("N/sso") :
-                    T[K] extends "N/suiteAppInfo" ? typeof import("N/suiteAppInfo") :
-                    T[K] extends "N/task"   ? typeof import("N/task") :
-                    T[K] extends "N/transaction" ? typeof import("N/transaction") :
-                    T[K] extends "N/translation" ? typeof import("N/translation") :
-                    T[K] extends "N/url"    ? typeof import("N/url") :
-                    T[K] extends "N/workbook" ? typeof import("N/workbook") :
-                    T[K] extends "N/workflow" ? typeof import("N/workflow") :
-                    T[K] extends "N/xml"    ? typeof import("N/xml") :
-                    T[K] extends "N/commerce/recordView" ? typeof import("N/commerce/recordView") :
-                    T[K] extends "N/ui/dialog" ? typeof import("N/ui/dialog") :
-                    T[K] extends "N/ui/message" ? typeof import("N/ui/message") :
-                    T[K] extends "N/ui/serverWidget" ? typeof import("N/ui/serverWidget") :
-                    T[K] extends "N/scriptTypes/restlet" ? typeof import("N/scriptTypes/restlet") :
-                    T[K] extends `./${string}` | `../${string}` ? Record<string, unknown> :
-                    never;
+    [K in keyof T]: 
+        T[K] extends keyof ModuleMap ? ModuleMap[T[K]] :
+        T[K] extends `./${string}` | `../${string}` ? Record<string, unknown> :
+        never;
 };
 
 export {};

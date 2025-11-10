@@ -35,7 +35,7 @@ Once installed, create a file called `tsconfig.json` (for Typescript projects) o
         "./node_modules/@btonasse/suitescript-types/types/index.d.ts",
         "./node_modules/@btonasse/suitescript-types/types/SuiteScriptV1.d.ts"
     ],
-    "include": ["./**/*.js"],
+    "include": ["./**/*"],
     "exclude": ["node_modules"]
 }
 ```
@@ -135,4 +135,86 @@ In the example above the IDE might not infer the type correctly (are we're refer
 const myFunc = (currentRecord) => {
     // Now we know we're talking about N/record!
 };
+```
+
+### Custom Modules
+
+To enforce type safety, all custom modules imported with relative paths are typed by default as `Record<string, unknown>`. This means you need to provide the types to the imported module yourself. For example:
+
+A custom module defined in `./myModule.js`:
+
+```javascript
+/**
+ * @NApiVersion 2.1
+ */
+define([], () => {
+    return {
+        myFunc: () => {
+            return true;
+        },
+    };
+});
+```
+
+Consumer script:
+
+```javascript
+/**
+ * @NApiVersion 2.1
+ * @NScriptType UserEventScript
+ */
+define(["N/record", "./myModule"], (record, lib) => {
+    return {
+        beforeLoad: (ctx) => {
+            // TS will flag an error. The type of lib.myFunc is unknown
+            const isTrue = lib.myFunc();
+        },
+    };
+});
+```
+
+There are two ways to achieve this:
+
+1. With JSDoc annotations:
+
+```javascript
+/**
+ * @NApiVersion 2.1
+ * @NScriptType UserEventScript
+ */
+define(["N/record", "./myModule"], (record, _lib) => {
+    const lib = /**@type{{myFunc: () => boolean}}*/ (_lib);
+    return {
+        beforeLoad: (ctx) => {
+            // TS now knows that lib.myFunc returns a boolean
+            const isTrue = lib.myFunc();
+        },
+    };
+});
+```
+
+2. Augmenting the global `ModuleMap` interface (a mapping of all supported SuiteScript modules defined by this library) within a `.d.ts` file:
+
+```javascript
+// ./myModule.d.ts
+interface ModuleMap {
+    "./myModule": {
+        myFunc: () => boolean;
+    };
+}
+```
+
+```javascript
+/**
+ * @NApiVersion 2.1
+ * @NScriptType UserEventScript
+ */
+define(["N/record", "./myModule"], (record, lib) => {
+    return {
+        beforeLoad: (ctx) => {
+            // TS still knows that lib.myFunc returns a boolean
+            const isTrue = lib.myFunc();
+        },
+    };
+});
 ```
