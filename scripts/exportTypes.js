@@ -70,7 +70,9 @@ const ModuleDescriptions = {
 };
 
 async function exportTypeDefinitions(typesDir = "./types", outputFile = "./types-export.json") {
-    const result = {};
+    const result = {
+        description: await fs.readFile("./README.md", "utf8"),
+    };
 
     async function processDirectory(dir, baseDir = typesDir) {
         try {
@@ -104,7 +106,6 @@ async function exportTypeDefinitions(typesDir = "./types", outputFile = "./types
 
             const fileContent = await fs.readFile(filePath, "utf8");
             result[key] = {
-                description: "Typings for SuiteScript 2.1 modules",
                 types: fileContent,
                 description: ModuleDescriptions[key],
             };
