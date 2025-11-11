@@ -15,7 +15,8 @@
     ],
     "scripts": {
         "test": "vitest run --typecheck --config ./vitest.config.ts",
-        "test:watch": "vitest --typecheck --config ./vitest.config.ts"
+        "test:watch": "vitest --typecheck --config ./vitest.config.ts",
+        "export": "node ./scripts/exportTypes.js"
     },
     "devDependencies": {
         "prettier": "^3.6.2",
