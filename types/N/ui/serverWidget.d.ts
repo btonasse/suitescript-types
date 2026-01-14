@@ -239,7 +239,7 @@ interface SublistSetSublistValueOptions {
     /** The line number for this field (starts at 0). */
     line: number;
     /** The value for the field being set. */
-    value: string;
+    value: string | null;
 }
 
 interface SetSplashOptions {
