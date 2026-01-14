@@ -412,7 +412,7 @@ namespace WorkflowAction {
 }
 
 namespace RESTlet {
-    type get<T = Record<string, unknown>, Y = string | Record<string, unknown>> = (requestParams: T) => Promise<Y> | Y;
+    type get<T = Record<string, string>, Y = string | Record<string, unknown>> = (requestParams: T) => Promise<Y> | Y;
     type delete_<T = Record<string, unknown>, Y = string | Record<string, unknown>> = (
         requestParams: T
     ) => Promise<Y> | Y;
