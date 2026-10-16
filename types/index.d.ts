@@ -56,6 +56,7 @@ declare global {
         "N/ui/message": typeof import("N/ui/message");
         "N/ui/serverWidget": typeof import("N/ui/serverWidget");
         "N/scriptTypes/restlet": typeof import("N/scriptTypes/restlet");
+        "N/util": typeof import("N/util");
     }
 }
 
